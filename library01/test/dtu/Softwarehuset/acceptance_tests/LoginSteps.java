@@ -25,9 +25,7 @@ public class LoginSteps {
 	
 	@Given("^that the employee has a four letter username \"([^\"]*)\"$")
 	public void thatTheEmployeeHaveAFourLetterUsername(String username) throws Exception {
-		if (username.length() == 4) {
-			this.username = username;
-		}
+		assertTrue(SH.isValidUsername(username));
 	}
 
 	@Given("^the employee is in the list of employees$")
