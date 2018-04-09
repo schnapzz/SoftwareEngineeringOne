@@ -1,7 +1,7 @@
 Feature: Logging working hours on an activity
     Actors:Employee
     
-Scenario: Employee logs hours successfully
+Scenario: Employee logs hours
     Given that the employee is logged in "abcd"
     And the employee is part of activity with title "test" for project with title "030901"
     And the employee chooses activity with title "test" for project with title "030901"
