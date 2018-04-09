@@ -58,6 +58,7 @@ public class Window extends Application {
 
 			@Override
 			public void handle(ActionEvent e) {
+				
 				actiontarget.setFill(Color.FIREBRICK);
 				actiontarget.setText("Sign in button pressed");
 

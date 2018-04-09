@@ -16,6 +16,13 @@ public class SH {
 		}
 		return isEmployed;
 	}
+	
+	public static boolean isValidUsername(String username) {
+		if (username.length() == 4) {
+			return true;
+		}
+		else return false;
+	}
 
 	public static void loginEmployee(String username) {
 		loggedInEmployee = username;
