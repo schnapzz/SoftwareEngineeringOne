@@ -20,19 +20,17 @@ public class SH {
 		return false;
 	}
 	
-<<<<<<< HEAD
-	//Helena
-	public void logInEmployee(String username) {
-=======
+	//Óli
 	public static boolean isValidUsername(String username) {
 		if (username.length() == 4) {
 			return true;
+		} else {
+			return false;
 		}
-		else return false;
 	}
-
-	public static void logInEmployee(String username) {
->>>>>>> 42cb27e01d91013cc47ffcb1cdaf7bd463863302
+	
+	//Helena
+	public void logInEmployee(String username) {
 		loggedInEmployee = username;
 		//throw new OperationNotAllowedException("Wrong username, try again");
 		
@@ -50,9 +48,9 @@ public class SH {
 	}
 
 	//Helena
-	public boolean containsProject(Project project) {
+	public boolean containsProject(String title) {
 		for (Project p: projects) {
-			if (p.equals(project)) {
+			if (p.getName().equals(title)) {
 				return true;
 			}
 		}

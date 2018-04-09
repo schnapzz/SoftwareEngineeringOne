@@ -8,12 +8,14 @@ Scenario: Add a project successfully
  	Then the project with title "030901" is added to the list of projects
  	
 Scenario: Add a project when employee is not logged in
-	Given that the employee "abcd" is not logged
+	Given that the employee "abcd" is not logged in
 	When the employee adds the project with title "030901"
-	Then the employee gets the error message "Employee login required"
+	Then the project with title "030901" is not added
+	And the employee gets the error message "Employee login required"
 
 Scenario: Add existing project
 	Given that the employee "abcd" is logged in
 	When the employee adds the project with title "030901"
 	And the project with title "030901" exists
-	Then the employee gets the error message "Project with the name \"030901\" already exists"
+	Then the project with title "030901" is not added
+	And the employee gets the error message "Project with the name \"030901\" already exists"

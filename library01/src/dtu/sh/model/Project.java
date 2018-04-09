@@ -23,8 +23,14 @@ public class Project {
 		projectName = title;
 	}
 	
+	//Mikkel
 	public void createActivity() {
 		
+	}
+	
+	//Helena
+	public Object getName() {
+		return null;
 	}
 	
 	

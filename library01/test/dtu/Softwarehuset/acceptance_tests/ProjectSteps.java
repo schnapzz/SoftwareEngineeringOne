@@ -23,7 +23,7 @@ public class ProjectSteps {
 	}
 	
 	/*
-	 * Steps for registration of a project
+	 * Steps for the registration of a project
 	 * 
 	 * done by: Helena
 	 */
@@ -42,27 +42,31 @@ public class ProjectSteps {
 	}
 
 	@Then("^the project with title \"([^\"]*)\" is added to the list of projects$")
-	public void theProjectWithTitleIsAddedToTheListOfProjects(String arg1) throws Exception {
-	    assertTrue(softwarehuset.containsProject(project));
+	public void theProjectWithTitleIsAddedToTheListOfProjects(String title) throws Exception {
+	    assertTrue(softwarehuset.containsProject(title));
 	}
 
-	@Given("^that the employee \"([^\"]*)\" is not logged$")
-	public void thatTheEmployeeIsNotLogged(String arg1) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	@Given("^that the employee \"([^\"]*)\" is not logged in$")
+	public void thatTheEmployeeIsNotLogged(String username) throws Exception {
+	    assertFalse(username.equals(softwarehuset.getLoggedInEmployee()));
 	}
 
 	@When("^the project with title \"([^\"]*)\" exists$")
-	public void theProjectWithTitleExists(String arg1) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	public void theProjectWithTitleExists(String title) throws Exception {
+	    assertTrue(softwarehuset.containsProject(title));
+	}
+	
+	@Then("^the project with title \"([^\"]*)\" is not added$")
+	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
+	    assertFalse(softwarehuset.containsProject(title));
 	}
 
 	@Then("^the employee gets the error message \"([^\"]*)\"(\\d+)\\\"([^\"]*)\"$")
-	public void theEmployeeGetsTheErrorMessage(String arg1, int arg2, String arg3) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	public void theEmployeeGetsTheErrorMessage(String firstString, int name, String string2) throws Exception {
+	    //TODO
 	}
+	
+	
 	
 	/*
 	 * Steps for registering a project activity
@@ -70,28 +74,27 @@ public class ProjectSteps {
 	 * done by: Mikkel
 	 * 
 	 */
-	// Mikkel Müller-Hansen
 	@Given("^the project leader is logged in \"([^\"]*)\"$")
 	public void theProjectLeaderIsLoggedIn(String arg1) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
 	    //throw new PendingException();
 	}
 
-	// Mikkel Müller-Hansen
+	
 	@And("^the project has the title \"([^\"]*)\"$")
 	public void theProjectHasTheTitle(String arg1) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
 	//    throw new PendingException();
 	}
 	
-	// Mikkel Müller-Hansen
+
 	@And("^an activity with title \"([^\"]*)\" is not already registered as an activity in that project$")
 	public void anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String arg1) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
 	  //  throw new PendingException();
 	}
 	
-	// Mikkel Müller-Hansen
+
 	@Then("^the activity with specified hours to complete it with title \"([^\"]*)\" within the project of \"([^\"]*)\" is created$")
 	public void theActivityWithSpecifiedHoursToCompleteItWithTitleWithinTheProjectOfIsCreated(String arg1, String arg2) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
