@@ -5,17 +5,17 @@ import java.util.List;
 
 public class Project {
 	
-	private String projectId;
-	private String projectName;
-	private String projectLeaderId;
+	private String id;
+	private String name;
+	private String leaderId;
 	private List<Employee> employees;
 	private List<Activity> unfinishedActivities = new ArrayList<Activity>();
 	
 	public Project(String pId, String pName, String plId, List<Employee> eList) {
 		
-		this.projectId = pId;
-		this.projectName = pName;
-		this.projectLeaderId = plId;
+		this.id = pId;
+		this.name = pName;
+		this.leaderId = plId;
 		this.employees = eList;
 	}
 	
@@ -23,5 +23,9 @@ public class Project {
 		
 	}
 	
+	// ===== GETTERS AND SETTERS =====
 	
+	public String getId() {
+		return id;
+	}
 }
