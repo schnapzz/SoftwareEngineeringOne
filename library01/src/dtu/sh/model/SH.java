@@ -6,7 +6,6 @@ import java.util.List;
 public class SH {
 	private String loggedInEmployee;
 	private List<Employee> employees = new ArrayList<>();
-
 	private List<Project> projects;
 	
 	public SH() {
@@ -29,9 +28,9 @@ public class SH {
 			}
 		}
 		return false;
-		//throw new OperationNotAllowedException("Wrong username, try again");
 	}
 	
+	//Helena
 	public boolean isValidUsername(String username) {
 		if (username.length() == 4) {
 			return true;
@@ -41,7 +40,7 @@ public class SH {
 
 	public void logInEmployee(String username) {
 		loggedInEmployee = username;
-		
+		//throw new OperationNotAllowedException("Wrong username, try again");	
 	}
 
 	public boolean doesProjectWithIdExist(String projectId) {
@@ -54,10 +53,28 @@ public class SH {
 		return false;
 	}
 	
+	//Helena
 	public String getLoggedInEmployee() {
 		return loggedInEmployee;
 	}
 	
+	//Helena
+	public void createProject(String title) {
+		Project p = new Project(title);
+		projects.add(p);
+	}
+
+	//Helena
+	public boolean containsProject(Project project) {
+		for (Project p: projects) {
+			if (p.equals(project)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
 	
 	
 	

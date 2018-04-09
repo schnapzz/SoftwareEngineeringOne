@@ -12,40 +12,46 @@ import dtu.sh.model.SH;
 /*
  * Steps-case for an employee to log in
  * 
- * Done by: Helena Schiøtz
+ * Done by: Helena Schiï¿½tz
  */
 
 public class LoginSteps {
 	private String username;
+	private SH softwarehuset;
+	
+	public LoginSteps(SH softwarehuset) {
+		this.softwarehuset = softwarehuset;
+	}
 	
 	@Given("^that the employee has a four letter username \"([^\"]*)\"$")
 	public void thatTheEmployeeHaveAFourLetterUsername(String username) throws Exception {
-		assertTrue(SH.isValidUsername(username));
+		assertTrue(softwarehuset.isValidUsername(username));
 	}
 
 	@Given("^the employee is in the list of employees$")
 	public void theEmployeeIsInTheListOfEmployees() throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(SH.isEmployeed(username));
+	    assertTrue(softwarehuset.isEmployeed(username));
 	}
 
 	@Then("^the employee is logged in$")
 	public void theEmployeeIsLoggedIn() throws Exception {
-	    SH.logInEmployee(username);
+		softwarehuset.logInEmployee(username);
 	}
 	
 	@Given("^the employee is not in the list of employees$")
 	public void theEmployeeIsNotInTheListOfEmployees() throws Exception {
-	    assertFalse(SH.isEmployeed(username));
+	    assertFalse(softwarehuset.isEmployeed(username));
 	}
 
 	@Then("^the employee can not log in$")
 	public void theEmployeeCanNotLogIn() throws Exception {
-	    assertTrue(username != SH.getLoggedInEmployee());
+	    assertTrue(!username.equals(softwarehuset.getLoggedInEmployee()));
 	}
 	
 	@Then("^the employee gets the error message \"([^\"]*)\"$")
 	public void theEmployeeGetsTheErrorMessage(String errormessage) throws OperationNotAllowedException {
+		//TO-DO
 	}
 	
 }
