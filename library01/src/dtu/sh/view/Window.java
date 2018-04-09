@@ -24,7 +24,7 @@ public class Window extends Application {
 		launch(args);
 	}
 	
-
+//hej
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("JavaFX Welcome");
