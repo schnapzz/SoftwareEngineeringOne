@@ -30,16 +30,8 @@ public class Project {
 		
 	}
 	
-<<<<<<< HEAD
-	//Helena
-	public Object getName() {
-		return null;
-	}
-	
-=======
+
 	// ===== GETTERS AND SETTERS =====
->>>>>>> 42364d22500c22e7b925a9a7f6fab75e7904a876
-	
 	public String getId() {
 		return id;
 	}
