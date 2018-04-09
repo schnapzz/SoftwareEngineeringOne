@@ -12,7 +12,7 @@ import dtu.sh.model.SH;
 /*
  * Steps-case for an employee to log in
  * 
- * Done by: Helena Schiøtz
+ * Done by: Helena Schiï¿½tz
  */
 
 public class LoginSteps {
@@ -25,7 +25,7 @@ public class LoginSteps {
 	
 	@Given("^that the employee has a four letter username \"([^\"]*)\"$")
 	public void thatTheEmployeeHaveAFourLetterUsername(String username) throws Exception {
-		assertTrue(SH.isValidUsername(username));
+		assertTrue(softwarehuset.isValidUsername(username));
 	}
 
 	@Given("^the employee is in the list of employees$")
