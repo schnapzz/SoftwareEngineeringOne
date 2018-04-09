@@ -6,15 +6,18 @@ import java.util.List;
 public class SH {
 	private static String loggedInEmployee;
 	private static List<Employee> employees = new ArrayList<>();
-
+	
+	
+	
+	//Helena
 	public static Boolean isEmployeed(String username) {
-		Boolean isEmployed = false;
 		for (Employee e: employees) {
 			if (e.getID().equals(username)) {
-				isEmployed = true;
+				return true;
 			}
 		}
-		return isEmployed;
+		return false;
+		//throw new OperationNotAllowedException("Wrong username, try again");
 	}
 	
 	public static boolean isValidUsername(String username) {
@@ -24,12 +27,14 @@ public class SH {
 		else return false;
 	}
 
-	public static void loginEmployee(String username) {
+	public static void logInEmployee(String username) {
 		loggedInEmployee = username;
 		
 	}
 	
-	
+	public static String getLoggedInEmployee() {
+		return loggedInEmployee;
+	}
 	
 	
 	

@@ -1,4 +1,4 @@
-package dtu.Softwarehuset.app;
+package dtu.sh.model;
 
 public class OperationNotAllowedException extends Exception {
 	String error;
