@@ -3,7 +3,7 @@ Feature: Creating a project activity
 	Actors: Project leader
 	
 Scenario: Create a new activity
-    Given the project leader is signed in "abcd"
+    Given the project leader is logged in "abcd"
     And the project has the title "030901"
     And an activity with title "Test" is not already registered as an activity in that project
     Then the activity with specified hours to complete it with title "Test" within the project of "030901" is created
