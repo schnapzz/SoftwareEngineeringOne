@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SH {
-	private static String loggedInEmployee;
-	private static List<Employee> employees = new ArrayList<>();
+	private String loggedInEmployee;
+	private List<Employee> employees = new ArrayList<>();
+
 	private List<Project> projects;
 	
 	public SH() {
@@ -20,17 +21,25 @@ public class SH {
 		projects.add(p1);
 	}
 
-	public static Boolean isEmployeed(String username) {
-		Boolean isEmployed = false;
+	//Helena
+	public Boolean isEmployeed(String username) {
 		for (Employee e: employees) {
 			if (e.getID().equals(username)) {
-				isEmployed = true;
+				return true;
 			}
 		}
-		return isEmployed;
+		return false;
+		//throw new OperationNotAllowedException("Wrong username, try again");
+	}
+	
+	public boolean isValidUsername(String username) {
+		if (username.length() == 4) {
+			return true;
+		}
+		else return false;
 	}
 
-	public static void loginEmployee(String username) {
+	public void logInEmployee(String username) {
 		loggedInEmployee = username;
 		
 	}
@@ -45,7 +54,9 @@ public class SH {
 		return false;
 	}
 	
-	
+	public String getLoggedInEmployee() {
+		return loggedInEmployee;
+	}
 	
 	
 	

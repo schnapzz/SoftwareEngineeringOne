@@ -23,7 +23,7 @@ public class ProjectSteps {
 	@Given("^the project leader is logged in \"([^\"]*)\"$")
 	public void theProjectLeaderIsLoggedIn(String leaderId) throws Exception {
 	    
-		softwareHuset.loginEmployee(leaderId);
+		softwareHuset.logInEmployee(leaderId);
 	}
 
 	// Mikkel Müller-Hansen
