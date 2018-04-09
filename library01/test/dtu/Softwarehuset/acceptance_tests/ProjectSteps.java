@@ -12,7 +12,7 @@ import dtu.sh.model.Project;
 import dtu.sh.model.SH;
 import cucumber.api.java.en.And;
 
-// Mikkel Muller-Hansen
+
 public class ProjectSteps {
 
 	private String username;
@@ -83,13 +83,13 @@ public class ProjectSteps {
 	}
 
 
-	// Mikkel Müller-Hansen
 	// The wording was changed from the orginial to be more meaningfull and generic
 	@And("^there is a project with id \"([^\"]*)\"$")
 	public void thereIsAProjectWithId(String projectId) throws Exception {
 	    
 		assertTrue(softwarehuset.doesProjectWithIdExist(projectId));
 	}
+	
 	
 	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
 	public void iCreateAnActivityWithDescriptionToTheProject(String arg1) throws Exception {
