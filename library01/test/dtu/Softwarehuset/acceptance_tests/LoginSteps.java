@@ -9,6 +9,23 @@ import cucumber.api.java.en.When;
 import dtu.Softwarehuset.app.LibraryApp;
 
 public class LoginSteps {
+	private String username;
 	
+	@Given("^that the employee have a four letter username \"([^\"]*)\"$")
+	public void thatTheEmployeeHaveAFourLetterUsername(String username) throws Exception {
+	    this.username = username;
+	}
+
+	@Given("^the employee is in the list of employees$")
+	public void theEmployeeIsInTheListOfEmployees() throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    SH.isEmployeed(username);
+	}
+
+	@Then("^the employee is logged in$")
+	public void theEmployeeIsLoggedIn() throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
 	
 }
