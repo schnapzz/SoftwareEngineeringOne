@@ -12,7 +12,7 @@ import dtu.sh.model.SH;
 /*
  * Steps-case for an employee to log in
  * 
- * Done by: Helena Schi�tz
+ * Done by: Helena
  */
 
 public class LoginSteps {
