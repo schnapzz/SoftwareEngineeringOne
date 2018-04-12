@@ -16,8 +16,10 @@ public class SH {
 		List<Employee> emp = new ArrayList<Employee>();
 		emp.add(e1);
 		emp.add(e2);
+		employees.add(e1);
+		employees.add(e2);
 		
-		Project p1 = new Project("030901", "test", "abcd", emp); 
+		Project p1 = new Project("030901", "test", "Mikk", emp); 
 		projects = new ArrayList<Project>();
 		projects.add(p1);
 	}
