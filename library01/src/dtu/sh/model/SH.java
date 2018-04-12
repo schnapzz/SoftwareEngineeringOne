@@ -6,9 +6,15 @@ import java.util.List;
 import dtu.library.Exceptions.OperationNotAllowedException;
 
 public class SH {
+	
 	private String loggedInEmployee;
-	private List<Employee> employees = new ArrayList<>();
-	private List<Project> projects;
+	private List<Employee> employees = new ArrayList<Employee>() {{
+		add(new Employee("abcd"));
+		add(new Employee("Mikk"));
+	}};
+	private List<Project> projects = new ArrayList<Project>() {{ 
+		add(new Project("030901", "test", "abcd", employees));
+	}};
 	
 	public SH() {
 		Employee e1 = new Employee("abcd");
@@ -97,5 +103,14 @@ public class SH {
 			}
 		}
 		return false;
+	}
+
+	public Project getProjectWithId(String projectId) {
+		
+		for (Project p : projects) {
+			if (p.getId() == projectId) 
+				return p;
+		}
+		return null;
 	}
 }
