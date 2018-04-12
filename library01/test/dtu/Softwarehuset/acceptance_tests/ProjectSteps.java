@@ -51,7 +51,7 @@ public class ProjectSteps {
 
 	@Then("^the project with title \"([^\"]*)\" is added to the list of projects$")
 	public void theProjectWithTitleIsAddedToTheListOfProjects(String title) throws Exception {
-	    assertTrue(softwarehuset.containsProject(title));
+	    assertTrue(softwarehuset.doesProjectWithIdExist(title));
 	}
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
@@ -61,12 +61,12 @@ public class ProjectSteps {
 
 	@When("^the project with title \"([^\"]*)\" exists$")
 	public void theProjectWithTitleExists(String title) throws Exception {
-	    assertTrue(softwarehuset.containsProject(title));
+	    assertTrue(softwarehuset.doesProjectWithIdExist(title));
 	}
 	
 	@Then("^the project with title \"([^\"]*)\" is not added$")
 	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
-	    assertFalse(softwarehuset.containsProject(title));
+	    assertFalse(softwarehuset.doesProjectWithIdExist(title));
 	}
 
 	@Then("^the employee gets the error message \"([^\"]*)\"(\\d+)\\\"([^\"]*)\"$")

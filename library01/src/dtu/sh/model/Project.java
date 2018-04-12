@@ -6,22 +6,22 @@ import java.util.List;
 public class Project {
 
 	private String id;
-	private String name;
+	private String title;
 	private String leaderId;
 	private List<Employee> employees;
 	private List<Activity> unfinishedActivities = new ArrayList<Activity>();
 	
 	//Mikkel
-	public Project(String pId, String pName, String plId, List<Employee> eList) {
+	public Project(String pId, String pTitle, String plId, List<Employee> eList) {
 		this.id = pId;
-		this.name = pName;
+		this.title = pTitle;
 		this.leaderId = plId;
 		this.employees = eList;
 	}
 	
 	//Helena
 	public Project(String title) {
-		name = title;
+		this.title = title;
 	}
 	
 	//Mikkel
@@ -35,7 +35,9 @@ public class Project {
 		return id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
+
+	
 }

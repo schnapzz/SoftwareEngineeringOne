@@ -21,8 +21,9 @@ public class LoginSteps {
 	private SH softwarehuset;
 	private ErrorMessageHolder errorMessageHolder;
 	
-	public LoginSteps(SH softwarehuset) {
+	public LoginSteps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
 		this.softwarehuset = softwarehuset;
+		this.errorMessageHolder = errorMessageHolder;		
 	}
 	
 	@Given("^that the employee has a four letter username \"([^\"]*)\"$")
