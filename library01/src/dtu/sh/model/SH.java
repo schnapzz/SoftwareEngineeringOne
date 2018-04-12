@@ -3,26 +3,25 @@ package dtu.sh.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.library.Exceptions.OperationNotAllowedException;
+
 public class SH {
 	
 	private String loggedInEmployee;
-	private List<Employee> employees = new ArrayList<>();
-	private List<Project> projects = new ArrayList<Project>();;
+	private List<Employee> employees = new ArrayList<Employee>() {{
+		add(new Employee("abcd"));
+		add(new Employee("Mikk"));
+	}};
+	private List<Project> projects = new ArrayList<Project>() {{ 
+		add(new Project("030901", "test", "abcd", employees));
+	}};
 	
 	public SH() {
 		
-		Employee e1 = new Employee("abcd");
-		Employee e2 = new Employee("Mikk");
-		List<Employee> emp = new ArrayList<Employee>();
-		emp.add(e1);
-		emp.add(e2);
-		
-		Project p1 = new Project("030901", "test", "abcd", emp); 
-		projects.add(p1);
 	}
 
 	//Helena
-	public Boolean isEmployeed(String username) {
+	public Boolean isEmployed(String username) {
 		for (Employee e: employees) {
 			if (e.getID().equals(username)) {
 				return true;
@@ -31,7 +30,7 @@ public class SH {
 		return false;
 	}
 	
-	//�li
+	//Oli
 	public boolean isValidUsername(String username) {
 		if (username.length() == 4) {
 			return true;
@@ -41,9 +40,12 @@ public class SH {
 	}
 
 	//Helena
-	public void logInEmployee(String username) {
-		loggedInEmployee = username;
-		//throw new OperationNotAllowedException("Wrong username, try again");	
+	public void logInEmployee(String username) throws OperationNotAllowedException {
+		if (isEmployed(username)) {
+			loggedInEmployee = username;
+		} else {
+			throw new OperationNotAllowedException("Wrong username, try again");
+		}
 	}
 
 	public boolean doesProjectWithIdExist(String projectId) {
@@ -61,9 +63,14 @@ public class SH {
 	}
 	
 	//Helena
-	public void createProject(String title) {
-		Project p = new Project(title);
-		projects.add(p);
+	public void createProject(String title) throws OperationNotAllowedException{
+		if (!containsProject(title)) {
+			Project p = new Project(title);
+			projects.add(p);
+		} else {
+			throw new OperationNotAllowedException("Project with the name " + title + " already exists");
+		}
+		
 	}
 
 	//Helena

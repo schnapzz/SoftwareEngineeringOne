@@ -15,7 +15,6 @@ public class Project {
 	
 	// Mikkel
 	public Project(String pId, String pName, String plId, List<Employee> eList) {
-		
 		this.id = pId;
 		this.name = pName;
 		this.leaderId = plId;
