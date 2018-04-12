@@ -3,6 +3,8 @@ package dtu.sh.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.library.Exceptions.OperationNotAllowedException;
+
 public class SH {
 	private String loggedInEmployee;
 	private List<Employee> employees = new ArrayList<>();
@@ -21,7 +23,7 @@ public class SH {
 	}
 
 	//Helena
-	public Boolean isEmployeed(String username) {
+	public Boolean isEmployed(String username) {
 		for (Employee e: employees) {
 			if (e.getID().equals(username)) {
 				return true;
@@ -30,7 +32,7 @@ public class SH {
 		return false;
 	}
 	
-	//�li
+	//Oli
 	public boolean isValidUsername(String username) {
 		if (username.length() == 4) {
 			return true;
@@ -40,9 +42,12 @@ public class SH {
 	}
 
 	//Helena
-	public void logInEmployee(String username) {
-		loggedInEmployee = username;
-		//throw new OperationNotAllowedException("Wrong username, try again");	
+	public void logInEmployee(String username) throws OperationNotAllowedException {
+		if (isEmployed(username)) {
+			loggedInEmployee = username;
+		} else {
+			throw new OperationNotAllowedException("Wrong username, try again");
+		}
 	}
 
 	public boolean doesProjectWithIdExist(String projectId) {
@@ -60,9 +65,14 @@ public class SH {
 	}
 	
 	//Helena
-	public void createProject(String title) {
-		Project p = new Project(title);
-		projects.add(p);
+	public void createProject(String title) throws OperationNotAllowedException{
+		if (!containsProject(title)) {
+			Project p = new Project(title);
+			projects.add(p);
+		} else {
+			throw new OperationNotAllowedException("Project with the name " + title + " already exists");
+		}
+		
 	}
 
 	//Helena
