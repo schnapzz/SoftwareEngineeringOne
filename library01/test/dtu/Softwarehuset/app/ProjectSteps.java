@@ -23,10 +23,56 @@ public class ProjectSteps {
 	private Project project;
 	private ErrorMessageHolder errorMessageHolder;
 		
-	public ProjectSteps(SH softwarehuset) {
-		
+	public ProjectSteps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
+		this.errorMessageHolder = errorMessageHolder;
 		this.softwarehuset = softwarehuset;
 	}
+	
+	/*
+	 * Steps for login in as an employee
+	 * 
+	 * done by: Helena
+	 */
+	@Given("^that the employee has a four letter username \"([^\"]*)\"$")
+	public void thatTheEmployeeHaveAFourLetterUsername(String username) throws Exception {
+		assertTrue(softwarehuset.isValidUsername(username));
+		this.username = username;
+	}
+	
+	@When("^the employee logs in$")
+	public void theEmployeeLogsIn() throws Exception {
+	    try {
+	    	softwarehuset.logInEmployee(username);
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Given("^the employee is in the list of employees$")
+	public void theEmployeeIsInTheListOfEmployees() throws Exception {
+	    assertTrue(softwarehuset.isEmployed(username));
+	}
+
+	@Then("^the employee is logged in$")
+	public void theEmployeeIsLoggedIn() throws Exception {
+		assertTrue(username.equals(softwarehuset.getLoggedInEmployee()));
+	}
+	
+	@Given("^the employee is not in the list of employees$")
+	public void theEmployeeIsNotInTheListOfEmployees() throws Exception {
+	    assertFalse(softwarehuset.isEmployed(username));
+	}
+
+	@Then("^the employee can not log in$")
+	public void theEmployeeCanNotLogIn() throws Exception {
+	    assertTrue(!username.equals(softwarehuset.getLoggedInEmployee()));
+	}
+	
+	@Then("^the employee gets the error message \"([^\"]*)\"$")
+	public void theEmployeeGetsTheErrorMessage(String errorMessage) throws OperationNotAllowedException {
+		assertEquals(errorMessage, this.errorMessageHolder.getErrorMessage());
+	}
+	
 	
 	/*
 	 * Steps for the registration of a project
@@ -44,37 +90,36 @@ public class ProjectSteps {
 	@When("^the employee adds the project with title \"([^\"]*)\"$")
 	public void theEmployeeAddsTheProjectWithTitle(String title) throws Exception {
 		try {
-			softwarehuset.createProject(title);
+			softwarehuset.createProject(title, username);
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
-	    project = new Project(title);
 	}
 
 	@Then("^the project with title \"([^\"]*)\" is added to the list of projects$")
 	public void theProjectWithTitleIsAddedToTheListOfProjects(String title) throws Exception {
-	    assertTrue(softwarehuset.doesProjectWithIdExist(title));
+	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
 	}
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
 	public void thatTheEmployeeIsNotLogged(String username) throws Exception {
 	    assertFalse(username.equals(softwarehuset.getLoggedInEmployee()));
-	}
+	    this.username = username;
+	}	
 
 	@When("^the project with title \"([^\"]*)\" exists$")
 	public void theProjectWithTitleExists(String title) throws Exception {
-	    assertTrue(softwarehuset.doesProjectWithIdExist(title));
+	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
 	}
 	
 	@Then("^the project with title \"([^\"]*)\" is not added$")
 	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
 	    assertFalse(softwarehuset.doesProjectWithIdExist(title));
 	}
-
-	@Then("^the employee gets the error message \"([^\"]*)\"(\\d+)\\\"([^\"]*)\"$")
-	public void theEmployeeGetsTheErrorMessage(String string1, int title, String string2) throws Exception {
-		String errorMessage = string1 + title + string2;
-		assertEquals(errorMessage, this.errorMessageHolder.getErrorMessage());
+	
+	@Then("^the project with the duplicate title \"([^\"]*)\" is not added$")
+	public void theProjectWithTheDuplicateTitleIsNotAdded(String arg1) throws Exception {
+		assertFalse(softwarehuset.containsDuplicateProjectTitles());
 	}
 	
 	

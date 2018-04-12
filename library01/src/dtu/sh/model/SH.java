@@ -7,13 +7,14 @@ import dtu.library.Exceptions.OperationNotAllowedException;
 
 public class SH {
 	
-	private String loggedInEmployee;
+	private String loggedInEmployee = "Mikk";
 	private List<Employee> employees = new ArrayList<Employee>() {{
 		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
 	}};
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "test", "abcd", employees));
+		//add(new Project("test"));
 	}};
 	
 	public SH() {
@@ -25,7 +26,7 @@ public class SH {
 		employees.add(e1);
 		employees.add(e2);
 		
-		Project p1 = new Project("030901", "test", "Mikk", emp); 
+		Project p1 = new Project("030901", "test2", "Mikk", emp); 
 		projects = new ArrayList<Project>();
 		projects.add(p1);
 	}
@@ -86,13 +87,28 @@ public class SH {
 	}
 	
 	//Helena
-	public void createProject(String title) throws OperationNotAllowedException{
-		if (!doesProjectWithIdExist(title)) {
+	public void createProject(String title, String username) throws OperationNotAllowedException{
+		if (!doesProjectWithTitleExist(title) && !containsDuplicateProjectTitles()) {
 			Project p = new Project(title);
 			projects.add(p);
-		} else {
-			throw new OperationNotAllowedException("Project with the name " + title + " already exists");
+		} else if(!loggedInEmployee.equals(username)) {
+			throw new OperationNotAllowedException("Employee login required");
 		}
+		else {
+			throw new OperationNotAllowedException("A project with that name already exists");
+		}
+	}
+	
+	//Helena
+	public boolean containsDuplicateProjectTitles() {
+		for (Project p: projects) {
+			for(Project r: projects) {
+				if (p!=r && p.getTitle().equals(r.getTitle())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	//Helena
