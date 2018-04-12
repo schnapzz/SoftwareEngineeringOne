@@ -1,4 +1,4 @@
-package dtu.Softwarehuset.acceptance_tests;
+package dtu.Softwarehuset.app;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
+import dtu.sh.model.Activity;
 import dtu.sh.model.Project;
-
+import dtu.sh.model.ProjectActivity;
 import dtu.sh.model.SH;
 import cucumber.api.java.en.And;
 
@@ -20,6 +20,7 @@ public class ProjectSteps {
 	private Project project;
 		
 	public ProjectSteps(SH softwarehuset) {
+		
 		this.softwarehuset = softwarehuset;
 	}
 	
@@ -76,25 +77,36 @@ public class ProjectSteps {
 	 * 
 	 */
 
-	@Given("^the project leader is logged in \"([^\"]*)\"$")
+	@Given("^the project leader \"([^\"]*)\" is logged in$")
 	public void theProjectLeaderIsLoggedIn(String leaderId) throws Exception {
-	    
 		softwarehuset.logInEmployee(leaderId);
 	}
-
-
+	
 	// The wording was changed from the orginial to be more meaningfull and generic
 	@And("^there is a project with id \"([^\"]*)\"$")
 	public void thereIsAProjectWithId(String projectId) throws Exception {
 	    
+		System.out.println("Checking list: " + softwarehuset.doesProjectWithIdExist(projectId));
+		System.out.println("Is SH alive? " + softwarehuset.getClass());
+		
+		
 		assertTrue(softwarehuset.doesProjectWithIdExist(projectId));
+		project = softwarehuset.getProjectWithId(projectId);
 	}
 	
+	@And("^an activity with title \"([^\"]*)\" is not already registered as an activity in that project$")
+	public void anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String activityTitle) throws Exception {
+	    
+		assertFalse(project.activityExistsWithTitle(activityTitle));
+	}
 	
 	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
-	public void iCreateAnActivityWithDescriptionToTheProject(String arg1) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	public void iCreateAnActivityWithDescriptionToTheProject(String activityTitle) throws Exception {
+	    
+		int testLength = project.getUnfinishedActivities().size();
+		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
+		project.addActivity(activity);
+		assertTrue(testLength+1 == project.getUnfinishedActivities().size());
 	}
 	
 

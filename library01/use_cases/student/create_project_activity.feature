@@ -3,7 +3,7 @@ Feature: Creating a project activity
 	Actors: Project leader
 	
 Scenario: Create a new activity succesfully
-    Given the project leader is logged in "abcd"
+    Given the project leader "abcd" is logged in
     And there is a project with id "030901"
     And an activity with title "Test" is not already registered as an activity in that project
     Then I create an activity with description "Test" to the project

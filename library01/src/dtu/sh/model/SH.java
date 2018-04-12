@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SH {
+	
 	private String loggedInEmployee;
 	private List<Employee> employees = new ArrayList<>();
-	private List<Project> projects;
+	private List<Project> projects = new ArrayList<Project>();;
 	
 	public SH() {
+		
 		Employee e1 = new Employee("abcd");
 		Employee e2 = new Employee("Mikk");
 		List<Employee> emp = new ArrayList<Employee>();
@@ -16,7 +18,6 @@ public class SH {
 		emp.add(e2);
 		
 		Project p1 = new Project("030901", "test", "abcd", emp); 
-		projects = new ArrayList<Project>();
 		projects.add(p1);
 	}
 
@@ -73,6 +74,15 @@ public class SH {
 			}
 		}
 		return false;
+	}
+
+	public Project getProjectWithId(String projectId) {
+		
+		for (Project p : projects) {
+			if (p.getId() == projectId) 
+				return p;
+		}
+		return null;
 	}
 	
 
