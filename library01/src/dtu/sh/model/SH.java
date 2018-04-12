@@ -30,7 +30,7 @@ public class SH {
 		return false;
 	}
 	
-	//Óli
+	//ï¿½li
 	public boolean isValidUsername(String username) {
 		if (username.length() == 4) {
 			return true;
