@@ -7,12 +7,9 @@ import static org.junit.Assert.assertTrue;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-<<<<<<< HEAD:library01/test/dtu/Softwarehuset/app/ProjectSteps.java
 import dtu.sh.model.Activity;
-=======
 import dtu.library.Exceptions.OperationNotAllowedException;
 import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
->>>>>>> af31a8a1dae3fd2bb2409badeeec23daec15e271:library01/test/dtu/Softwarehuset/acceptance_tests/ProjectSteps.java
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
 import dtu.sh.model.SH;
@@ -56,7 +53,7 @@ public class ProjectSteps {
 
 	@Then("^the project with title \"([^\"]*)\" is added to the list of projects$")
 	public void theProjectWithTitleIsAddedToTheListOfProjects(String title) throws Exception {
-	    assertTrue(softwarehuset.containsProject(title));
+	    assertTrue(softwarehuset.doesProjectWithIdExist(title));
 	}
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
@@ -66,12 +63,12 @@ public class ProjectSteps {
 
 	@When("^the project with title \"([^\"]*)\" exists$")
 	public void theProjectWithTitleExists(String title) throws Exception {
-	    assertTrue(softwarehuset.containsProject(title));
+	    assertTrue(softwarehuset.doesProjectWithIdExist(title));
 	}
 	
 	@Then("^the project with title \"([^\"]*)\" is not added$")
 	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
-	    assertFalse(softwarehuset.containsProject(title));
+	    assertFalse(softwarehuset.doesProjectWithIdExist(title));
 	}
 
 	@Then("^the employee gets the error message \"([^\"]*)\"(\\d+)\\\"([^\"]*)\"$")

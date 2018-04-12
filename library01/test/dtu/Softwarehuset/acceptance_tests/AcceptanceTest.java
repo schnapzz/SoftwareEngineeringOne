@@ -13,7 +13,6 @@ import cucumber.api.junit.Cucumber;
 	snippets = SnippetType.CAMELCASE, 
 	glue = { "dtu.Softwarehuset.acceptance_tests",
 			 "dtu.Softwarehuset.app"})
-
 public class AcceptanceTest {
 	
 }

@@ -4,18 +4,18 @@ Feature: Registering a project
 
 Scenario: Add a project successfully
  	Given that the employee "abcd" is logged in
- 	When the employee adds the project with title "030901"
- 	Then the project with title "030901" is added to the list of projects
+ 	When the employee adds the project with title "test"
+ 	Then the project with title "test" is added to the list of projects
  	
 Scenario: Add a project when employee is not logged in
 	Given that the employee "abcd" is not logged in
 	When the employee adds the project with title "030901"
-	Then the project with title "030901" is not added
+	Then the project with title "test" is not added
 	And the employee gets the error message "Employee login required"
 
 Scenario: Add existing project
 	Given that the employee "abcd" is logged in
-	When the employee adds the project with title "030901"
-	And the project with title "030901" exists
-	Then the project with title "030901" is not added
-	And the employee gets the error message "Project with the name \"030901\" already exists"
+	When the employee adds the project with title "test"
+	And the project with title "test" exists
+	Then the project with title "test" is not added
+	And the employee gets the error message "Project with the name \"test\" already exists"
