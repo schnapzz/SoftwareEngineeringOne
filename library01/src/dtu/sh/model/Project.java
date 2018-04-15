@@ -60,6 +60,13 @@ public class Project {
 		unfinishedActivities.add(activity);
 	}
 	
+	// Mikkel
+	public List<ProjectActivity> getUnfinishedActivities() {
+		// A copy of the objects is returned to avoid manipulation of the array outside the project class.
+		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
+		return pActivities;
+	}
+	
 	// ===== GETTERS AND SETTERS =====
 	public String getId() {
 		return id;
@@ -69,11 +76,8 @@ public class Project {
 		return title;
 	}
 
-	// Mikkel
-	public List<ProjectActivity> getUnfinishedActivities() {
-		// A copy of the objects is returned to avoid manipulation of the array outside the project class.
-		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
-		return pActivities;
+	public String getProjectLeader() {
+		return leaderId;
 	}
 
 	

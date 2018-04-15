@@ -16,14 +16,14 @@ import dtu.sh.model.SH;
 import cucumber.api.java.en.And;
 
 
-public class ProjectSteps {
+public class Steps {
 
 	private String username;
 	private SH softwarehuset;
 	private Project project;
 	private ErrorMessageHolder errorMessageHolder;
 		
-	public ProjectSteps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
+	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
 		this.errorMessageHolder = errorMessageHolder;
 		this.softwarehuset = softwarehuset;
 	}
@@ -114,14 +114,55 @@ public class ProjectSteps {
 	
 	@Then("^the project with title \"([^\"]*)\" is not added$")
 	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
-	    assertFalse(softwarehuset.doesProjectWithIdExist(title));
+	    assertFalse(softwarehuset.doesProjectWithTitleExist(title));
 	}
 	
 	@Then("^the project with the duplicate title \"([^\"]*)\" is not added$")
-	public void theProjectWithTheDuplicateTitleIsNotAdded(String arg1) throws Exception {
-		assertFalse(softwarehuset.containsDuplicateProjectTitles());
+	public void theProjectWithTheDuplicateTitleIsNotAdded(String title) throws Exception {
+		assertTrue(Integer.toString(softwarehuset.projectsWithTitle(title)).equals("1"));
 	}
 	
+	
+	/*
+	 * Steps for adding a project leader
+	 * 
+	 * done by: Helena
+	 */
+	
+	@Given("^that the project \"([^\"]*)\" has no project leader$")
+	public void thatTheProjectHasNoProjectLeader(String title) throws Exception {
+	    assertTrue(softwarehuset.getProjectLeaderFromId(title).equals(""));
+	}
+
+	@When("^a leader is assigned to the project \"([^\"]*)\" with the id \"([^\"]*)\"$")
+	public void aLeaderIsAssignedToTheProjectWithTheId(String arg1, String arg2) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new PendingException();
+	}
+
+	@Then("^the project is assigned the leader \"([^\"]*)\"$")
+	public void theProjectIsAssignedTheLeader(String arg1) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new PendingException();
+	}
+
+	@Given("^the project has a leader$")
+	public void theProjectHasALeader() throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new PendingException();
+	}
+
+	@When("^a leader is assigned to the project$")
+	public void aLeaderIsAssignedToTheProject() throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new PendingException();
+	}
+
+	@Then("^a leader is not assigned to the project$")
+	public void aLeaderIsNotAssignedToTheProject() throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new PendingException();
+	}
 	
 	
 	/*

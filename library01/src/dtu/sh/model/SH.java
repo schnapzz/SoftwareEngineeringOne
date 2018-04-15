@@ -14,7 +14,7 @@ public class SH {
 	}};
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "test", "abcd", employees));
-		//add(new Project("test"));
+		add(new Project("test2"));
 	}};
 	
 	public SH() {
@@ -26,9 +26,9 @@ public class SH {
 		employees.add(e1);
 		employees.add(e2);
 		
-		Project p1 = new Project("030901", "test2", "Mikk", emp); 
-		projects = new ArrayList<Project>();
-		projects.add(p1);
+//		Project p1 = new Project("030901", "test2", "Mikk", emp); 
+//		projects = new ArrayList<Project>();
+//		projects.add(p1);
 	}
 
 	//Helena
@@ -70,16 +70,14 @@ public class SH {
 	}
 	
 	//Mikkel + Helena
-	public boolean doesProjectWithTitleExist(String projectId) {
+	public boolean doesProjectWithTitleExist(String title) {
 		for (Project project : projects) {
-			if (project.getTitle() == projectId) {
+			if (project.getTitle() == title) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
 	
 	//Helena
 	public String getLoggedInEmployee() {
@@ -88,27 +86,26 @@ public class SH {
 	
 	//Helena
 	public void createProject(String title, String username) throws OperationNotAllowedException{
-		if (!doesProjectWithTitleExist(title) && !containsDuplicateProjectTitles()) {
+		if (!doesProjectWithTitleExist(title) && (projectsWithTitle(title) == 0)) {
 			Project p = new Project(title);
 			projects.add(p);
-		} else if(!loggedInEmployee.equals(username)) {
+		} 
+		else if(!loggedInEmployee.equals(username)) {
 			throw new OperationNotAllowedException("Employee login required");
-		}
-		else {
+		} else {
 			throw new OperationNotAllowedException("A project with that name already exists");
 		}
 	}
 	
 	//Helena
-	public boolean containsDuplicateProjectTitles() {
+	public int projectsWithTitle(String title) {
+		int k = 0;
 		for (Project p: projects) {
-			for(Project r: projects) {
-				if (p!=r && p.getTitle().equals(r.getTitle())) {
-					return true;
-				}
+			if (p.getTitle().equals(title)) {
+				k = k + 1;
 			}
 		}
-		return false;
+		return k;
 	}
 
 	//Helena
@@ -122,11 +119,14 @@ public class SH {
 	}
 
 	public Project getProjectWithId(String projectId) {
-		
 		for (Project p : projects) {
 			if (p.getId() == projectId) 
 				return p;
 		}
 		return null;
+	}
+
+	public String getProjectLeaderFromId(String title) {
+		return getProjectWithId(title).getProjectLeader();
 	}
 }
