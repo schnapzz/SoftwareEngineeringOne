@@ -13,6 +13,7 @@ public class Report {
 	}
 	
 	public Report() {
+		
 	}
 
 	// ===== GETTERS AND SETTERS =====
