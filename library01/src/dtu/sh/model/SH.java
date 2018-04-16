@@ -79,10 +79,7 @@ public class SH {
 		return false;
 	}
 	
-	//Helena
-	public String getLoggedInEmployee() {
-		return loggedInEmployee;
-	}
+	
 	
 	//Helena
 	public void createProject(String title, String username) throws OperationNotAllowedException{
@@ -98,15 +95,44 @@ public class SH {
 		}
 	}
 	
-	//Helena
-	public int projectsWithTitle(String title) {
-		int k = 0;
+	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
-				k = k + 1;
+				if (!p.hasProjectLeader()) {
+					p.setProjectLeader(id);
+				} else {
+					throw new OperationNotAllowedException("Project already has a leader");
+				}
 			}
 		}
-		return k;
+	}
+	
+	//Helena
+	public Report requestReport(String title, String id) throws OperationNotAllowedException {
+		for (Project p: projects) {
+			if (p.getTitle().equals(title) && p.getProjectLeader().equals(id)) {
+				Report report = p.createReport();
+				return report;
+			}
+		}
+		throw new OperationNotAllowedException("You are not the leader of that project");
+	}
+	
+	//Helena
+		public int projectsWithTitle(String title) {
+			int k = 0;
+			for (Project p: projects) {
+				if (p.getTitle().equals(title)) {
+					k = k + 1;
+				}
+			}
+			return k;
+		}
+	
+	//===GETTERS & SETTERS & CHECKERS
+	//Helena
+	public String getLoggedInEmployee() {
+		return loggedInEmployee;
 	}
 
 	//Helena
@@ -140,18 +166,6 @@ public class SH {
 		return false;
 	}
 
-	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
-		for (Project p: projects) {
-			if (p.getTitle().equals(title)) {
-				if (!p.hasProjectLeader()) {
-					p.setProjectLeader(id);
-				} else {
-					throw new OperationNotAllowedException("Project already has a leader");
-				}
-			}
-		}
-	}
-
 	public String getProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -160,4 +174,6 @@ public class SH {
 		}
 		return "";
 	}
+
+	
 }

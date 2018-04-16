@@ -33,7 +33,6 @@ public class Project {
 	
 	// Mikkel
 	public boolean activityExistsWithTitle(String title) {
-		
 		if (containsActivityWithTitle(unfinishedActivities, title) ||
 			containsActivityWithTitle(finishedActivities, title)) {
 			return true;
@@ -75,6 +74,12 @@ public class Project {
 		}
 	}
 	
+	//Helena
+	public Report createReport() {
+		Report report = new Report(unfinishedActivities, finishedActivities);
+		return report;
+	}
+	
 	// ===== GETTERS AND SETTERS =====
 	public String getId() {
 		return id;
@@ -91,6 +96,8 @@ public class Project {
 	public void setProjectLeader(String id) {
 		leaderId = id;
 	}
+
+	
 
 	
 }

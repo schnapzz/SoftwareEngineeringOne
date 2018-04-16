@@ -2,7 +2,11 @@ package dtu.Softwarehuset.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,6 +16,7 @@ import dtu.library.Exceptions.OperationNotAllowedException;
 import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
+import dtu.sh.model.Report;
 import dtu.sh.model.SH;
 import cucumber.api.java.en.And;
 
@@ -21,7 +26,9 @@ public class Steps {
 	private String username;
 	private SH softwarehuset;
 	private Project project;
+	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
+	
 		
 	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
 		this.errorMessageHolder = errorMessageHolder;
@@ -158,6 +165,32 @@ public class Steps {
 		assertFalse(softwarehuset.getProjectLeader(title).equals(id));
 	}
 
+	
+	/*
+	 * Steps for getting a report of a project
+	 * 
+	 * done by: Helena
+	 */
+	@Given("^that the logged in employee \"([^\"]*)\" is the project leader of \"([^\"]*)\"$")
+	public void thatTheLoggedInEmployeeIsTheProjectLeaderOf(String id, String title) throws Exception {
+	    assertThat(id,is(equalTo(softwarehuset.getLoggedInEmployee())));
+	    assertThat(id,is(equalTo(softwarehuset.getProjectLeader(title))));
+	    username = id;
+	}
+
+	@When("^the project leader \"([^\"]*)\" requests a journal from the project \"([^\"]*)\"$")
+	public void theProjectLeaderRequestsAJournalFromTheProject(String id, String title) throws Exception {
+		try {
+			report = softwarehuset.requestReport(title, id);
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("^the journal is returned$")
+	public void theJournalIsReturned() throws Exception {
+		//TODO
+	}
 	
 	
 	
