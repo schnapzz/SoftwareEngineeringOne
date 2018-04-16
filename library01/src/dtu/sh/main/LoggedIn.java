@@ -23,7 +23,7 @@ public class LoggedIn extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtIminutter;
-
+//hej
 	public LoggedIn() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
