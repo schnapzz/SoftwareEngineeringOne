@@ -7,7 +7,7 @@ public class Project {
 
 	private String id = "";
 	private String title;
-	private String leaderId;
+	private String leaderId = "";
 	
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>();
@@ -68,7 +68,7 @@ public class Project {
 	
 	//Helena
 	public boolean hasProjectLeader() {
-		if (leaderId.equals("")) {
+		if (this.leaderId.equals("")) {
 			return false;
 		} else {
 			return true;

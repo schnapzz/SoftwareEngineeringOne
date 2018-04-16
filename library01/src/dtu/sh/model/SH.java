@@ -143,8 +143,21 @@ public class SH {
 	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
-				p.setProjectLeader(id);
+				if (!p.hasProjectLeader()) {
+					p.setProjectLeader(id);
+				} else {
+					throw new OperationNotAllowedException("Project already has a leader");
+				}
 			}
 		}
+	}
+
+	public String getProjectLeader(String title) {
+		for (Project p: projects) {
+			if (p.getTitle().equals(title)) {
+				return p.getProjectLeader();
+			}
+		}
+		return "";
 	}
 }

@@ -82,9 +82,8 @@ public class Steps {
 	
 	@Given("^that the employee \"([^\"]*)\" is logged in$")
 	public void thatTheEmployeeIsLoggedIn(String username) throws Exception {
-	    if (username.equals(softwarehuset.getLoggedInEmployee())) {
-	    	this.username = username;
-	    }
+	    assertTrue(softwarehuset.getLoggedInEmployee().equals(username));
+	    this.username = username;
 	}
 
 	@When("^the employee adds the project with title \"([^\"]*)\"$")
@@ -142,32 +141,24 @@ public class Steps {
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
-		
 	}
 
-	@Then("^the project is assigned the leader \"([^\"]*)\"$")
-	public void theProjectIsAssignedTheLeader(String arg1) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	@Then("^the project \"([^\"]*)\" is assigned the leader \"([^\"]*)\"$")
+	public void theProjectIsAssignedTheLeader(String title, String id) throws Exception {
+	    assertTrue(softwarehuset.getProjectLeader(title).equals(id));
 	}
 
-	@Given("^the project has a leader$")
-	public void theProjectHasALeader() throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	@Given("^the project \"([^\"]*)\" has a leader$")
+	public void theProjectHasALeader(String title) throws Exception {
+		assertTrue(softwarehuset.hasProjectLeader(title));
 	}
 
-	@When("^a leader is assigned to the project$")
-	public void aLeaderIsAssignedToTheProject() throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
+	@Then("^the employee \"([^\"]*)\" is not the leader of \"([^\"]*)\"$")
+	public void theEmployeeIsNotAssignedAsTheLeaderOf(String id, String title) throws Exception {
+		assertFalse(softwarehuset.getProjectLeader(title).equals(id));
 	}
 
-	@Then("^a leader is not assigned to the project$")
-	public void aLeaderIsNotAssignedToTheProject() throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    //throw new PendingException();
-	}
+	
 	
 	
 	/*
