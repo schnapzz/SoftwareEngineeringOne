@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Project {
 
-	private String id;
+	private String id = "";
 	private String title;
 	private String leaderId;
 	
@@ -15,7 +15,6 @@ public class Project {
 	
 	//Mikkel
 	public Project(String pId, String pTitle, String plId, List<Employee> eList) {
-
 		this.id = pId;
 		this.title = pTitle;
 		this.leaderId = plId;
@@ -67,6 +66,15 @@ public class Project {
 		return pActivities;
 	}
 	
+	//Helena
+	public boolean hasProjectLeader() {
+		if (leaderId.equals("")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	// ===== GETTERS AND SETTERS =====
 	public String getId() {
 		return id;
@@ -78,6 +86,10 @@ public class Project {
 
 	public String getProjectLeader() {
 		return leaderId;
+	}
+
+	public void setProjectLeader(String id) {
+		leaderId = id;
 	}
 
 	

@@ -13,9 +13,9 @@ public class SH {
 		add(new Employee("Mikk"));
 	}};
 	private List<Project> projects = new ArrayList<Project>() {{ 
-		add(new Project("030901", "test", "abcd", employees));
+		add(new Project("030901", "test", "Mikk", employees));
 		add(new Project("test2"));
-	}};
+	}};	
 	
 	public SH() {
 		Employee e1 = new Employee("abcd");
@@ -72,7 +72,7 @@ public class SH {
 	//Mikkel + Helena
 	public boolean doesProjectWithTitleExist(String title) {
 		for (Project project : projects) {
-			if (project.getTitle() == title) {
+			if (project.getTitle().equals(title)) {
 				return true;
 			}
 		}
@@ -86,14 +86,15 @@ public class SH {
 	
 	//Helena
 	public void createProject(String title, String username) throws OperationNotAllowedException{
-		if (!doesProjectWithTitleExist(title) && (projectsWithTitle(title) == 0)) {
+		if ((!doesProjectWithTitleExist(title) && (projectsWithTitle(title) == 0)) && loggedInEmployee.equals(username)) {
 			Project p = new Project(title);
 			projects.add(p);
-		} 
-		else if(!loggedInEmployee.equals(username)) {
+		} else if(!loggedInEmployee.equals(username)) {
 			throw new OperationNotAllowedException("Employee login required");
-		} else {
+		} else if(projectsWithTitle(title) == 1) {
 			throw new OperationNotAllowedException("A project with that name already exists");
+		} else {
+			throw new OperationNotAllowedException();
 		}
 	}
 	
@@ -128,5 +129,22 @@ public class SH {
 
 	public String getProjectLeaderFromId(String title) {
 		return getProjectWithId(title).getProjectLeader();
+	}
+
+	public boolean hasProjectLeader(String title) {
+		for (Project p: projects) {
+			if (p.getTitle().equals(title)) {
+				return p.hasProjectLeader();
+			}
+		}
+		return false;
+	}
+
+	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
+		for (Project p: projects) {
+			if (p.getTitle().equals(title)) {
+				p.setProjectLeader(id);
+			}
+		}
 	}
 }
