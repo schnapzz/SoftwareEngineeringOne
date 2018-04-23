@@ -91,18 +91,12 @@ public class SH {
 	}
 	
 	
-	
 	//Helena
-	public void createProject(String title, String username) throws OperationNotAllowedException{
-		if ((!doesProjectWithTitleExist(title) && (projectsWithTitle(title) == 0)) && loggedInEmployee.equals(username)) {
-			Project p = new Project(title);
-			projects.add(p);
-		} else if(!loggedInEmployee.equals(username)) {
-			throw new OperationNotAllowedException("Employee login required");
-		} else if(projectsWithTitle(title) == 1) {
-			throw new OperationNotAllowedException("A project with that name already exists");
+	public void createProject(String title) throws OperationNotAllowedException{
+		if (!doesProjectWithTitleExist(title)) {
+			projects.add(new Project(title));
 		} else {
-			throw new OperationNotAllowedException();
+			throw new OperationNotAllowedException("A project with that name already exists");
 		}
 	}
 	
@@ -164,9 +158,6 @@ public class SH {
 		return null;
 	}
 
-	public String getProjectLeaderFromId(String title) {
-		return getProjectWithId(title).getProjectLeader();
-	}
 
 	public boolean hasProjectLeader(String title) {
 		for (Project p: projects) {

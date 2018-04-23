@@ -74,7 +74,7 @@ public class Steps {
 
 	@Then("^the employee can not log in$")
 	public void theEmployeeCanNotLogIn() throws Exception {
-	    assertTrue(!username.equals(softwarehuset.getLoggedInEmployee().getID()));
+	    assertFalse(username.equals(""));
 	}
 	
 	@Then("^the employee gets the error message \"([^\"]*)\"$")
@@ -100,7 +100,7 @@ public class Steps {
 	@When("^the employee adds the project with title \"([^\"]*)\"$")
 	public void theEmployeeAddsTheProjectWithTitle(String title) throws Exception {
 		try {
-			softwarehuset.createProject(title, softwarehuset.getLoggedInEmployee().getID());
+			softwarehuset.createProject(title);
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -113,7 +113,7 @@ public class Steps {
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
 	public void thatTheEmployeeIsNotLogged(String username) throws Exception {
-	    assertFalse(username.equals(softwarehuset.getLoggedInEmployee().getID()));
+	    assertTrue(softwarehuset.getLoggedInEmployee().getID().equals(""));
 	    this.username = username;
 	}	
 
@@ -121,12 +121,6 @@ public class Steps {
 	public void theProjectWithTitleExists(String title) throws Exception {
 	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
 	}
-	
-	@Then("^the project with title \"([^\"]*)\" is not added$")
-	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
-		//Wut??
-	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
-	}	
 	
 	@Then("^the project with the duplicate title \"([^\"]*)\" is not added$")
 	public void theProjectWithTheDuplicateTitleIsNotAdded(String title) throws Exception {
