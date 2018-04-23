@@ -60,14 +60,12 @@ public class Project {
 	public void addActivity(ProjectActivity activity, Employee employee) throws OperationNotAllowedException {
 		
 		if (activityExistsWithTitle(activity.getTitle())) { throw new OperationNotAllowedException("Project already has an activity with this name"); }
-		else if (isEmployeeProjectLeader(employee)) { throw new OperationNotAllowedException("Only the project leader can create activities for a project"); }
+		else if (!isEmployeeProjectLeader(employee)) { throw new OperationNotAllowedException("Only the project leader can create activities for a project"); }
 	
 		unfinishedActivities.add(activity);
 	}
 	
 	private boolean isEmployeeProjectLeader(Employee employee) {
-		System.out.println("Employee: " + employee.getID());
-		System.out.println("Project leader ID: " + getProjectLeader());
 		return employee.getID().equalsIgnoreCase(getProjectLeader());
 	}
 	

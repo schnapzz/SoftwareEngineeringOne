@@ -100,7 +100,7 @@ public class Steps {
 	@When("^the employee adds the project with title \"([^\"]*)\"$")
 	public void theEmployeeAddsTheProjectWithTitle(String title) throws Exception {
 		try {
-			softwarehuset.createProject(title, username);
+			softwarehuset.createProject(title, softwarehuset.getLoggedInEmployee().getID());
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -177,6 +177,7 @@ public class Steps {
 	 */
 	@Given("^that the logged in employee \"([^\"]*)\" is the project leader of \"([^\"]*)\"$")
 	public void thatTheLoggedInEmployeeIsTheProjectLeaderOf(String id, String title) throws Exception {
+		softwarehuset.logInEmployee(id);
 	    assertThat(id,is(equalTo(softwarehuset.getLoggedInEmployee().getID())));
 	    assertThat(id,is(equalTo(softwarehuset.getProjectLeader(title))));
 	    username = id;
@@ -207,6 +208,7 @@ public class Steps {
 
 	@Given("^the project leader \"([^\"]*)\" is logged in$")
 	public void theProjectLeaderIsLoggedIn(String leaderId) throws Exception {
+		System.out.println(leaderId);
 		softwarehuset.logInEmployee(leaderId);
 	}	
 	
