@@ -283,7 +283,6 @@ public class Steps {
 
 	@When("^they create a general activity with the name \"([^\"]*)\"$")
 	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
-	    // Write code here that turns the phrase above into concrete act
 		  try {
 	    		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
 	    } catch (OperationNotAllowedException e) {
