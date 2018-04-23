@@ -1,6 +1,7 @@
 package dtu.sh.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import dtu.library.Exceptions.OperationNotAllowedException;
@@ -10,6 +11,8 @@ public class Project {
 	private String id = "";
 	private String title;
 	private String leaderId = "";
+	
+	private int projectNumber = 0;
 	
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
@@ -30,6 +33,7 @@ public class Project {
 	// Helena
 	public Project(String title) {
 		this.title = title;
+		this.id = assignId();
 	}
 	
 	// Mikkel
@@ -85,6 +89,30 @@ public class Project {
 		} else {
 			return true;
 		}
+	}
+	
+	//Helena
+	public String assignId() {
+		String id = "";
+		Calendar cal = Calendar.getInstance();
+		String year = cal.get(Calendar.YEAR) + ""; 
+		year.replaceAll("20", "");
+		switch (Integer.toString(projectNumber).length()) {
+		case  1:
+			id = year + "000" + projectNumber;
+			break;
+		case 2:
+			id = year + "00" + projectNumber;
+			break;
+		case 3:
+			id = year + "0" + projectNumber;
+			break;
+		case 4: 
+			id = year + projectNumber;
+			break;
+		}
+		projectNumber = projectNumber + 1;		
+		return id;
 	}
 	
 	//Helena
