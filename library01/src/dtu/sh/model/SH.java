@@ -13,6 +13,7 @@ public class SH {
 		add(new Employee("Mikk"));
 		add(new Employee("Hela"));
 	}};
+	
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "Test", "Mikk", employees));
 		add(new Project("test2"));
