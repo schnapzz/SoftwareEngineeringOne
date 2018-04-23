@@ -160,4 +160,15 @@ public class SH {
 		}
 		return "";
 	}
+
+	//Sofie-Amalie
+	public boolean isLoggedIn(String username) {
+		// TODO Auto-generated method stub
+		if(username.equals(getLoggedInEmployee())) {
+			return true;
+		}else {
+		
+		return false;
+		}
+	}
 }

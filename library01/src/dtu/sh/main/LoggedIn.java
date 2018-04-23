@@ -23,7 +23,7 @@ public class LoggedIn extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtIminutter;
-//hej
+
 	public LoggedIn() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
@@ -31,10 +31,10 @@ public class LoggedIn extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] {68, 77, 23, 116, 70, 3};
-		gbl_contentPane.rowHeights = new int[] {46, 41, 39, 0, 57, 5};
+		gbl_contentPane.columnWidths = new int[] {68, 77, 23, 191, 154, 3};
+		gbl_contentPane.rowHeights = new int[] {46, 41, 39, 59, 0, 160, 5};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblRegistrerTimer = new JLabel("Registrer Timer");
@@ -91,26 +91,27 @@ public class LoggedIn extends JFrame {
 			}
 		});
 		
+		JButton btnLogUd = new JButton("Log ud");
+		btnLogUd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// gå tilbage til log in			
+			}
+		});
+		
 		JLabel lblTilfjTimerTil = new JLabel("Tilføj timer til aktivitet");
 		GridBagConstraints gbc_lblTilfjTimerTil = new GridBagConstraints();
 		gbc_lblTilfjTimerTil.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTilfjTimerTil.gridx = 4;
-		gbc_lblTilfjTimerTil.gridy = 3;
+		gbc_lblTilfjTimerTil.gridy = 4;
 		contentPane.add(lblTilfjTimerTil, gbc_lblTilfjTimerTil);
-		
-		JButton btnLogUd = new JButton("Log ud");
-		btnLogUd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		GridBagConstraints gbc_btnLogUd = new GridBagConstraints();
 		gbc_btnLogUd.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLogUd.gridx = 0;
-		gbc_btnLogUd.gridy = 4;
+		gbc_btnLogUd.gridy = 5;
 		contentPane.add(btnLogUd, gbc_btnLogUd);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 4;
+		gbc_btnNewButton.gridy = 5;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 	}
 
