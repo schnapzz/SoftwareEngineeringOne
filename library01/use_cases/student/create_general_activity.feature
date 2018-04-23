@@ -4,7 +4,7 @@ Feature: Creating a general activity
 
 Scenario: General activity is created when employee is logged in
     Given that the employee is logged in "Mikk"
-#	When they create a general activity with the name "sick"
+	When they create a general activity with the name "sick"
 #    And they set start time to "10" and the end time to "11"
 #    Then the general activity is created
 #

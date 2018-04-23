@@ -193,8 +193,7 @@ public class SH {
 		if(username.equals(getLoggedInEmployee())) {
 			return true;
 		}else {
-		
-		return false;
+			return false;
 		}
 	}
 

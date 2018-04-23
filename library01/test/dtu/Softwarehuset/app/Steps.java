@@ -283,14 +283,19 @@ public class Steps {
 	@Given("^that the employee is logged in \"([^\"]*)\"$")
 	public void thatTheEmployeeIsLoggedIn1(String username) {
 		assertTrue(username.equals(softwarehuset.getLoggedInEmployee()));
+		
 		// Write code here that turns the phrase above into concrete action		
 	}
 
-//	@When("^they create a general activity with the name \"([^\"]*)\"$")
-//	public void theyCreateAGeneralActivityWithTheName(String arg1) throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
+	@When("^they create a general activity with the name \"([^\"]*)\"$")
+	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
+	    // Write code here that turns the phrase above into concrete act
+		  try {
+	    		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
+	    } catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
 //
 //	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
 //	public void theySetStartTimeToAndTheEndTimeTo(String arg1, String arg2) throws Exception {

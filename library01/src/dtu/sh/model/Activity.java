@@ -29,6 +29,10 @@ public abstract class Activity {
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
+	public Activity(String title) {
+		this.title = title;
+	}
+
 	public String getTitle() {
 		return title;
 	}
