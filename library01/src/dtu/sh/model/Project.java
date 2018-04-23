@@ -66,6 +66,8 @@ public class Project {
 	}
 	
 	private boolean isEmployeeProjectLeader(Employee employee) {
+		System.out.println("Employee: " + employee.getID());
+		System.out.println("Project leader ID: " + getProjectLeader());
 		return employee.getID().equalsIgnoreCase(getProjectLeader());
 	}
 	
