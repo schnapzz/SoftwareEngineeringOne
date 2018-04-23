@@ -1,6 +1,9 @@
 package dtu.sh.model;
 import java.util.List;
 
+import com.sun.javafx.image.impl.General;
+
+import cucumber.api.java.it.Date;
 import dtu.library.Exceptions.OperationNotAllowedException;
 
 import java.util.ArrayList;
@@ -33,6 +36,18 @@ public class Employee {
 			}
 		}
 		return false;
+	}
+
+	
+
+	public  GeneralActivity getActivity(String title) {
+		GeneralActivity a = null;
+		for (GeneralActivity g: generalActivities) {
+			if (g.getTitle().equals(title)) {
+				a = g;
+			}
+		}
+		return a;
 	}
 
 }

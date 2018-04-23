@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.it.Date;
 import dtu.sh.model.Activity;
 import dtu.sh.model.Employee;
 import dtu.library.Exceptions.OperationNotAllowedException;
@@ -30,6 +31,7 @@ public class Steps {
 //	private Employee loggedInEmployee;
 	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
+	private String titleActivity;
 	
 		
 	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
@@ -273,13 +275,6 @@ public class Steps {
 	 * Sofie-Amalie
 	 */
 	
-	
-	@Given("^that the employee is logged in \"([^\"]*)\"$")
-	public void thatTheEmployeeIsLoggedIn1(String username) {
-		assertTrue(username.equals(softwarehuset.getLoggedInEmployee()));
-		
-		// Write code here that turns the phrase above into concrete action		
-	}
 
 	@When("^they create a general activity with the name \"([^\"]*)\"$")
 	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
@@ -289,19 +284,23 @@ public class Steps {
 	    } catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
+		this.titleActivity = titleGeneralActivity;
 	}
-//
-//	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
-//	public void theySetStartTimeToAndTheEndTimeTo(String arg1, String arg2) throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Then("^the general activity is created$")
-//	public void theGeneralActivityIsCreated() throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
+
+	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
+	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		  try {
+			  softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
+	    } catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("^the general activity is created$")
+	public void theGeneralActivityIsCreated() throws Exception {
+		//assertTrue
+	}
 //
 //	@Given("^that the employee is not logged in$")
 //	public void thatTheEmployeeIsNotLoggedIn() throws Exception {
