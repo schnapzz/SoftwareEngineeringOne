@@ -1,7 +1,6 @@
 package dtu.sh.main;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.JPanel;

@@ -9,6 +9,7 @@ public class GeneralActivity extends Activity {
 		super(title, description, start, end);
 		
 		
+		
 	}
 
 }

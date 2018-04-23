@@ -268,4 +268,74 @@ public class Steps {
 	    assertEquals(numberOfActivities, project.getUnfinishedActivities().size());   
 	}
 	
+	
+	/*
+	 * Sofie-Amalie
+	 */
+	
+	
+	@Given("^that the employee is logged in \"([^\"]*)\"$")
+	public void thatTheEmployeeIsLoggedIn1(String username) {
+		assertTrue(username.equals(softwarehuset.getLoggedInEmployee()));
+		// Write code here that turns the phrase above into concrete action		
+	}
+
+//	@When("^they create a general activity with the name \"([^\"]*)\"$")
+//	public void theyCreateAGeneralActivityWithTheName(String arg1) throws Exception {
+//	    // Write code here that turns the phrase above into concrete actions
+//	    throw new PendingException();
+//	}
+//
+//	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
+//	public void theySetStartTimeToAndTheEndTimeTo(String arg1, String arg2) throws Exception {
+//	    // Write code here that turns the phrase above into concrete actions
+//	    throw new PendingException();
+//	}
+//
+//	@Then("^the general activity is created$")
+//	public void theGeneralActivityIsCreated() throws Exception {
+//	    // Write code here that turns the phrase above into concrete actions
+//	    throw new PendingException();
+//	}
+//
+//	@Given("^that the employee is not logged in$")
+//	public void thatTheEmployeeIsNotLoggedIn() throws Exception {
+//	    // Write code here that turns the phrase above into concrete actions
+//	    throw new PendingException();
+//	}
+//
+//	@Then("^they get the error message \"([^\"]*)\"$")
+//	public void theyGetTheErrorMessage(String arg1) throws Exception {
+//	    // Write code here that turns the phrase above into concrete actions
+//	    throw new PendingException();
+//	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
