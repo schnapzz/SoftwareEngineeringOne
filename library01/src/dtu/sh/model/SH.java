@@ -7,24 +7,25 @@ import dtu.library.Exceptions.OperationNotAllowedException;
 
 public class SH {
 	
-	private String loggedInEmployee = "Mikk";
+	private Employee loggedInEmployee; 
 	private List<Employee> employees = new ArrayList<Employee>() {{
 		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
+		add(new Employee("Hela"));
 	}};
 	private List<Project> projects = new ArrayList<Project>() {{ 
-		add(new Project("030901", "test", "Mikk", employees));
+		add(new Project("030901", "Test", "Mikk", employees));
 		add(new Project("test2"));
 	}};	
 	
 	public SH() {
-		Employee e1 = new Employee("abcd");
-		Employee e2 = new Employee("Mikk");
-		List<Employee> emp = new ArrayList<Employee>();
-		emp.add(e1);
-		emp.add(e2);
-		employees.add(e1);
-		employees.add(e2);
+//		Employee e1 = new Employee("abcd");
+//		Employee e2 = new Employee("Mikk");
+//		List<Employee> emp = new ArrayList<Employee>();
+//		emp.add(e1);
+//		emp.add(e2);
+//		employees.add(e1);
+//		employees.add(e2);
 		
 //		Project p1 = new Project("030901", "test2", "Mikk", emp); 
 //		projects = new ArrayList<Project>();
@@ -53,16 +54,26 @@ public class SH {
 	//Helena
 	public void logInEmployee(String username) throws OperationNotAllowedException {
 		if (isValidUsername(username) && isEmployed(username)) {
-			loggedInEmployee = username;
+			loggedInEmployee = getEmployeeWithUsername(username);
 		} else {
 			throw new OperationNotAllowedException("Wrong username, try again");
 		}
 	}
 	
+	// Mikkel
+	private Employee getEmployeeWithUsername(String username) {
+		for (Employee e : employees) {
+			if (e.getID().equals(username)) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
 	//Mikkel
 	public boolean doesProjectWithIdExist(String projectId) {
 		for (Project project : projects) {
-			if (project.getId() == projectId) {
+			if (project.getId().equalsIgnoreCase(projectId)) {
 				return true;
 			}
 		}
@@ -79,10 +90,7 @@ public class SH {
 		return false;
 	}
 	
-	//Helena
-	public String getLoggedInEmployee() {
-		return loggedInEmployee;
-	}
+	
 	
 	//Helena
 	public void createProject(String title, String username) throws OperationNotAllowedException{
@@ -98,15 +106,44 @@ public class SH {
 		}
 	}
 	
-	//Helena
-	public int projectsWithTitle(String title) {
-		int k = 0;
+	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
-				k = k + 1;
+				if (!p.hasProjectLeader()) {
+					p.setProjectLeader(id);
+				} else {
+					throw new OperationNotAllowedException("Project already has a leader");
+				}
 			}
 		}
-		return k;
+	}
+	
+	//Helena
+	public Report requestReport(String title, String id) throws OperationNotAllowedException {
+		for (Project p: projects) {
+			if (p.getTitle().equals(title) && p.getProjectLeader().equals(id)) {
+				Report report = p.createReport();
+				return report;
+			}
+		}
+		throw new OperationNotAllowedException("You are not the leader of that project");
+	}
+	
+	//Helena
+		public int projectsWithTitle(String title) {
+			int k = 0;
+			for (Project p: projects) {
+				if (p.getTitle().equals(title)) {
+					k = k + 1;
+				}
+			}
+			return k;
+		}
+	
+	//===GETTERS & SETTERS & CHECKERS
+	//Helena
+	public Employee getLoggedInEmployee() {
+		return loggedInEmployee;
 	}
 
 	//Helena
@@ -121,7 +158,7 @@ public class SH {
 
 	public Project getProjectWithId(String projectId) {
 		for (Project p : projects) {
-			if (p.getId() == projectId) 
+			if (p.getId().equalsIgnoreCase(projectId)) 
 				return p;
 		}
 		return null;
@@ -140,18 +177,6 @@ public class SH {
 		return false;
 	}
 
-	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
-		for (Project p: projects) {
-			if (p.getTitle().equals(title)) {
-				if (!p.hasProjectLeader()) {
-					p.setProjectLeader(id);
-				} else {
-					throw new OperationNotAllowedException("Project already has a leader");
-				}
-			}
-		}
-	}
-
 	public String getProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -160,15 +185,16 @@ public class SH {
 		}
 		return "";
 	}
+//
+//	//Sofie-Amalie
+//	public boolean isLoggedIn(String username) {
+//		// TODO Auto-generated method stub
+//		if(username.equals(getLoggedInEmployee())) {
+//			return true;
+//		}else {
+//		
+//		return false;
+//		}
+//	}
 
-	//Sofie-Amalie
-	public boolean isLoggedIn(String username) {
-		// TODO Auto-generated method stub
-		if(username.equals(getLoggedInEmployee())) {
-			return true;
-		}else {
-		
-		return false;
-		}
-	}
 }
