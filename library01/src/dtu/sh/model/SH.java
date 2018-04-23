@@ -7,10 +7,11 @@ import dtu.library.Exceptions.OperationNotAllowedException;
 
 public class SH {
 	
-	private String loggedInEmployee = "Mikk";
+	private Employee loggedInEmployee; 
 	private List<Employee> employees = new ArrayList<Employee>() {{
 		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
+		add(new Employee("Hela"));
 	}};
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "test", "Mikk", employees));
@@ -18,13 +19,13 @@ public class SH {
 	}};	
 	
 	public SH() {
-		Employee e1 = new Employee("abcd");
-		Employee e2 = new Employee("Mikk");
-		List<Employee> emp = new ArrayList<Employee>();
-		emp.add(e1);
-		emp.add(e2);
-		employees.add(e1);
-		employees.add(e2);
+//		Employee e1 = new Employee("abcd");
+//		Employee e2 = new Employee("Mikk");
+//		List<Employee> emp = new ArrayList<Employee>();
+//		emp.add(e1);
+//		emp.add(e2);
+//		employees.add(e1);
+//		employees.add(e2);
 		
 //		Project p1 = new Project("030901", "test2", "Mikk", emp); 
 //		projects = new ArrayList<Project>();
@@ -53,16 +54,26 @@ public class SH {
 	//Helena
 	public void logInEmployee(String username) throws OperationNotAllowedException {
 		if (isValidUsername(username) && isEmployed(username)) {
-			loggedInEmployee = username;
+			loggedInEmployee = getEmployeeWithUsername(username);
 		} else {
 			throw new OperationNotAllowedException("Wrong username, try again");
 		}
 	}
 	
+	// Mikkel
+	private Employee getEmployeeWithUsername(String username) {
+		for (Employee e : employees) {
+			if (e.getID().equals(username)) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
 	//Mikkel
 	public boolean doesProjectWithIdExist(String projectId) {
 		for (Project project : projects) {
-			if (project.getId() == projectId) {
+			if (project.getId().equalsIgnoreCase(projectId)) {
 				return true;
 			}
 		}
@@ -131,7 +142,7 @@ public class SH {
 	
 	//===GETTERS & SETTERS & CHECKERS
 	//Helena
-	public String getLoggedInEmployee() {
+	public Employee getLoggedInEmployee() {
 		return loggedInEmployee;
 	}
 
@@ -147,7 +158,7 @@ public class SH {
 
 	public Project getProjectWithId(String projectId) {
 		for (Project p : projects) {
-			if (p.getId() == projectId) 
+			if (p.getId().equalsIgnoreCase(projectId)) 
 				return p;
 		}
 		return null;

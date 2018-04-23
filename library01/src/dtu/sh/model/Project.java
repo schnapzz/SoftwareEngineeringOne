@@ -3,6 +3,8 @@ package dtu.sh.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.library.Exceptions.OperationNotAllowedException;
+
 public class Project {
 
 	private String id = "";
@@ -10,8 +12,12 @@ public class Project {
 	private String leaderId = "";
 	
 	private List<Employee> employees;
-	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>();
-	private List<ProjectActivity> finishedActivities = new ArrayList<ProjectActivity>();
+	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
+		add(new ProjectActivity("TestUnfinished", "test description", 1));
+	}};
+	private List<ProjectActivity> finishedActivities = new ArrayList<ProjectActivity>() {{ 
+		add(new ProjectActivity("TestFinished", "test description", 2));
+	}};
 	
 	//Mikkel
 	public Project(String pId, String pTitle, String plId, List<Employee> eList) {
@@ -27,12 +33,8 @@ public class Project {
 	}
 	
 	// Mikkel
-	public void createActivity() {
-		
-	}
-	
-	// Mikkel
 	public boolean activityExistsWithTitle(String title) {
+		System.out.println(unfinishedActivities + " " + finishedActivities);
 		if (containsActivityWithTitle(unfinishedActivities, title) ||
 			containsActivityWithTitle(finishedActivities, title)) {
 			return true;
@@ -44,8 +46,10 @@ public class Project {
 	// Mikkel
 	private boolean containsActivityWithTitle(List<ProjectActivity> activities, String title) {
 		
+		if (activities.size() == 0) { return false; }
+		
 		for (Activity a : activities) {
-			if (a.getTitle() == title) {
+			if (a.getTitle().equalsIgnoreCase(title)) {
 				return true;
 			}
 		}
@@ -53,9 +57,16 @@ public class Project {
 	}
 	
 	// Mikkel
-	public void addActivity(ProjectActivity activity) {
+	public void addActivity(ProjectActivity activity, Employee employee) throws OperationNotAllowedException {
 		
+		if (activityExistsWithTitle(activity.getTitle())) { throw new OperationNotAllowedException("Project already has an activity with this name"); }
+		else if (isEmployeeProjectLeader(employee)) { throw new OperationNotAllowedException("Only the project leader can create activities for a project"); }
+	
 		unfinishedActivities.add(activity);
+	}
+	
+	private boolean isEmployeeProjectLeader(Employee employee) {
+		return employee.getID().equalsIgnoreCase(getProjectLeader());
 	}
 	
 	// Mikkel

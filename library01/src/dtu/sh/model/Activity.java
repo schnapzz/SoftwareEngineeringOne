@@ -6,8 +6,8 @@ import java.util.List;
 
 public abstract class Activity {
 
-	private String title;
-	private String description;
+	private String title = "";
+	private String description = "";
 	private Date startDate;
 	private Date endDate;
 	
