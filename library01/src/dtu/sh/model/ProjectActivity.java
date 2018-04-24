@@ -12,7 +12,7 @@ public class ProjectActivity extends Activity {
 		this.priority = priority;
 	}
 	
-	public ProjectActivity(String title, String description, Date start, Date end, int priority) {
+	public ProjectActivity(String title, String description, int start, int end, int priority) {
 		super(title, description, start, end);
 
 		this.priority = priority;

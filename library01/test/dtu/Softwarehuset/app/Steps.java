@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.it.Date;
 import dtu.sh.model.Employee;
 import dtu.library.Exceptions.OperationNotAllowedException;
 import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
@@ -29,6 +30,7 @@ public class Steps {
 //	private Employee loggedInEmployee;
 	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
+	private String titleActivity;
 	
 		
 	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
@@ -73,7 +75,7 @@ public class Steps {
 
 	@Then("^the employee can not log in$")
 	public void theEmployeeCanNotLogIn() throws Exception {
-	    assertTrue(!username.equals(softwarehuset.getLoggedInEmployee().getID()));
+	    assertFalse(username.equals(""));
 	}
 	
 	@Then("^the employee gets the error message \"([^\"]*)\"$")
@@ -99,7 +101,7 @@ public class Steps {
 	@When("^the employee adds the project with title \"([^\"]*)\"$")
 	public void theEmployeeAddsTheProjectWithTitle(String title) throws Exception {
 		try {
-			softwarehuset.createProject(title, softwarehuset.getLoggedInEmployee().getID());
+			softwarehuset.createProject(title);
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -112,7 +114,7 @@ public class Steps {
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
 	public void thatTheEmployeeIsNotLogged(String username) throws Exception {
-	    assertFalse(username.equals(softwarehuset.getLoggedInEmployee().getID()));
+	    assertTrue(softwarehuset.getLoggedInEmployee().getID().equals(""));
 	    this.username = username;
 	}	
 
@@ -120,12 +122,6 @@ public class Steps {
 	public void theProjectWithTitleExists(String title) throws Exception {
 	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
 	}
-	
-	@Then("^the project with title \"([^\"]*)\" is not added$")
-	public void theProjectWithTitleIsNotAdded(String title) throws Exception {
-		//Wut??
-	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
-	}	
 	
 	@Then("^the project with the duplicate title \"([^\"]*)\" is not added$")
 	public void theProjectWithTheDuplicateTitleIsNotAdded(String title) throws Exception {
@@ -278,30 +274,31 @@ public class Steps {
 	 * Sofie-Amalie
 	 */
 	
-	
-	@Given("^that the employee is logged in \"([^\"]*)\"$")
-	public void thatTheEmployeeIsLoggedIn1(String username) {
-		assertTrue(username.equals(softwarehuset.getLoggedInEmployee()));
-		// Write code here that turns the phrase above into concrete action		
+
+	@When("^they create a general activity with the name \"([^\"]*)\"$")
+	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
+		  try {
+	    		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
+	    } catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+		this.titleActivity = titleGeneralActivity;
 	}
 
-//	@When("^they create a general activity with the name \"([^\"]*)\"$")
-//	public void theyCreateAGeneralActivityWithTheName(String arg1) throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
-//	public void theySetStartTimeToAndTheEndTimeTo(String arg1, String arg2) throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Then("^the general activity is created$")
-//	public void theGeneralActivityIsCreated() throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
+	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
+	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		  try {
+			  softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
+	    } catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("^the general activity is created$")
+	public void theGeneralActivityIsCreated() throws Exception {
+		//assertTrue
+	}
 //
 //	@Given("^that the employee is not logged in$")
 //	public void thatTheEmployeeIsNotLoggedIn() throws Exception {
@@ -330,20 +327,17 @@ public class Steps {
 
 	@Given("^the employee chooses activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
 	public void theEmployeeChoosesActivityWithTitleForProjectWithTitle(String activityTitle, String projectTitle) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		
 	}
 	
 	@When("^the employee with id \"([^\"]*)\" logs (.+) hours$")
 	public void theEmployeeWithIdLogsHours(String arg1, double arg2) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 
 	@Then("^(.+) hours are logged for \"([^\"]*)\" for activity \"([^\"]*)\" for project with title \"([^\"]*)\"$")
 	public void hoursAreLoggedForForActivityForProjectWithTitle(double arg1, String arg3, String arg4, String arg5) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+
 	}
 	
 	

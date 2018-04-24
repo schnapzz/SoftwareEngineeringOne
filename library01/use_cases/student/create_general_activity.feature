@@ -3,9 +3,9 @@ Feature: Creating a general activity
 	Actors: Employee
 
 Scenario: General activity is created when employee is logged in
-    Given that the employee is logged in "Mikk"
-#	When they create a general activity with the name "sick"
-#    And they set start time to "10" and the end time to "11"
+    Given that the employee "Mikk" is logged in
+	When they create a general activity with the name "sick"
+    And they set start time to "10" and the end time to "11"
 #    Then the general activity is created
 #
 #Scenario: Creating a general activity when an employee is not logged in
