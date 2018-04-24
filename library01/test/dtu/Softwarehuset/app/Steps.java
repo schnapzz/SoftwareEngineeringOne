@@ -335,9 +335,14 @@ public class Steps {
 
 	}
 
-	@Then("^(.+) hours are logged for \"([^\"]*)\" for activity \"([^\"]*)\" for project with title \"([^\"]*)\"$")
-	public void hoursAreLoggedForForActivityForProjectWithTitle(double arg1, String arg3, String arg4, String arg5) throws Exception {
+	@Then("^(.+) hours are logged for employee \"([^\"]*)\" for activity \"([^\"]*)\" for project with title \"([^\"]*)\"$")
+	public void hoursAreLoggedForForActivityForProjectWithTitle(double hours, String employeeId, String activityTitle, String projectTitle) throws Exception {
 
+	}
+
+	@Then("^the activity with title \"([^\"]*)\" have (.+) time registrations$")
+	public void theActivityWithTitleHaveTimeRegistrations(String activityTitle, double hours) throws Exception {
+	    
 	}
 	
 	
