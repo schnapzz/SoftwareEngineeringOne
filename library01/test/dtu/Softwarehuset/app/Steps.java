@@ -11,7 +11,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dtu.sh.model.Activity;
 import dtu.sh.model.Employee;
 import dtu.library.Exceptions.OperationNotAllowedException;
 import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
@@ -51,7 +50,7 @@ public class Steps {
 	@When("^the employee logs in$")
 	public void theEmployeeLogsIn() throws Exception {
 	    try {
-	    	softwarehuset.logInEmployee(username);
+	    		softwarehuset.logInEmployee(username);
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -316,13 +315,36 @@ public class Steps {
 //	    throw new PendingException();
 //	}
 
+	/*
+	 * Steps for registering a project activity
+	 * 
+	 * done by: Mikkel
+	 * 
+	 */
 	
+	@Given("^the employee is part of activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
+	public void theEmployeeIsPartOfActivityWithTitleForProjectWithTitle(String activityTitle, String projectTitle) throws Exception {
+	 
+		
+	}
+
+	@Given("^the employee chooses activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
+	public void theEmployeeChoosesActivityWithTitleForProjectWithTitle(String activityTitle, String projectTitle) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
 	
-	
-	
-	
-	
-	
+	@When("^the employee with id \"([^\"]*)\" logs (.+) hours$")
+	public void theEmployeeWithIdLogsHours(String arg1, double arg2) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Then("^(.+) hours are logged for \"([^\"]*)\" for activity \"([^\"]*)\" for project with title \"([^\"]*)\"$")
+	public void hoursAreLoggedForForActivityForProjectWithTitle(double arg1, String arg3, String arg4, String arg5) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
 	
 	
 	
