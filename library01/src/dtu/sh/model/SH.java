@@ -98,12 +98,37 @@ public class SH {
 	public void createProject(String title) throws OperationNotAllowedException{
 		if (!doesProjectWithTitleExist(title)) {
 			projects.add(new Project(numberOfProjects, title));
+			
 			numberOfProjects = numberOfProjects + 1;
 		} else {
 			throw new OperationNotAllowedException("A project with that name already exists");
 		}
 	}
 	
+	//Helena
+	public void createProjectWithStartAndEnd(String title, int start, int end) throws OperationNotAllowedException {
+		if (isValidWeekNumber(start) && isValidWeekNumber(end)) {
+			if (!doesProjectWithTitleExist(title)) {
+				projects.add(new Project(numberOfProjects, title, start, end));
+				System.out.println(numberOfProjects);
+				numberOfProjects = numberOfProjects + 1;
+			} else {
+				throw new OperationNotAllowedException("A project with that name already exists");
+			}
+		}
+		
+	}
+	
+	//Helena
+	private boolean isValidWeekNumber(int start) {
+		if ((start >= 1) && (start <= 52)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	//Helena
 	public void assignProjectLeader(String title, String id) throws OperationNotAllowedException {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -207,5 +232,7 @@ public class SH {
 	public int getNumberOfProjects() {
 		return numberOfProjects;
 	}
+
+	
 
 }

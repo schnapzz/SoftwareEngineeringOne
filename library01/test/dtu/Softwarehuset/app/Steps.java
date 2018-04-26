@@ -107,15 +107,27 @@ public class Steps {
 		}
 	}
 
-	@Then("^the project with title \"([^\"]*)\" is added to the list of projects$")
-	public void theProjectWithTitleIsAddedToTheListOfProjects(String title) throws Exception {
-	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
-	}
-	
 	@Then("^the project with title \"([^\"]*)\" and id \"([^\"]*)\" is added to the list of projects$")
 	public void theProjectWithTitleAndIdIsAddedToTheListOfProjects(String title, String id) throws Exception {
 		assertTrue(softwarehuset.doesProjectWithTitleExist(title));
 		assertTrue(softwarehuset.getProjectFromTitle(title).getId().equals(id));
+	}
+	
+	@When("^the employee adds the project with title \"([^\"]*)\", start week \"([^\"]*)\" and end week \"([^\"]*)\"$")
+	public void theEmployeeAddsTheProjectWithTitleStartWeekAndEndWeek(String title, int start, int end) throws Exception {
+		try { 
+			softwarehuset.createProjectWithStartAndEnd(title, start, end);
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+	@Then("^the project with title \"([^\"]*)\", id \"([^\"]*)\" , start week \"([^\"]*)\" and end week \"([^\"]*)\" is added to the list of projects$")
+	public void theProjectWithTitleIdStartWeekAndEndWeekIsAddedToTheListOfProjects(String title, String id, int start, int end) throws Exception {
+		assertTrue(softwarehuset.doesProjectWithTitleExist(title));
+		assertTrue(softwarehuset.getProjectFromTitle(title).getId().equals(id));
+		assertTrue(softwarehuset.getProjectFromTitle(title).getStart() == start);
+		assertTrue(softwarehuset.getProjectFromTitle(title).getEnd() == end);
 	}
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
@@ -184,7 +196,7 @@ public class Steps {
 	    username = id;
 	}
 
-	@When("^the project leader \"([^\"]*)\" requests a journal from the project \"([^\"]*)\"$")
+	@When("^the project leader \"([^\"]*)\" requests a report from the project \"([^\"]*)\"$")
 	public void theProjectLeaderRequestsAJournalFromTheProject(String id, String title) throws Exception {
 		try {
 			report = softwarehuset.requestReport(title, id);
@@ -193,7 +205,7 @@ public class Steps {
 		}
 	}
 
-	@Then("^the journal is returned$")
+	@Then("^the report is returned$")
 	public void theJournalIsReturned() throws Exception {
 		//TODO
 	}

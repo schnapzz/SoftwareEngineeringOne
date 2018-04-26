@@ -11,6 +11,8 @@ public class Project {
 	private String id = "";
 	private String title;
 	private String leaderId = "";
+	private int start = 0;
+	private int end = 0;
 	
 	
 	private List<Employee> employees;
@@ -36,8 +38,15 @@ public class Project {
 	
 	//Helena
 	public Project(int pId, String title) {
+		this.id = assignId(pId);
+		this.title = title;
+	}
+
+	public Project(int pId, String title, int start, int end) {
 		this.title = title;
 		this.id = assignId(pId);
+		this.start = start;
+		this.end = end;
 	}
 
 	// Mikkel
@@ -133,6 +142,14 @@ public class Project {
 
 	public void setProjectLeader(String id) {
 		leaderId = id;
+	}
+
+	public int getStart() {
+		return this.start;
+	}
+	
+	public int getEnd() {
+		return this.end;
 	}
 
 	
