@@ -114,6 +114,7 @@ public class SH {
 				}
 			}
 		}
+		throw new OperationNotAllowedException();
 	}
 	
 	//Helena
