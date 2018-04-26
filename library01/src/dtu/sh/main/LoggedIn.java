@@ -85,7 +85,7 @@ public class LoggedIn extends JFrame {
 		contentPane.add(txtIminutter, gbc_txtIminutter);
 		txtIminutter.setColumns(10);
 		
-		JButton btnNewButton = new JButton("TilfÃ¸j");
+		JButton btnNewButton = new JButton("Tilføj");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -98,7 +98,7 @@ public class LoggedIn extends JFrame {
 			}
 		});
 		
-		JLabel lblTilfjTimerTil = new JLabel("TilfÃ¸j timer til aktivitet");
+		JLabel lblTilfjTimerTil = new JLabel("Tilføj timer til aktivitet");
 		GridBagConstraints gbc_lblTilfjTimerTil = new GridBagConstraints();
 		gbc_lblTilfjTimerTil.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTilfjTimerTil.gridx = 4;

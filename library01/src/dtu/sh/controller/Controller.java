@@ -31,10 +31,11 @@ public class Controller {
 
 	public void login() {
 		// TODO Auto-generated method stub
+		//sh.logInEmployee(username);
 		frame.dispose();
 		LoggedIn log = new LoggedIn();
 		log.setVisible(true);
-		//sh.logInEmployee(username);
+		
 	}
 
 	

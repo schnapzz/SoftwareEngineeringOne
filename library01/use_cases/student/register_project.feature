@@ -5,7 +5,7 @@ Feature: Registering a project
 Scenario: Add a project successfully
  	Given that the employee "Mikk" is logged in
  	When the employee adds the project with title "New Project"
- 	Then the project with title "New Project" is added to the list of projects
+ 	Then the project with title "New Project" and id "180001" is added to the list of projects
 
 Scenario: Add existing project
 	Given that the employee "Mikk" is logged in

@@ -12,14 +12,18 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import dtu.sh.controller.Controller;
+import dtu.sh.model.SH;
 
 public class StartWindow {
 	protected JFrame frame;
 	private JTextField txtUsername;
 	private Controller controller;
+	private SH sh;
 
 	public StartWindow() {
+		sh = new SH();
 		this.controller = new Controller();
+		//this.controller = new Controller(sh);
 		
 	}
 

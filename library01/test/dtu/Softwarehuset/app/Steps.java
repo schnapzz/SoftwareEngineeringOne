@@ -111,6 +111,12 @@ public class Steps {
 	public void theProjectWithTitleIsAddedToTheListOfProjects(String title) throws Exception {
 	    assertTrue(softwarehuset.doesProjectWithTitleExist(title));
 	}
+	
+	@Then("^the project with title \"([^\"]*)\" and id \"([^\"]*)\" is added to the list of projects$")
+	public void theProjectWithTitleAndIdIsAddedToTheListOfProjects(String title, String id) throws Exception {
+		assertTrue(softwarehuset.doesProjectWithTitleExist(title));
+		assertTrue(softwarehuset.getProjectFromTitle(title).getId().equals(id));
+	}
 
 	@Given("^that the employee \"([^\"]*)\" is not logged in$")
 	public void thatTheEmployeeIsNotLogged(String username) throws Exception {

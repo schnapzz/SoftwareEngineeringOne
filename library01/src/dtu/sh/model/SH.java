@@ -3,9 +3,11 @@ package dtu.sh.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cucumber.api.java.ga.Nuairnach;
 import dtu.library.Exceptions.OperationNotAllowedException;
 
 public class SH {
+	private int numberOfProjects = 1;
 	
 	private Employee loggedInEmployee; 
 	private List<Employee> employees = new ArrayList<Employee>() {{
@@ -16,7 +18,7 @@ public class SH {
 	
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "Test", "Mikk", employees));
-		add(new Project("test2"));
+		add(new Project(numberOfProjects, "test2"));
 	}};	
 	
 	public SH() {
@@ -95,7 +97,8 @@ public class SH {
 	//Helena
 	public void createProject(String title) throws OperationNotAllowedException{
 		if (!doesProjectWithTitleExist(title)) {
-			projects.add(new Project(title));
+			projects.add(new Project(numberOfProjects, title));
+			numberOfProjects = numberOfProjects + 1;
 		} else {
 			throw new OperationNotAllowedException("A project with that name already exists");
 		}
@@ -182,11 +185,26 @@ public class SH {
 	//Sofie-Amalie
 	public boolean isLoggedIn(String username) {
 		// TODO Auto-generated method stub
-		if(username.equals(getLoggedInEmployee())) {
+		if(username.equals(getLoggedInEmployee().getID())) {
 			return true;
 		}else {
 			return false;
 		}
+	}
+	
+	public Project getProjectFromTitle(String title) {
+		Project pt = new Project(numberOfProjects, "placeholder");
+		for (Project p: projects) {
+			if (p.getTitle().equals(title)) {
+				pt = p;
+			}
+		}
+		return pt;
+		
+	}
+	
+	public int getNumberOfProjects() {
+		return numberOfProjects;
 	}
 
 }

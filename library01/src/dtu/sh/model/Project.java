@@ -12,7 +12,6 @@ public class Project {
 	private String title;
 	private String leaderId = "";
 	
-	private int projectNumber = 0;
 	
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
@@ -33,17 +32,21 @@ public class Project {
 	// Helena
 	public Project(String title) {
 		this.title = title;
-		this.id = assignId();
 	}
 	
+	//Helena
+	public Project(int pId, String title) {
+		this.title = title;
+		this.id = assignId(pId);
+	}
+
 	// Mikkel
 	public boolean activityExistsWithTitle(String title) {
 		System.out.println(unfinishedActivities + " " + finishedActivities);
 		if (containsActivityWithTitle(unfinishedActivities, title) ||
 			containsActivityWithTitle(finishedActivities, title)) {
 			return true;
-		}
-		
+		}		
 		return false;
 	}
 
@@ -90,11 +93,8 @@ public class Project {
 	}
 	
 	//Helena
-	public String assignId() {
-		String id = "";
-		Calendar cal = Calendar.getInstance();
-		String year = cal.get(Calendar.YEAR) + ""; 
-		year.replaceAll("20", "");
+	public String assignId(int projectNumber) {
+		String year = "18";
 		switch (Integer.toString(projectNumber).length()) {
 		case  1:
 			id = year + "000" + projectNumber;
@@ -108,8 +108,7 @@ public class Project {
 		case 4: 
 			id = year + projectNumber;
 			break;
-		}
-		projectNumber = projectNumber + 1;		
+		}	
 		return id;
 	}
 	
