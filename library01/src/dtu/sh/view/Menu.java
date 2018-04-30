@@ -1,4 +1,4 @@
-package dtu.sh.main;
+package dtu.sh.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
 
 public class Menu extends JFrame{
 	private JFrame frame;
-	private JPanel contentPane;
+	private JPanel contentPane; 
 	
 	public Menu(SH sh) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,8 +52,5 @@ public class Menu extends JFrame{
 		gbc_btnProjects.gridx = 3;
 		gbc_btnProjects.gridy = 3;
 		contentPane.add(btnProjects, gbc_btnProjects);
-		
-		
-		
 	}
 }
