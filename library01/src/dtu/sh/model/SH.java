@@ -33,6 +33,9 @@ public class SH {
 //		Project p1 = new Project("030901", "test2", "Mikk", emp); 
 //		projects = new ArrayList<Project>();
 //		projects.add(p1);
+		
+		loggedInEmployee = getEmployeeWithUsername("abcd");
+		
 	}
 
 	//Helena

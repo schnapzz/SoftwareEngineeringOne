@@ -388,7 +388,11 @@ public class Steps {
 	
 	
 	
-	
+	@Given("^the project leader is logged in \"([^\"]*)\"$")
+	public void the_project_leader_is_logged_in(String employeeId) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		assertTrue(softwarehuset.isLoggedIn(employeeId));
+	}
 	
 	
 	
