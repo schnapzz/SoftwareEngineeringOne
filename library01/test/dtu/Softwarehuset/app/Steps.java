@@ -326,7 +326,7 @@ public class Steps {
 		projectActivity = project.getProjectActivityWithTitle(activityTitle);
 		assertTrue(projectActivity.employeeWithIdExists(loggedInEmployeeId));
 	}
-
+	
 	@When("^the employee logs (.+) hours$")
 	public void theEmployeeWithIdLogsHours(double hours) throws Exception {
 
