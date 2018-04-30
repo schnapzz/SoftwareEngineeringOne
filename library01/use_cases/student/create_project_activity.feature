@@ -1,23 +1,26 @@
+# Mikkel
 Feature: Creating a project activity
     Description: An activity is created on a current project
 	Actors: Project leader
 	
-Scenario: Create a new activity succesfully
+# Mikkel
+Scenario Outline: Create a new project activity succesfully
     Given the project leader "Mikk" is logged in
     And there is a project with id "030901"
-    And an activity with title "Test" is not already registered as an activity in that project
-    Then I create an activity with description "Test" to the project
+    And an activity with title <title> is not already registered as an activity in that project
+    When the employee create a new activity with title <title> and description <desc> and priority <priority> to the project
+    Then there is a new unfinished activity with title <title> and description <desc> and priority <priority> in the project
     
-Scenario: Activity is not created
+    Examples:
+    | title		| desc				| priority	|
+    | "TestOne"	| "Hello World"		| 0			|
+    | "TestTwo"	| "hålløj æææhh?"	| 1			|
+    
+# Mikkel
+Scenario: Project activity is not created
     Given the project leader "Mikk" is logged in
     And there is a project with id "030901"
     And an activity with title "TestFinished" is already an activity in the project with id "030901"
-    Then the activity with title "TestFinished" is not created 
-    And the employee gets the error message "Project already has an activity with this name"
+    When the employee create a new activity with title "TestFinished" and description "This is bad" and priority 1 to the project
+    Then the employee gets the error message "Project already has an activity with this name"
     
-Scenario: Activity is not created
-    Given the employee "Hela" is logged in
-    And there is a project with id "030901"
-    And the logged in employee is not the project leader
-    Then the employee tries to create an activity for the project with id "030901" 
-    And the employee gets the error message "Only the project leader can create activities for a project"
