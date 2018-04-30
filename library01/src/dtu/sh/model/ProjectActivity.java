@@ -13,6 +13,7 @@ public class ProjectActivity extends Activity {
 	private List<Employee> employees = new ArrayList<Employee>() {{
 		add(new Employee("Mikk"));
 		add(new Employee("abcd"));
+		//add(new Employee("efgh"));
 	}};
 	private List<TimeRegistration> timeRegistrations;
 	

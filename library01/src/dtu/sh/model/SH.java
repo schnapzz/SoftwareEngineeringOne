@@ -199,7 +199,7 @@ public class SH {
 	}
 	
 	public Project getProjectFromTitle(String title) {
-		Project pt = new Project(numberOfProjects, "placeholder");
+		Project pt = null;//new Project(numberOfProjects, "placeholder");
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
 				pt = p;
