@@ -208,4 +208,8 @@ public class SH {
 		return pt;
 		
 	}
+
+	public List<Project> getProjects() {
+		return projects;
+	}
 }

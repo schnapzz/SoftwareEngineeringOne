@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 
 
 public class Menu extends JFrame{
+	private JFrame frame;
 	private JPanel contentPane;
 	
 	public Menu(SH sh) {
@@ -42,15 +43,17 @@ public class Menu extends JFrame{
 		JButton btnProjects = new JButton("Projects");
 		btnProjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Projects projects = new Projects(sh);
+				projects.setVisible(true);
 			}
 		});
-		
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
 		gbc_btnProjects.insets = new Insets(0, 0, 0, 5);
 		gbc_btnProjects.gridx = 3;
 		gbc_btnProjects.gridy = 3;
 		contentPane.add(btnProjects, gbc_btnProjects);
+		
+		
 		
 	}
 }

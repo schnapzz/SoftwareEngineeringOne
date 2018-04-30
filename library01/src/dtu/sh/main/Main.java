@@ -90,12 +90,10 @@ public class Main {
 					if (softwarehuset.isEmployed(username)) {
 						System.out.println(username);
 						softwarehuset.logInEmployee(username);
+						frame.dispose(); 
+						Menu menu = new Menu(softwarehuset);
+						menu.setVisible(true);
 					}
-					frame.dispose();
-//					LoggedIn log = new LoggedIn(softwarehuset);
-//					log.setVisible(true);
-					Menu menu = new Menu(softwarehuset);
-					menu.setVisible(true);
 				} catch (Exception e1) {
 					System.out.println("Fejl i login");
 				}

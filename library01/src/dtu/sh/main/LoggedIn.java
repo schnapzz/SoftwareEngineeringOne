@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 
 public class LoggedIn extends JFrame {
 
+	private JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtIminutter;
 
