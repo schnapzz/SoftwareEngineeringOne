@@ -227,7 +227,6 @@ public class Steps {
 
 	@Given("^the project leader \"([^\"]*)\" is logged in$")
 	public void theProjectLeaderIsLoggedIn(String leaderId) throws Exception {
-		System.out.println(leaderId);
 		softwarehuset.logInEmployee(leaderId);
 	}	
 	

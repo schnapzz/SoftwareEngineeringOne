@@ -58,7 +58,6 @@ public class Main {
 		JButton btnNewButton = new JButton("Log in ");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				frame.dispose();
 				LoggedIn log = new LoggedIn();
 				log.setVisible(true);
