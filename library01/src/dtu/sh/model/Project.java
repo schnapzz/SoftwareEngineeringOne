@@ -99,7 +99,7 @@ public class Project {
 	
 	//Helena
 	public Report createReport() {
-		Report report = new Report(unfinishedActivities, finishedActivities);
+		Report report = new Report(finishedActivities, unfinishedActivities);
 		return report;
 	}
 	
@@ -182,6 +182,14 @@ public class Project {
 		// A copy of the objects is returned to avoid manipulation of the array outside the project class.
 		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
 		return pActivities;
+	}
+
+	public List<ProjectActivity> getFinishedActivities() {
+		return finishedActivities;
+	}
+	
+	public List<ProjectActivity> getUnFinishedActivities() {
+		return unfinishedActivities;
 	}
 	
 }

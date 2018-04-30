@@ -168,6 +168,7 @@ public class Steps {
 	@Then("^the project \"([^\"]*)\" is assigned the leader \"([^\"]*)\"$")
 	public void theProjectIsAssignedTheLeader(String title, String id) throws Exception {
 	    assertTrue(softwarehuset.getProjectLeader(title).equals(id));
+
 	}
 
 	@Given("^the project \"([^\"]*)\" has a leader$")
@@ -192,20 +193,18 @@ public class Steps {
 	    assertThat(id,is(equalTo(softwarehuset.getLoggedInEmployee().getID())));
 	    assertThat(id,is(equalTo(softwarehuset.getProjectLeader(title))));
 	    username = id;
+	    project = softwarehuset.getProjectFromTitle(title);
 	}
 
 	@When("^the project leader \"([^\"]*)\" requests a report from the project \"([^\"]*)\"$")
 	public void theProjectLeaderRequestsAJournalFromTheProject(String id, String title) throws Exception {
-		try {
-			report = softwarehuset.requestReport(title, id);
-		} catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
+		report = softwarehuset.requestReport(project, id);
 	}
 
 	@Then("^the report is returned$")
-	public void theJournalIsReturned() throws Exception {
-		//TODO
+	public void theJournalIsReturned() throws Exception {	
+		assertTrue(report.getFinishedActivities().equals(project.getFinishedActivities()));
+		assertTrue(report.getUnFinishedActivities().equals(project.getUnfinishedActivities()));
 	}
 	
 	
@@ -282,30 +281,22 @@ public class Steps {
 	
 	
 	/*
-	 * Sofie-Amalie
+	 * Creating a general activity
+	 * 
+	 * Done by: Sofie-Amalie
 	 */
 	
-
 	@When("^they create a general activity with the name \"([^\"]*)\"$")
 	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
-		  try {
-	    		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
-	    } catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
+		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
 		this.titleActivity = titleGeneralActivity;
 	}
 
 	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
 	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
 	    softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
-	    
 	}
 
-	@Then("^the general activity is created$")
-	public void theGeneralActivityIsCreated() throws Exception {
-		//assertTrue
-	}
 
 
 	/*
