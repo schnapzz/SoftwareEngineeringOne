@@ -188,8 +188,4 @@ public class Project {
 		return finishedActivities;
 	}
 	
-	public List<ProjectActivity> getUnFinishedActivities() {
-		return unfinishedActivities;
-	}
-	
 }
