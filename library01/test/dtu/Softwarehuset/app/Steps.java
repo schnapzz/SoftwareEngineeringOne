@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,6 +23,7 @@ import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
 import dtu.sh.model.Report;
 import dtu.sh.model.SH;
+import dtu.sh.model.TimeRegistration;
 import cucumber.api.java.en.And;
 
 
@@ -27,6 +32,7 @@ public class Steps {
 	private String username;
 	private SH softwarehuset;
 	private Project project;
+	private ProjectActivity projectActivity;
 //	private Employee loggedInEmployee;
 	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
@@ -313,40 +319,72 @@ public class Steps {
 //	}
 
 	/*
-	 * Steps for registering a project activity
+	 * Steps for employee log hours
 	 * 
 	 * done by: Mikkel
 	 * 
 	 */
 	
-	@Given("^the employee is part of activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
-	public void theEmployeeIsPartOfActivityWithTitleForProjectWithTitle(String activityTitle, String projectTitle) throws Exception {
+	@Given("^the employee is part of activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
+	public void theEmployeeIsPartOfActivityWithTitleForProjectWithTitle(String activityTitle, String projectId) throws Exception {
 	 
+		project = softwarehuset.getProjectWithId(projectId);
+		String loggedInEmployeeId = softwarehuset.getLoggedInEmployee().getID();  
+		assertTrue(project.employeeWithIdExists(loggedInEmployeeId));
+		assertTrue(project.activityExistsWithTitle(activityTitle));
 		
+		projectActivity = project.getProjectActivityWithTitle(activityTitle);
+		assertTrue(projectActivity.employeeWithIdExists(loggedInEmployeeId));
 	}
 
-	@Given("^the employee chooses activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
-	public void theEmployeeChoosesActivityWithTitleForProjectWithTitle(String activityTitle, String projectTitle) throws Exception {
+	@Given("^the employee chooses activity with title \"([^\"]*)\"$")
+	public void theEmployeeChoosesActivityWithTitleForProjectWithTitle(String activityTitle) throws Exception {
 		
+		project.setActiveProjectActivity(activityTitle);
+		assertTrue(project.getActiveProjectActivity() != null);
 	}
 	
-	@When("^the employee with id \"([^\"]*)\" logs (.+) hours$")
-	public void theEmployeeWithIdLogsHours(String arg1, double arg2) throws Exception {
+	@When("^the employee logs (.+) hours$")
+	public void theEmployeeWithIdLogsHours(double hours) throws Exception {
 
+		try {
+			project.registerHours(hours);
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
 	}
 
-	@Then("^(.+) hours are logged for employee \"([^\"]*)\" for activity \"([^\"]*)\" for project with title \"([^\"]*)\"$")
-	public void hoursAreLoggedForForActivityForProjectWithTitle(double hours, String employeeId, String activityTitle, String projectTitle) throws Exception {
-
+	@Then("^(.+) hours are logged for employee \"([^\"]*)\" for activity \"([^\"]*)\" for project with id \"([^\"]*)\"$")
+	public void hoursAreLoggedForEmployeeForActivityForProjectWithTitle(double hours, String employeeId, String activityTitle, String projectId) throws Exception {
+		
+		// Get the objects from softwarehuset to check if they've been properly updated
+//		Project p = softwarehuset.getProjectWithId(projectId);
+//		projectActivity = p.getProjectActivityWithTitle(activityTitle);
+		List<TimeRegistration> timeRegistrations = projectActivity.getTimeRegistrations();
+		
+		// Extract registrations for the employee 
+		List<TimeRegistration> employeeWithIdRegistrations = new ArrayList<TimeRegistration>();
+		for (TimeRegistration tr : timeRegistrations) {
+			if (tr.getEmployeeId() == employeeId) {
+				employeeWithIdRegistrations.add(tr);
+			}
+		}
+		
+		// See it there is any registrations
+		assertTrue(employeeWithIdRegistrations.size() > 0);
+		
+		// Check if the sum of registrations adds up to hours
+		double sum = 0.0;
+		for (TimeRegistration tr : employeeWithIdRegistrations) {
+			sum += tr.getHours();
+		}
+		assertTrue(sum == hours);
 	}
 
-	@Then("^the activity with title \"([^\"]*)\" have (.+) time registrations$")
-	public void theActivityWithTitleHaveTimeRegistrations(String activityTitle, double hours) throws Exception {
-	    
+	@Then("^the activity have (\\d+) time registrations$")
+	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {
+		assertTrue(projectActivity.numberOfTimeRegistrations() == numOfRegistrations);
 	}
-	
-	
-	
 	
 	
 	

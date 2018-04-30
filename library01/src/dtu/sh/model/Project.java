@@ -14,6 +14,7 @@ public class Project {
 	
 	private int projectNumber = 0;
 	
+	private ProjectActivity activeProjectActivity;
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestUnfinished", "test description", 1));
@@ -119,7 +120,30 @@ public class Project {
 		return report;
 	}
 	
+	// Mikkel
+	public boolean employeeWithIdExists(String loggedInEmployeeId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	// Mikkel
+	public ProjectActivity getProjectActivityWithTitle(String activityTitle) {
+		
+		assert containsActivityWithTitle(unfinishedActivities, activityTitle) ||
+			   containsActivityWithTitle(finishedActivities, activityTitle);
+		
+		// remember to copy.
+		return null;
+	}
+	
+	// Mikkel
+	public void registerHours(double hours) throws OperationNotAllowedException {
+		
+	}
+
+	
 	// ===== GETTERS AND SETTERS =====
+	
 	public String getId() {
 		return id;
 	}
@@ -135,8 +159,16 @@ public class Project {
 	public void setProjectLeader(String id) {
 		leaderId = id;
 	}
-
 	
+	public ProjectActivity getActiveProjectActivity() {
+		
+		// copy
+		return null;
+	}
 
+	public void setActiveProjectActivity(String activityTitle) {
+		
+		activeProjectActivity = getProjectActivityWithTitle(activityTitle);
+	}	
 	
 }

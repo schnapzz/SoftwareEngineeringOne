@@ -11,13 +11,9 @@ public abstract class Activity {
 	private int startDate;
 	private int endDate;
 	
-	public List<TimeRegistration> timeRegistrations;
-	
 	public Activity(String title, String description) {
 		this.title = title;
 		this.description = description;
-		
-		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 	
 	public Activity(String title, String description, int start, int end) {
@@ -25,8 +21,6 @@ public abstract class Activity {
 		this.description = description;
 		this.startDate = start;
 		this.endDate = end;
-		
-		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	public Activity(String title) {
