@@ -85,19 +85,20 @@ public class Main {
 		JButton btnNewButton = new JButton("Log in ");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				
-//				try {
-//				
-//					softwarehuset.logInEmployee(txtUsername.getText());
-//					
-//					frame.dispose();
-//					LoggedIn log = new LoggedIn();
+				try {
+					String username = txtUsername.getText();
+					if (softwarehuset.isEmployed(username)) {
+						System.out.println(username);
+						softwarehuset.logInEmployee(username);
+					}
+					frame.dispose();
+//					LoggedIn log = new LoggedIn(softwarehuset);
 //					log.setVisible(true);
-//					
-//				} catch (Exception e1) {
-//					
-//					
-//				}
+					Menu menu = new Menu(softwarehuset);
+					menu.setVisible(true);
+				} catch (Exception e1) {
+					System.out.println("Fejl i login");
+				}
 			}
 		});
 		
@@ -108,6 +109,7 @@ public class Main {
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 4;
 		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 1;

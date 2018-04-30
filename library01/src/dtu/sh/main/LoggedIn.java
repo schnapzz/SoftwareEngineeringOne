@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dtu.sh.model.SH;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -24,15 +27,15 @@ public class LoggedIn extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtIminutter;
 
-	public LoggedIn() {
+	public LoggedIn(SH sh) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] {68, 77, 23, 191, 154, 3};
-		gbl_contentPane.rowHeights = new int[] {46, 41, 39, 59, 0, 160, 5};
+		gbl_contentPane.columnWidths = new int[]{68, 77, 23, 191, 154, 3};
+		gbl_contentPane.rowHeights = new int[]{46, 41, 39, 59, 0, 160, 5};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -88,6 +91,8 @@ public class LoggedIn extends JFrame {
 		JButton btnNewButton = new JButton("Tilføj");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Menu menu = new Menu(sh);
+				menu.setVisible(true);
 			}
 		});
 		
