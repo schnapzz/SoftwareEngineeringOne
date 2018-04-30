@@ -11,7 +11,7 @@ Scenario Outline: Employee logs hours succesfully
     And the activity have 1 time registrations
 	
 	Examples:
-	| employee	| hourlog 	| totalhours 	|
+	| employee		| hourlog 	| totalhours 	|
 	| "abcd"		| 6.0	  	| 6.0			|
 	| "abcd"		| 0.5		| 0.5			|
 	| "Mikk"		| 6.0	  	| 6.0			|
@@ -41,7 +41,7 @@ Scenario Outline: Employee logs negative hours
 	And the employee gets the error message "Negative hours not allowed"
 	
 	Examples:
-	| employee 	|
+	| employee 		|
 	| "abcd"		|
 	| "Mikk"		|
 

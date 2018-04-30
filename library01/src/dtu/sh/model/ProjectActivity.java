@@ -27,7 +27,6 @@ public class ProjectActivity extends Activity {
 	
 	// Mikkel
 	public ProjectActivity(String title, String description, int priority, List<Employee> employees) {
-		
 		super(title, description);
 		
 		this.priority = priority;

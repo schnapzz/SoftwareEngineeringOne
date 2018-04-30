@@ -134,14 +134,14 @@ public class SH {
 	}
 	
 	//Helena
-	public Report requestReport(String title, String id) throws OperationNotAllowedException {
+	public Report requestReport(Project project, String id) {
 		for (Project p: projects) {
-			if (p.getTitle().equals(title) && p.getProjectLeader().equals(id)) {
+			if (p.getTitle().equals(project.getTitle()) && p.getProjectLeader().equals(id)) {
 				Report report = p.createReport();
 				return report;
 			}
 		}
-		throw new OperationNotAllowedException("You are not the leader of that project");
+		return null;
 	}
 	
 	//Helena
