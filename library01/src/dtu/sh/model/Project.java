@@ -11,10 +11,11 @@ public class Project {
 	private String id = "";
 	private String title;
 	private String leaderId = "";
-	
-	private int projectNumber = 0;
+	private int start = 0;
+	private int end = 0;
 	
 	private ProjectActivity activeProjectActivity;
+	
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestUnfinished", "test description", 1));
@@ -34,24 +35,37 @@ public class Project {
 	// Helena
 	public Project(String title) {
 		this.title = title;
-		this.id = assignId();
 	}
 	
+	//Helena
+	public Project(int pId, String title) {
+		this.id = assignId(pId);
+		this.title = title;
+	}
+
+	public Project(int pId, String title, int start, int end) {
+		this.title = title;
+		this.id = assignId(pId);
+		this.start = start;
+		this.end = end;
+	}
+
 	// Mikkel
 	public boolean activityExistsWithTitle(String title) {
-		System.out.println(unfinishedActivities + " " + finishedActivities);
+		
+		assert title.toCharArray().length > 0;
+		
 		if (containsActivityWithTitle(unfinishedActivities, title) ||
 			containsActivityWithTitle(finishedActivities, title)) {
 			return true;
-		}
-		
+		}		
 		return false;
 	}
 
 	// Mikkel
 	private boolean containsActivityWithTitle(List<ProjectActivity> activities, String title) {
 		
-		if (activities.size() == 0) { return false; }
+		assert activities.size() > 0;
 		
 		for (Activity a : activities) {
 			if (a.getTitle().equalsIgnoreCase(title)) {
@@ -74,13 +88,6 @@ public class Project {
 		return employee.getID().equalsIgnoreCase(getProjectLeader());
 	}
 	
-	// Mikkel
-	public List<ProjectActivity> getUnfinishedActivities() {
-		// A copy of the objects is returned to avoid manipulation of the array outside the project class.
-		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
-		return pActivities;
-	}
-	
 	//Helena
 	public boolean hasProjectLeader() {
 		if (this.leaderId.equals("")) {
@@ -91,11 +98,8 @@ public class Project {
 	}
 	
 	//Helena
-	public String assignId() {
-		String id = "";
-		Calendar cal = Calendar.getInstance();
-		String year = cal.get(Calendar.YEAR) + ""; 
-		year.replaceAll("20", "");
+	public String assignId(int projectNumber) {
+		String year = "18";
 		switch (Integer.toString(projectNumber).length()) {
 		case  1:
 			id = year + "000" + projectNumber;
@@ -109,8 +113,7 @@ public class Project {
 		case 4: 
 			id = year + projectNumber;
 			break;
-		}
-		projectNumber = projectNumber + 1;		
+		}	
 		return id;
 	}
 	
@@ -122,26 +125,63 @@ public class Project {
 	
 	// Mikkel
 	public boolean employeeWithIdExists(String loggedInEmployeeId) {
-		// TODO Auto-generated method stub
+		for (Employee employee : employees) {
+			if (loggedInEmployeeId.equals(employee.getID())) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	// Mikkel
 	public ProjectActivity getProjectActivityWithTitle(String activityTitle) {
 		
-		assert containsActivityWithTitle(unfinishedActivities, activityTitle) ||
-			   containsActivityWithTitle(finishedActivities, activityTitle);
+		assert activityTitle.toCharArray().length > 0;
+		
+		ProjectActivity projectActivity = searchForProjectActivity(activityTitle, unfinishedActivities);
+		if (projectActivity == null) {
+			projectActivity = searchForProjectActivity(activityTitle, finishedActivities);
+		}
+		
+		assert projectActivity != null;
 		
 		// remember to copy.
-		return null;
+		// Talk to members about when to copy an object
+		
+		return projectActivity;
 	}
 	
-	// Mikkel
-	public void registerHours(double hours) throws OperationNotAllowedException {
+	private ProjectActivity searchForProjectActivity(String activityTitle, List<ProjectActivity> projectActivities) {
 		
+		assert projectActivities != null;
+		
+		for (ProjectActivity pa : projectActivities) {
+			if (pa.getTitle().equals(activityTitle)) {
+				return pa;
+			}
+		}
+		return null;
+	}
+
+	// Mikkel
+	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
+		
+		assert employeeId != null;
+		
+		if (isHoursImproperlyFormatted(hours)) { throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
+		
+		activeProjectActivity.registerHours(employeeId, hours);
 	}
 
 	
+	private boolean isHoursImproperlyFormatted(double hours) {
+		
+		if (hours < 0 || hours % 0.5 == 0) {
+			return true;
+		}
+		return false;
+	}
+
 	// ===== GETTERS AND SETTERS =====
 	
 	public String getId() {
@@ -159,14 +199,32 @@ public class Project {
 	public void setProjectLeader(String id) {
 		leaderId = id;
 	}
+
+	public int getStart() {
+		return this.start;
+	}
 	
+	public int getEnd() {
+		return this.end;
+	}
+	
+	// Mikkel
+	public List<ProjectActivity> getUnfinishedActivities() {
+		// A copy of the objects is returned to avoid manipulation of the array outside the project class.
+		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
+		return pActivities;
+	}
+	
+	// Mikkel
 	public ProjectActivity getActiveProjectActivity() {
-		
 		// copy
-		return null;
+		return activeProjectActivity;
 	}
 
+	// Mikkel
 	public void setActiveProjectActivity(String activityTitle) {
+		
+		assert 	activityTitle.toCharArray().length > 0;
 		
 		activeProjectActivity = getProjectActivityWithTitle(activityTitle);
 	}	

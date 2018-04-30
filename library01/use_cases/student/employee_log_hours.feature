@@ -4,8 +4,8 @@ Feature: Logging working hours on an activity
 # Mikkel    
 Scenario Outline: Employee logs hours succesfully
     Given that the employee <employee> is logged in
-    And the employee is part of activity with title "First" for project with id "030901"
-    And the employee chooses activity with title "First"
+    And the employee is part of activity with title "TestUnfinished" for project with id "030901"
+    And the employee chooses activity with title "TestUnfinished"
     And the activity have 0 time registrations
     When the employee logs <hourlog> hours
     Then <totalhours> hours are logged for employee "abcd" for activity "First" for project with id "030901"
@@ -20,8 +20,8 @@ Scenario Outline: Employee logs hours succesfully
     
 Scenario Outline: Employee logs makes multiple registrations succesfully
 	Given that the employee <employee> is logged in
-    And the employee is part of activity with title "First" for project with id "030901"
-    And the employee chooses activity with title "First"
+    And the employee is part of activity with title "TestUnfinished" for project with id "030901"
+    And the employee chooses activity with title "TestUnfinished"
     And the activity have 0 time registrations
     When the employee logs <firstRegi> hours
     And the employee logs <secondRegi> hours
@@ -36,8 +36,8 @@ Scenario Outline: Employee logs makes multiple registrations succesfully
 # Mikkel
 Scenario Outline: Employee logs negative hours
 	Given that the employee <employee> is logged in
-	And the employee is part of activity with title "First" for project with id "030901"
-    And the employee chooses activity with title "First"
+	And the employee is part of activity with title "TestUnfinished" for project with id "030901"
+    And the employee chooses activity with title "TestUnfinished"
     And the activity have 0 time registrations
 	When the employee logs -1.0 hours
 	Then the activity have 0 time registrations
@@ -51,8 +51,8 @@ Scenario Outline: Employee logs negative hours
 # Mikkel
 Scenario Outline: Employee logs hours without half hour accuracy
 	Given that the employee <employee> is logged in
-	And the employee is part of activity with title "First" for project with id "030901"
-    And the employee chooses activity with title "First"
+	And the employee is part of activity with title "TestUnfinished" for project with id "030901"
+    And the employee chooses activity with title "TestUnfinished"
 	And the activity have 0 time registrations
 	When the employee logs <hourslogged> hours
 	Then the activity have 0 time registrations

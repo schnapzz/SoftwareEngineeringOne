@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Report {
+	
 	private List<ProjectActivity> finishedActivities;
 	private List<ProjectActivity> unfinishedActivities;
 	
@@ -16,7 +17,9 @@ public class Report {
 		
 	}
 
+	
 	// ===== GETTERS AND SETTERS =====
+	
 	public List<ProjectActivity> getFinishedActivities() {
 		return finishedActivities;
 	}
