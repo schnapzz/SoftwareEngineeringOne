@@ -81,10 +81,6 @@ public class Steps {
 	    assertFalse(softwarehuset.isEmployed(username));
 	}
 
-	@Then("^the employee can not log in$")
-	public void theEmployeeCanNotLogIn() throws Exception {
-	    assertFalse(username.equals(""));
-	}
 	
 	@Then("^the employee gets the error message \"([^\"]*)\"$")
 	public void theEmployeeGetsTheErrorMessage(String errorMessage) throws OperationNotAllowedException {
@@ -138,11 +134,7 @@ public class Steps {
 		assertTrue(softwarehuset.getProjectFromTitle(title).getEnd() == end);
 	}
 
-	@Given("^that the employee \"([^\"]*)\" is not logged in$")
-	public void thatTheEmployeeIsNotLogged(String username) throws Exception {
-	    assertTrue(softwarehuset.getLoggedInEmployee().getID().equals(""));
-	    this.username = username;
-	}	
+
 
 	@When("^the project with title \"([^\"]*)\" exists$")
 	public void theProjectWithTitleExists(String title) throws Exception {
@@ -317,12 +309,8 @@ public class Steps {
 
 	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
 	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-		  try {
-			  softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
-	    } catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
+	    softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
+	    
 	}
 
 	@Then("^the general activity is created$")
@@ -395,22 +383,4 @@ public class Steps {
 	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {
 		assertTrue(projectActivity.numberOfTimeRegistrations() == numOfRegistrations);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

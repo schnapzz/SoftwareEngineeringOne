@@ -12,10 +12,6 @@ public class Report {
 		this.unfinishedActivities = unfinishedActivities;
 		this.finishedActivities = finishedActivities;
 	}
-	
-	public Report() {
-		
-	}
 
 	
 	// ===== GETTERS AND SETTERS =====

@@ -87,5 +87,4 @@ public class Main {
 		gbc_btnNewButton.gridy = 4;
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
 	}
-
 }
