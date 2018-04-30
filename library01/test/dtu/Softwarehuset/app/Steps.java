@@ -354,18 +354,11 @@ public class Steps {
 		assertTrue(projectActivity.employeeWithIdExists(loggedInEmployeeId));
 	}
 
-	@Given("^the employee chooses activity with title \"([^\"]*)\"$")
-	public void theEmployeeChoosesActivityWithTitleForProjectWithTitle(String activityTitle) throws Exception {
-		
-		project.setActiveProjectActivity(activityTitle);
-		assertTrue(project.getActiveProjectActivity() != null);
-	}
-	
 	@When("^the employee logs (.+) hours$")
 	public void theEmployeeWithIdLogsHours(double hours) throws Exception {
 
 		try {
-			project.registerHours(softwarehuset.getLoggedInEmployee().getID(), hours);
+			projectActivity.registerHours(softwarehuset.getLoggedInEmployee().getID(), hours);
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
@@ -377,12 +370,16 @@ public class Steps {
 		// Get the objects from softwarehuset to check if they've been properly updated
 //		Project p = softwarehuset.getProjectWithId(projectId);
 //		projectActivity = p.getProjectActivityWithTitle(activityTitle);
+		
 		List<TimeRegistration> timeRegistrations = projectActivity.getTimeRegistrations();
+		
+		// Check that there's any Time Registrations at all
+		assertTrue(projectActivity.getTimeRegistrations().size() > 0);
 		
 		// Extract registrations for the employee 
 		List<TimeRegistration> employeeWithIdRegistrations = new ArrayList<TimeRegistration>();
 		for (TimeRegistration tr : timeRegistrations) {
-			if (tr.getEmployeeId() == employeeId) {
+			if (tr.getEmployeeId().equals(employeeId)) {
 				employeeWithIdRegistrations.add(tr);
 			}
 		}

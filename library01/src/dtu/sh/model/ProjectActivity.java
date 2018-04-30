@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dtu.library.Exceptions.OperationNotAllowedException;
+
 public class ProjectActivity extends Activity {
 
 	private int priority;
@@ -62,11 +64,36 @@ public class ProjectActivity extends Activity {
 	}
 	
 	// Mikkel
-	public void registerHours(String employeeId, double hours) {
+	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
 		
-		TimeRegistration timeRegistration = new TimeRegistration(employeeId, hours);
-		timeRegistrations.add(timeRegistration);
-		System.out.println("Registration Created");
+		assert employeeId.toCharArray().length == 4;
+		
+		if (isHoursProperlyFormatted(hours)) { 
+			
+			TimeRegistration timeRegistration = new TimeRegistration(employeeId, hours);
+			timeRegistrations.add(timeRegistration);
+		}
+	}
+	
+	// Mikkel
+	private boolean isHoursProperlyFormatted(double hours) throws OperationNotAllowedException {
+		
+		if (isHoursPositive(hours) && isHoursWithoutHalfHourAccuracy(hours)) {
+			return true;
+		}
+		return false;
+	}
+	
+	// Mikkel
+	private boolean isHoursPositive(double hours) throws OperationNotAllowedException {
+		if (hours < 0) { throw new OperationNotAllowedException("Negative hours not allowed"); }
+		return true;
+	}
+	
+	// Mikkel
+	private boolean isHoursWithoutHalfHourAccuracy(double hours) throws OperationNotAllowedException {
+		if (hours % 0.5 != 0) {	throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
+		return true;
 	}
 
 	// Mikkel

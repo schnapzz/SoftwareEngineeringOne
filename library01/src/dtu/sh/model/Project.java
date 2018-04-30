@@ -14,8 +14,6 @@ public class Project {
 	private int start = 0;
 	private int end = 0;
 	
-	private ProjectActivity activeProjectActivity;
-	
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestUnfinished", "test description", 1));
@@ -163,24 +161,15 @@ public class Project {
 		return null;
 	}
 
-	// Mikkel
-	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
-		
-		assert employeeId != null;
-		
-		if (isHoursImproperlyFormatted(hours)) { throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
-		
-		activeProjectActivity.registerHours(employeeId, hours);
-	}
-
-	
-	private boolean isHoursImproperlyFormatted(double hours) {
-		
-		if (hours < 0 || hours % 0.5 == 0) {
-			return true;
-		}
-		return false;
-	}
+//	// Mikkel
+//	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
+//		
+//		assert employeeId != null;
+//		
+//		if (isHoursImproperlyFormatted(hours)) { throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
+//		
+//		activeProjectActivity.registerHours(employeeId, hours);
+//	}
 
 	// ===== GETTERS AND SETTERS =====
 	
@@ -214,19 +203,5 @@ public class Project {
 		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
 		return pActivities;
 	}
-	
-	// Mikkel
-	public ProjectActivity getActiveProjectActivity() {
-		// copy
-		return activeProjectActivity;
-	}
-
-	// Mikkel
-	public void setActiveProjectActivity(String activityTitle) {
-		
-		assert 	activityTitle.toCharArray().length > 0;
-		
-		activeProjectActivity = getProjectActivityWithTitle(activityTitle);
-	}	
 	
 }
