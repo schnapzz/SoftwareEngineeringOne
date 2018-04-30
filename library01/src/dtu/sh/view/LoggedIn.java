@@ -130,7 +130,6 @@ public class LoggedIn extends JFrame {
 		btnCreateProjectActivity = new JButton("Create Project Activity");
 		btnCreateProjectActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(softwarehuset);
 				createProjectActivity.setVisible(true);
 			}

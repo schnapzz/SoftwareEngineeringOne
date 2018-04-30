@@ -126,8 +126,9 @@ public class Projects extends JFrame{
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Projects projects = new Projects(sh);
-				projects.setVisible(true);
+				if (txtProjectLeaderID.getText() != null && txtProjectLeaderID.getText().length() == 4) {
+					sh.getProjectFromTitle(comboBox_Projects.getItemAt(0) + "").setProjectLeader(txtProjectLeaderID.getText());
+				}			
 			}
 		});
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
