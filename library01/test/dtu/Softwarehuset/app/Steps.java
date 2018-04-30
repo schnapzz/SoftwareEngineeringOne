@@ -388,12 +388,16 @@ public class Steps {
 	
 	
 	
-	@Given("^the project leader is logged in \"([^\"]*)\"$")
-	public void the_project_leader_is_logged_in(String employeeId) throws Exception {
+	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
+	public void the_employee_with_id_is_not_part_of_the_activity_with_title_for_project_with_title(String employeeId, String activityTitle, String projectId) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
-		assertTrue(softwarehuset.isLoggedIn(employeeId));
+		
+		Project currentProject = softwarehuset.getProjectWithId(projectId);
+		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
+		assertFalse(currentActivity.employeeWithIdExists(employeeId));
+//		
+//	    throw new PendingException();
 	}
-	
 	
 	
 	

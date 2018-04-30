@@ -4,7 +4,7 @@ Feature: Assign employee to a project-activity
 
 Scenario: Employee is not assigned activity 
     Given the project leader "Mikk" is logged in
-#    Given the employee with id "efgh" is not part of the activity with title "Test" for project with title "030901"
+    Given the employee with id "efgh" is not part of the activity with title "test" for project with id "030901"
 #    Then the employee is assgined to the activity with the title "Test" for project with title "030901"
 #
 #Scenario: Employee is assign to activity
