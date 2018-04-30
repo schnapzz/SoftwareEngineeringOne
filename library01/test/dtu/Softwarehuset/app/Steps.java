@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.IsEqual;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -242,6 +244,16 @@ public class Steps {
 		assertFalse(project.activityExistsWithTitle(activityTitle));
 	}
 	
+	@When("^the employee create a new activity with title \"([^\"]*)\" and description \"([^\"]*)\" and priority (\\d+) to the project$")
+	public void theEmployeeCreateANewActivityWithTitleAndDescriptionAndPriorityToTheProject(String activityTitle, String desc, int priority) throws Exception {
+		projectActivity = new ProjectActivity(activityTitle, desc, priority);
+		try {			
+			project.addActivity(projectActivity, softwarehuset.getLoggedInEmployee());
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+	
 	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
 	public void iCreateAnActivityWithDescriptionToTheProject(String activityTitle) throws Exception {
 		int testLength = project.getUnfinishedActivities().size();
@@ -256,16 +268,6 @@ public class Steps {
 		assertTrue(project.activityExistsWithTitle(activityTitle));
 	}
 
-	@Then("^the activity with title \"([^\"]*)\" is not created$")
-	public void theActivityWithTitleIsNotCreated(String activityTitle) throws Exception {
-		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
-		try {			
-			project.addActivity(activity, softwarehuset.getLoggedInEmployee());
-		} catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-	}
-	
 	@Given("^the employee \"([^\"]*)\" is logged in$")
 	public void theEmployeeIsLoggedIn(String employeeId) throws Exception {
 	    softwarehuset.logInEmployee(employeeId);
@@ -287,7 +289,16 @@ public class Steps {
 		}
 	    assertEquals(numberOfActivities, project.getUnfinishedActivities().size());   
 	}
-	
+
+	@Then("^there is a new unfinished activity with title \"([^\"]*)\" and description \"([^\"]*)\" and priority (\\d+) in the project$")
+	public void thereIsANewUnfinishedActivityWithTitleAndDescriptionAndPriorityInTheProject(String aTitle, String aDesc, int aPriority) throws Exception {
+	    
+		ProjectActivity pa = project.getProjectActivityWithTitle(aTitle);
+		
+		assertTrue(pa.getTitle().equals(aTitle));
+		assertTrue(pa.getDescription().equals(aDesc));
+		assertTrue(pa.getPriority() == aPriority);
+	}
 	
 	/*
 	 * Sofie-Amalie
