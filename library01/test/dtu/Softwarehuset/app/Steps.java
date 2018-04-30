@@ -362,25 +362,6 @@ public class Steps {
 	public void theActivityWithTitleHaveTimeRegistrations(String activityTitle, double hours) throws Exception {
 	    
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
