@@ -233,20 +233,17 @@ public class Steps {
 	// The wording was changed from the orginial to be more meaningfull and generic
 	@And("^there is a project with id \"([^\"]*)\"$")
 	public void thereIsAProjectWithId(String projectId) throws Exception {
-		
 		assertTrue(softwarehuset.doesProjectWithIdExist(projectId));
 		project = softwarehuset.getProjectWithId(projectId);
 	}
 	
 	@And("^an activity with title \"([^\"]*)\" is not already registered as an activity in that project$")
 	public void anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String activityTitle) throws Exception {
-	    
 		assertFalse(project.activityExistsWithTitle(activityTitle));
 	}
 	
 	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
 	public void iCreateAnActivityWithDescriptionToTheProject(String activityTitle) throws Exception {
-	    
 		int testLength = project.getUnfinishedActivities().size();
 		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
 		project.addActivity(activity, softwarehuset.getLoggedInEmployee());
@@ -255,7 +252,6 @@ public class Steps {
 
 	@Given("^an activity with title \"([^\"]*)\" is already an activity in the project with id \"([^\"]*)\"$")
 	public void anActivityWithTitleIsAlreadyAnActivityInTheProjectWithId(String activityTitle, String projectId) throws Exception {
-		
 		assertTrue(softwarehuset.doesProjectWithIdExist(projectId));
 		assertTrue(project.activityExistsWithTitle(activityTitle));
 	}
@@ -322,18 +318,7 @@ public class Steps {
 	public void theGeneralActivityIsCreated() throws Exception {
 		//assertTrue
 	}
-//
-//	@Given("^that the employee is not logged in$")
-//	public void thatTheEmployeeIsNotLoggedIn() throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
-//
-//	@Then("^they get the error message \"([^\"]*)\"$")
-//	public void theyGetTheErrorMessage(String arg1) throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//	    throw new PendingException();
-//	}
+
 
 	/*
 	 * Steps for employee log hours
