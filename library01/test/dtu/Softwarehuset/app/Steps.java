@@ -374,4 +374,29 @@ public class Steps {
 	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {
 		assertTrue(projectActivity.numberOfTimeRegistrations() == numOfRegistrations);
 	}
+
+	
+	
+	//Óli
+	
+	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
+	public void the_employee_with_id_is_not_part_of_the_activity_with_title_for_project_with_title(String employeeId, String activityTitle, String projectId) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		
+		Project currentProject = softwarehuset.getProjectWithId(projectId);
+		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
+		assertFalse(currentActivity.employeeWithIdExists(employeeId));
+//		
+//	    throw new PendingException();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

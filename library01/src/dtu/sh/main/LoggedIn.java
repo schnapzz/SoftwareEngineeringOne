@@ -19,6 +19,8 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Menu;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -38,8 +40,8 @@ public class LoggedIn extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] {68, 77, 23, 191, 154, 3};
-		gbl_contentPane.rowHeights = new int[] {46, 41, 39, 59, 0, 160, 5};
+		gbl_contentPane.columnWidths = new int[]{68, 77, 23, 191, 154, 3};
+		gbl_contentPane.rowHeights = new int[]{46, 41, 39, 59, 0, 160, 5};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -97,6 +99,14 @@ public class LoggedIn extends JFrame {
 		gbc_txtIminutter.gridy = 1;
 		contentPane.add(txtIminutter, gbc_txtIminutter);
 		txtIminutter.setColumns(10);
+		
+//		JButton btnNewButton = new JButton("Tilf�j");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				Menu menu = new Menu(softwarehuset);
+//				menu.setVisible(true);
+//			}
+//		});
 		
 		JButton btnLogUd = new JButton("Log ud");
 		btnLogUd.addActionListener(new ActionListener() {

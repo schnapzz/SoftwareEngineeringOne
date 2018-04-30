@@ -17,6 +17,7 @@ public class Project {
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestUnfinished", "test description", 1));
+		add(new ProjectActivity("test", "test", 1));
 	}};
 	private List<ProjectActivity> finishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestFinished", "test description", 2));
