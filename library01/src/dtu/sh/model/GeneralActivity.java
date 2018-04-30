@@ -3,7 +3,7 @@ package dtu.sh.model;
 import java.util.Date;
 import java.util.List;
 
-import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 
 // Sofie-Amalie
 public class GeneralActivity extends Activity {
@@ -14,11 +14,9 @@ public class GeneralActivity extends Activity {
 	
 	public GeneralActivity(String title, String description, int start, int end) {
 		super(title, description, start, end);
-		
 	}
 	
 	public GeneralActivity(String title) {
-		// TODO Auto-generated constructor stub
 		super(title);
 	}
 

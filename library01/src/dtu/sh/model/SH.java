@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cucumber.api.java.ga.Nuairnach;
-import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 
 public class SH {
+	
 	private int numberOfProjects = 1;
 	
 	private Employee loggedInEmployee; 
@@ -22,17 +23,7 @@ public class SH {
 	}};	
 	
 	public SH() {
-//		Employee e1 = new Employee("abcd");
-//		Employee e2 = new Employee("Mikk");
-//		List<Employee> emp = new ArrayList<Employee>();
-//		emp.add(e1);
-//		emp.add(e2);
-//		employees.add(e1);
-//		employees.add(e2);
-		
-//		Project p1 = new Project("030901", "test2", "Mikk", emp); 
-//		projects = new ArrayList<Project>();
-//		projects.add(p1);
+		// Exists only to defeat instantiation
 	}
 
 	//Helena
@@ -143,14 +134,14 @@ public class SH {
 	}
 	
 	//Helena
-	public Report requestReport(String title, String id) throws OperationNotAllowedException {
+	public Report requestReport(Project project, String id) {
 		for (Project p: projects) {
-			if (p.getTitle().equals(title) && p.getProjectLeader().equals(id)) {
+			if (p.getTitle().equals(project.getTitle()) && p.getProjectLeader().equals(id)) {
 				Report report = p.createReport();
 				return report;
 			}
 		}
-		throw new OperationNotAllowedException("You are not the leader of that project");
+		return null;
 	}
 	
 	//Helena
@@ -206,17 +197,6 @@ public class SH {
 		}
 		return "";
 	}
-
-
-	//Sofie-Amalie
-	public boolean isLoggedIn(String username) {
-		// TODO Auto-generated method stub
-		if(username.equals(getLoggedInEmployee().getID())) {
-			return true;
-		}else {
-			return false;
-		}
-	}
 	
 	public Project getProjectFromTitle(String title) {
 		Project pt = null;//new Project(numberOfProjects, "placeholder");
@@ -228,11 +208,4 @@ public class SH {
 		return pt;
 		
 	}
-	
-	public int getNumberOfProjects() {
-		return numberOfProjects;
-	}
-
-	
-
 }

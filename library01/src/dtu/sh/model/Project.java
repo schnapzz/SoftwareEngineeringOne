@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 
 public class Project {
 
@@ -29,11 +29,6 @@ public class Project {
 		this.title = pTitle;
 		this.leaderId = plId;
 		this.employees = eList;
-	}
-	
-	// Helena
-	public Project(String title) {
-		this.title = title;
 	}
 	
 	//Helena
@@ -99,26 +94,13 @@ public class Project {
 	//Helena
 	public String assignId(int projectNumber) {
 		String year = "18";
-		switch (Integer.toString(projectNumber).length()) {
-		case  1:
-			id = year + "000" + projectNumber;
-			break;
-		case 2:
-			id = year + "00" + projectNumber;
-			break;
-		case 3:
-			id = year + "0" + projectNumber;
-			break;
-		case 4: 
-			id = year + projectNumber;
-			break;
-		}	
+		id = year + "000" + projectNumber;
 		return id;
 	}
 	
 	//Helena
 	public Report createReport() {
-		Report report = new Report(unfinishedActivities, finishedActivities);
+		Report report = new Report(finishedActivities, unfinishedActivities);
 		return report;
 	}
 	
@@ -151,9 +133,7 @@ public class Project {
 	}
 	
 	private ProjectActivity searchForProjectActivity(String activityTitle, List<ProjectActivity> projectActivities) {
-		
 		assert projectActivities != null;
-		
 		for (ProjectActivity pa : projectActivities) {
 			if (pa.getTitle().equals(activityTitle)) {
 				return pa;
@@ -203,6 +183,10 @@ public class Project {
 		// A copy of the objects is returned to avoid manipulation of the array outside the project class.
 		List<ProjectActivity> pActivities = new ArrayList<ProjectActivity>(unfinishedActivities);
 		return pActivities;
+	}
+
+	public List<ProjectActivity> getFinishedActivities() {
+		return finishedActivities;
 	}
 	
 }

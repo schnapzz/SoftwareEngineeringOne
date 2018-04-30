@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.core.IsEqual;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,8 +18,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.it.Date;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.Employee;
-import dtu.library.Exceptions.OperationNotAllowedException;
 import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
@@ -79,10 +81,6 @@ public class Steps {
 	    assertFalse(softwarehuset.isEmployed(username));
 	}
 
-	@Then("^the employee can not log in$")
-	public void theEmployeeCanNotLogIn() throws Exception {
-	    assertFalse(username.equals(""));
-	}
 	
 	@Then("^the employee gets the error message \"([^\"]*)\"$")
 	public void theEmployeeGetsTheErrorMessage(String errorMessage) throws OperationNotAllowedException {
@@ -136,11 +134,7 @@ public class Steps {
 		assertTrue(softwarehuset.getProjectFromTitle(title).getEnd() == end);
 	}
 
-	@Given("^that the employee \"([^\"]*)\" is not logged in$")
-	public void thatTheEmployeeIsNotLogged(String username) throws Exception {
-	    assertTrue(softwarehuset.getLoggedInEmployee().getID().equals(""));
-	    this.username = username;
-	}	
+
 
 	@When("^the project with title \"([^\"]*)\" exists$")
 	public void theProjectWithTitleExists(String title) throws Exception {
@@ -176,6 +170,7 @@ public class Steps {
 	@Then("^the project \"([^\"]*)\" is assigned the leader \"([^\"]*)\"$")
 	public void theProjectIsAssignedTheLeader(String title, String id) throws Exception {
 	    assertTrue(softwarehuset.getProjectLeader(title).equals(id));
+
 	}
 
 	@Given("^the project \"([^\"]*)\" has a leader$")
@@ -200,20 +195,18 @@ public class Steps {
 	    assertThat(id,is(equalTo(softwarehuset.getLoggedInEmployee().getID())));
 	    assertThat(id,is(equalTo(softwarehuset.getProjectLeader(title))));
 	    username = id;
+	    project = softwarehuset.getProjectFromTitle(title);
 	}
 
 	@When("^the project leader \"([^\"]*)\" requests a report from the project \"([^\"]*)\"$")
 	public void theProjectLeaderRequestsAJournalFromTheProject(String id, String title) throws Exception {
-		try {
-			report = softwarehuset.requestReport(title, id);
-		} catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
+		report = softwarehuset.requestReport(project, id);
 	}
 
 	@Then("^the report is returned$")
-	public void theJournalIsReturned() throws Exception {
-		//TODO
+	public void theJournalIsReturned() throws Exception {	
+		assertTrue(report.getFinishedActivities().equals(project.getFinishedActivities()));
+		assertTrue(report.getUnFinishedActivities().equals(project.getUnfinishedActivities()));
 	}
 	
 	
@@ -242,6 +235,16 @@ public class Steps {
 		assertFalse(project.activityExistsWithTitle(activityTitle));
 	}
 	
+	@When("^the employee create a new activity with title \"([^\"]*)\" and description \"([^\"]*)\" and priority (\\d+) to the project$")
+	public void theEmployeeCreateANewActivityWithTitleAndDescriptionAndPriorityToTheProject(String activityTitle, String desc, int priority) throws Exception {
+		projectActivity = new ProjectActivity(activityTitle, desc, priority);
+		try {			
+			project.addActivity(projectActivity, softwarehuset.getLoggedInEmployee());
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+	
 	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
 	public void iCreateAnActivityWithDescriptionToTheProject(String activityTitle) throws Exception {
 		int testLength = project.getUnfinishedActivities().size();
@@ -256,16 +259,6 @@ public class Steps {
 		assertTrue(project.activityExistsWithTitle(activityTitle));
 	}
 
-	@Then("^the activity with title \"([^\"]*)\" is not created$")
-	public void theActivityWithTitleIsNotCreated(String activityTitle) throws Exception {
-		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
-		try {			
-			project.addActivity(activity, softwarehuset.getLoggedInEmployee());
-		} catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-	}
-	
 	@Given("^the employee \"([^\"]*)\" is logged in$")
 	public void theEmployeeIsLoggedIn(String employeeId) throws Exception {
 	    softwarehuset.logInEmployee(employeeId);
@@ -287,37 +280,34 @@ public class Steps {
 		}
 	    assertEquals(numberOfActivities, project.getUnfinishedActivities().size());   
 	}
-	
+
+	@Then("^there is a new unfinished activity with title \"([^\"]*)\" and description \"([^\"]*)\" and priority (\\d+) in the project$")
+	public void thereIsANewUnfinishedActivityWithTitleAndDescriptionAndPriorityInTheProject(String aTitle, String aDesc, int aPriority) throws Exception {
+	    
+		ProjectActivity pa = project.getProjectActivityWithTitle(aTitle);
+		
+		assertTrue(pa.getTitle().equals(aTitle));
+		assertTrue(pa.getDescription().equals(aDesc));
+		assertTrue(pa.getPriority() == aPriority);
+	}
 	
 	/*
-	 * Sofie-Amalie
+	 * Creating a general activity
+	 * 
+	 * Done by: Sofie-Amalie
 	 */
 	
-
 	@When("^they create a general activity with the name \"([^\"]*)\"$")
 	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
-		  try {
-	    		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
-	    } catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
+		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
 		this.titleActivity = titleGeneralActivity;
 	}
 
 	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
 	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
-		  try {
-			  softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
-	    } catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
+	    softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start,end);
 	}
 
-	@Then("^the general activity is created$")
-	public void theGeneralActivityIsCreated() throws Exception {
-		//assertTrue
-	}
 
 
 	/*
@@ -338,7 +328,7 @@ public class Steps {
 		projectActivity = project.getProjectActivityWithTitle(activityTitle);
 		assertTrue(projectActivity.employeeWithIdExists(loggedInEmployeeId));
 	}
-
+	
 	@When("^the employee logs (.+) hours$")
 	public void theEmployeeWithIdLogsHours(double hours) throws Exception {
 
@@ -384,9 +374,10 @@ public class Steps {
 	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {
 		assertTrue(projectActivity.numberOfTimeRegistrations() == numOfRegistrations);
 	}
+
 	
 	
-	
+	//Óli
 	
 	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void the_employee_with_id_is_not_part_of_the_activity_with_title_for_project_with_title(String employeeId, String activityTitle, String projectId) throws Exception {
@@ -398,8 +389,6 @@ public class Steps {
 //		
 //	    throw new PendingException();
 	}
-	
-	
 	
 	
 	
