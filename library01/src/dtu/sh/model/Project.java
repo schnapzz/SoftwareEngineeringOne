@@ -30,11 +30,6 @@ public class Project {
 		this.employees = eList;
 	}
 	
-	// Helena
-	public Project(String title) {
-		this.title = title;
-	}
-	
 	//Helena
 	public Project(int pId, String title) {
 		this.id = assignId(pId);
@@ -98,20 +93,7 @@ public class Project {
 	//Helena
 	public String assignId(int projectNumber) {
 		String year = "18";
-		switch (Integer.toString(projectNumber).length()) {
-		case  1:
-			id = year + "000" + projectNumber;
-			break;
-		case 2:
-			id = year + "00" + projectNumber;
-			break;
-		case 3:
-			id = year + "0" + projectNumber;
-			break;
-		case 4: 
-			id = year + projectNumber;
-			break;
-		}	
+		id = year + "000" + projectNumber;
 		return id;
 	}
 	
@@ -150,9 +132,7 @@ public class Project {
 	}
 	
 	private ProjectActivity searchForProjectActivity(String activityTitle, List<ProjectActivity> projectActivities) {
-		
 		assert projectActivities != null;
-		
 		for (ProjectActivity pa : projectActivities) {
 			if (pa.getTitle().equals(activityTitle)) {
 				return pa;

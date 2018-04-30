@@ -14,11 +14,9 @@ public class GeneralActivity extends Activity {
 	
 	public GeneralActivity(String title, String description, int start, int end) {
 		super(title, description, start, end);
-		
 	}
 	
 	public GeneralActivity(String title) {
-		// TODO Auto-generated constructor stub
 		super(title);
 	}
 

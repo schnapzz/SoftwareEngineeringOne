@@ -206,17 +206,6 @@ public class SH {
 		}
 		return "";
 	}
-
-
-	//Sofie-Amalie
-	public boolean isLoggedIn(String username) {
-		// TODO Auto-generated method stub
-		if(username.equals(getLoggedInEmployee().getID())) {
-			return true;
-		}else {
-			return false;
-		}
-	}
 	
 	public Project getProjectFromTitle(String title) {
 		Project pt = new Project(numberOfProjects, "placeholder");
@@ -228,11 +217,4 @@ public class SH {
 		return pt;
 		
 	}
-	
-	public int getNumberOfProjects() {
-		return numberOfProjects;
-	}
-
-	
-
 }
