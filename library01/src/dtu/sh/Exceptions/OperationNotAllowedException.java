@@ -1,4 +1,4 @@
-package dtu.library.Exceptions;
+package dtu.sh.Exceptions;
 
 public class OperationNotAllowedException extends Exception {
 

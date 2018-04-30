@@ -3,7 +3,7 @@ package dtu.sh.model;
 import java.util.Date;
 import java.util.List;
 
-import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 
 // Sofie-Amalie
 public class GeneralActivity extends Activity {

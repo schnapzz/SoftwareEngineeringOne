@@ -13,10 +13,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+//import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.model.SH;
+import java.awt.Color;
+
 public class Main {
 
+	private SH softwarehuset;
+	
 	private JFrame frame;
+	private JLabel loginErrorLabel;
 	private JTextField txtUsername;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -39,6 +47,7 @@ public class Main {
 	 */
 	public Main() {
 		initialize();
+		softwarehuset = new SH();
 	}
 
 	/**
@@ -50,19 +59,10 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{210, 126, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{60, 16, 35, 26, 29, 0};
+		gridBagLayout.rowHeights = new int[]{60, 16, 35, 26, 29, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
-		
-		JButton btnNewButton = new JButton("Log in ");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				LoggedIn log = new LoggedIn();
-				log.setVisible(true);
-			}
-		});
 		
 		JLabel lblIndtastLogin = new JLabel("Indtast login");
 		GridBagConstraints gbc_lblIndtastLogin = new GridBagConstraints();
@@ -81,10 +81,37 @@ public class Main {
 		gbc_txtUsername.gridy = 3;
 		frame.getContentPane().add(txtUsername, gbc_txtUsername);
 		txtUsername.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Log in ");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				
+//				try {
+//				
+//					softwarehuset.logInEmployee(txtUsername.getText());
+//					
+//					frame.dispose();
+//					LoggedIn log = new LoggedIn();
+//					log.setVisible(true);
+//					
+//				} catch (Exception e1) {
+//					
+//					
+//				}
+			}
+		});
+		
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setForeground(Color.RED);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 4;
+		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 4;
+		gbc_btnNewButton.gridy = 5;
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
 	}
 }

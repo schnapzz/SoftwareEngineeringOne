@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cucumber.api.java.ga.Nuairnach;
-import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 
 public class SH {
+	
 	private int numberOfProjects = 1;
 	
 	private Employee loggedInEmployee; 
@@ -22,17 +23,7 @@ public class SH {
 	}};	
 	
 	public SH() {
-//		Employee e1 = new Employee("abcd");
-//		Employee e2 = new Employee("Mikk");
-//		List<Employee> emp = new ArrayList<Employee>();
-//		emp.add(e1);
-//		emp.add(e2);
-//		employees.add(e1);
-//		employees.add(e2);
-		
-//		Project p1 = new Project("030901", "test2", "Mikk", emp); 
-//		projects = new ArrayList<Project>();
-//		projects.add(p1);
+		// Exists only to defeat instantiation
 	}
 
 	//Helena

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dtu.library.Exceptions.OperationNotAllowedException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
 
 public class ProjectActivity extends Activity {
 
