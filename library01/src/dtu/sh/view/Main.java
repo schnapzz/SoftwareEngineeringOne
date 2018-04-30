@@ -1,4 +1,4 @@
-package dtu.sh.main;
+package dtu.sh.view;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

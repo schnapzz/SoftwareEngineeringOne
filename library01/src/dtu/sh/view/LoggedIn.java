@@ -1,4 +1,4 @@
-package dtu.sh.main;
+package dtu.sh.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -31,6 +31,7 @@ public class LoggedIn extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtIminutter;
+	private JButton btnCreateProjectActivity;
 
 	public LoggedIn(SH softwarehuset) {
 		
@@ -60,6 +61,16 @@ public class LoggedIn extends JFrame {
 		projectComboBox.addItem("Aksel Acne");
 		projectComboBox.addItem("Carsten");
 		// ==================
+		projectComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent projectActionEvent) {
+				
+				// WARN: Check this when the proper info is added
+				String selectedProject = projectComboBox.getSelectedItem().toString();
+				Project project = softwarehuset.getProjectWithId(selectedProject);
+				
+				showCreateProjectActivityButtonIfProjectLeader(project.getProjectLeader(), softwarehuset.getLoggedInEmployee().getID());
+			}
+		});
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -100,20 +111,41 @@ public class LoggedIn extends JFrame {
 		contentPane.add(txtIminutter, gbc_txtIminutter);
 		txtIminutter.setColumns(10);
 		
-//		JButton btnNewButton = new JButton("Tilf�j");
-//		btnNewButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
+		JButton btnNewButton = new JButton("Tilf�j");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 //				Menu menu = new Menu(softwarehuset);
 //				menu.setVisible(true);
-//			}
-//		});
+			}
+		});
 		
 		JButton btnLogUd = new JButton("Log ud");
 		btnLogUd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// gå tilbage til log in			
+				// gå tilbage til log in	
 			}
 		});
+		
+		// Mikkel
+		btnCreateProjectActivity = new JButton("Create Project Activity");
+		btnCreateProjectActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(softwarehuset);
+				createProjectActivity.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnCreateProjectActivity = new GridBagConstraints();
+		gbc_btnCreateProjectActivity.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateProjectActivity.gridx = 3;
+		gbc_btnCreateProjectActivity.gridy = 4;
+		contentPane.add(btnCreateProjectActivity, gbc_btnCreateProjectActivity);
+		
+		GridBagConstraints gbc_btnLogUd = new GridBagConstraints();
+		gbc_btnLogUd.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLogUd.gridx = 0;
+		gbc_btnLogUd.gridy = 5;
+		contentPane.add(btnLogUd, gbc_btnLogUd);
 		
 		JLabel lblErrormessage = new JLabel("ErrorMessage");
 		lblErrormessage.setVisible(false);
@@ -123,7 +155,8 @@ public class LoggedIn extends JFrame {
 		gbc_lblErrormessage.gridy = 2;
 		contentPane.add(lblErrormessage, gbc_lblErrormessage);
 		
-		JButton btnNewButton = new JButton("addRegistration");
+		// Mikkel
+		JButton addRegistrationButton = new JButton("addRegistration");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -148,7 +181,7 @@ public class LoggedIn extends JFrame {
 					
 					setLabelTextAndVisibility(lblErrormessage, e1.getMessage(), true);
 					
-				} catch (NumberFormatException e2) {
+				} catch (NumberFormatException e2) { // In case the user inputs a wrong character
 					
 					setLabelTextAndVisibility(lblErrormessage, "Please insert whole number in dot notation", true);
 				}
@@ -158,14 +191,25 @@ public class LoggedIn extends JFrame {
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton.gridx = 4;
 		gbc_btnNewButton.gridy = 3;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
-		GridBagConstraints gbc_btnLogUd = new GridBagConstraints();
-		gbc_btnLogUd.insets = new Insets(0, 0, 0, 5);
-		gbc_btnLogUd.gridx = 0;
-		gbc_btnLogUd.gridy = 5;
-		contentPane.add(btnLogUd, gbc_btnLogUd);
+		contentPane.add(addRegistrationButton, gbc_btnNewButton);
 	}
 	
+	// Mikkel
+	// Makes sure it's not possible for employees who's not projectLeader on the selected project to add activities.
+	private void showCreateProjectActivityButtonIfProjectLeader(String projectLeader, String loggedInEmployee) {
+		
+		if (projectLeader.equals(loggedInEmployee)) {
+			
+			btnCreateProjectActivity.setVisible(true);
+			btnCreateProjectActivity.setEnabled(true);
+			
+		} else {
+			btnCreateProjectActivity.setVisible(false);
+			btnCreateProjectActivity.setEnabled(false);
+		}
+	}
+
+	// Mikkel
 	private void setLabelTextAndVisibility(JLabel label, String message, boolean visibility) {
 		label.setText(message);
 		label.setVisible(visibility);
