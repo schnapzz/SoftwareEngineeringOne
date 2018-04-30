@@ -6,6 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dtu.sh.Exceptions.OperationNotAllowedException;
+import dtu.sh.model.Project;
+import dtu.sh.model.ProjectActivity;
+import dtu.sh.model.SH;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -24,7 +30,8 @@ public class LoggedIn extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtIminutter;
 
-	public LoggedIn() {
+	public LoggedIn(SH softwarehuset) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
 		contentPane = new JPanel();
@@ -44,28 +51,34 @@ public class LoggedIn extends JFrame {
 		gbc_lblRegistrerTimer.gridy = 0;
 		contentPane.add(lblRegistrerTimer, gbc_lblRegistrerTimer);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItem("Paul Fischer");
-		comboBox.addItem("Aksel Acne");
-		comboBox.addItem("Carsten");
+		JComboBox projectComboBox = new JComboBox();
+		// This needs to be loaded trough our lists.
+		// ==================
+		projectComboBox.addItem("Paul Fischer");
+		projectComboBox.addItem("Aksel Acne");
+		projectComboBox.addItem("Carsten");
+		// ==================
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 1;
-		contentPane.add(comboBox, gbc_comboBox);
+		contentPane.add(projectComboBox, gbc_comboBox);
 		
-		JComboBox comboBox_Activity = new JComboBox();
-		comboBox_Activity.addItem("Kan ikke stave");
-		comboBox_Activity.addItem("Kan ikke regne");
-		comboBox_Activity.addItem("Kan ikke lide mennesker");
+		JComboBox activityComboBox = new JComboBox();
+		// This needs to be loaded trough our lists.
+		// ==================
+		activityComboBox.addItem("Kan ikke stave");
+		activityComboBox.addItem("Kan ikke regne");
+		activityComboBox.addItem("Kan ikke lide mennesker");
+		// ==================
 		GridBagConstraints gbc_comboBox_Activity = new GridBagConstraints();
 		gbc_comboBox_Activity.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_Activity.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_Activity.gridx = 3;
 		gbc_comboBox_Activity.gridy = 1;
-		contentPane.add(comboBox_Activity, gbc_comboBox_Activity);
+		contentPane.add(activityComboBox, gbc_comboBox_Activity);
 		
 		
 		txtIminutter = new JTextField();
@@ -85,12 +98,6 @@ public class LoggedIn extends JFrame {
 		contentPane.add(txtIminutter, gbc_txtIminutter);
 		txtIminutter.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Tilføj");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
 		JButton btnLogUd = new JButton("Log ud");
 		btnLogUd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,21 +105,59 @@ public class LoggedIn extends JFrame {
 			}
 		});
 		
-		JLabel lblTilfjTimerTil = new JLabel("Tilføj timer til aktivitet");
-		GridBagConstraints gbc_lblTilfjTimerTil = new GridBagConstraints();
-		gbc_lblTilfjTimerTil.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTilfjTimerTil.gridx = 4;
-		gbc_lblTilfjTimerTil.gridy = 4;
-		contentPane.add(lblTilfjTimerTil, gbc_lblTilfjTimerTil);
+		JLabel lblErrormessage = new JLabel("ErrorMessage");
+		lblErrormessage.setVisible(false);
+		GridBagConstraints gbc_lblErrormessage = new GridBagConstraints();
+		gbc_lblErrormessage.insets = new Insets(0, 0, 5, 0);
+		gbc_lblErrormessage.gridx = 4;
+		gbc_lblErrormessage.gridy = 2;
+		contentPane.add(lblErrormessage, gbc_lblErrormessage);
+		
+		JButton btnNewButton = new JButton("addRegistration");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					
+					// This is done from the notion that we use the ID of projects in the Combobox.
+					// We might want a format like: 'id - title' in other words '030109 - Test'
+					// In that case handle this.
+					String selectedProjectId = projectComboBox.getSelectedItem().toString();
+					String selectedActivityTitle = activityComboBox.getSelectedItem().toString();
+					String hoursAsString = txtIminutter.getText();
+					
+					// Get to the proper activity
+					Project project = softwarehuset.getProjectWithId(selectedProjectId);
+					ProjectActivity projectActivity = project.getProjectActivityWithTitle(selectedActivityTitle);
+					
+					// Register the time.
+					projectActivity.registerHours(softwarehuset.getLoggedInEmployee().getID(), Double.parseDouble(hoursAsString));
+					setLabelTextAndVisibility(lblErrormessage, "", false);
+					
+				} catch (OperationNotAllowedException e1) {
+					
+					setLabelTextAndVisibility(lblErrormessage, e1.getMessage(), true);
+					
+				} catch (NumberFormatException e2) {
+					
+					setLabelTextAndVisibility(lblErrormessage, "Please insert whole number in dot notation", true);
+				}
+			}
+		});
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.gridy = 3;
+		contentPane.add(btnNewButton, gbc_btnNewButton);
 		GridBagConstraints gbc_btnLogUd = new GridBagConstraints();
 		gbc_btnLogUd.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLogUd.gridx = 0;
 		gbc_btnLogUd.gridy = 5;
 		contentPane.add(btnLogUd, gbc_btnLogUd);
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 5;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
 	}
-
+	
+	private void setLabelTextAndVisibility(JLabel label, String message, boolean visibility) {
+		label.setText(message);
+		label.setVisible(visibility);
+	}
 }
