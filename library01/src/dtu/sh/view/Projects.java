@@ -65,6 +65,7 @@ public class Projects extends JFrame{
 		gbc_comboBox_Projects.gridy = 1;
 		contentPane.add(comboBox_Projects, gbc_comboBox_Projects);
 		
+		
 		//Textfield for the ID of the project leader
 		JTextField txtProjectLeaderID = new JTextField();
 		txtProjectLeaderID.setBounds(7,4,10,10);
@@ -76,12 +77,7 @@ public class Projects extends JFrame{
 		gbc_txtProjectLeaderID.gridy = 1;
 		contentPane.add(txtProjectLeaderID, gbc_txtProjectLeaderID);
 		txtProjectLeaderID.setColumns(10);
-		txtProjectLeaderID.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtProjectLeaderID.setText(" ");
-			}
-		});	
+		
 		
 		//Textfield for the start date of the project
 		JTextField txtStart = new JTextField();
@@ -95,12 +91,7 @@ public class Projects extends JFrame{
 		gbc_txtNewStart.gridy = 2;
 		contentPane.add(txtStart, gbc_txtNewStart);
 		txtStart.setColumns(10);
-		txtStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtStart.setText("");
-			}
-		});	
+		
 		
 		//Textfield for the end date of the project
 		JTextField txtEnd = new JTextField();
@@ -121,14 +112,15 @@ public class Projects extends JFrame{
 			}
 		});	
 		
+
 		
 		//Update button
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtProjectLeaderID.getText() != null && txtProjectLeaderID.getText().length() == 4) {
-					sh.getProjectFromTitle(comboBox_Projects.getItemAt(0) + "").setProjectLeader(txtProjectLeaderID.getText());
-				}			
+				txtProjectLeaderID.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getProjectLeader() + "");
+				txtStart.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getStart() + "");
+				txtEnd.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getEnd() + "");
 			}
 		});
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
