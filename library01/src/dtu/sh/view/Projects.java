@@ -39,18 +39,43 @@ public class Projects extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{120, 80, 120, 120, 120, 120};
+		gbl_contentPane.columnWidths = new int[]{120, 90, 90, 90, 90, 120};
 		gbl_contentPane.rowHeights = new int[]{40, 40, 40, 40, 40, 40, 40};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		//"Projects" label
 		JLabel lblProjects = new JLabel("Projects:");
 		GridBagConstraints gbc_lblProjects = new GridBagConstraints();
 		gbc_lblProjects.insets = new Insets(0, 0, 5, 0);
 		gbc_lblProjects.gridx = 0;
 		gbc_lblProjects.gridy = 0;
 		contentPane.add(lblProjects, gbc_lblProjects);
+		
+		//"Projects" label
+		JLabel lblProjectleader = new JLabel("Projectleader");
+		GridBagConstraints gbc_lblProjectleader = new GridBagConstraints();
+		gbc_lblProjectleader.insets = new Insets(0, 0, 5, 0);
+		gbc_lblProjectleader.gridx = 1;
+		gbc_lblProjectleader.gridy = 0;
+		contentPane.add(lblProjectleader, gbc_lblProjectleader);
+		
+		//"Projects" label
+		JLabel lblProjectStart = new JLabel("Start");
+		GridBagConstraints gbc_lblProjectStart = new GridBagConstraints();
+		gbc_lblProjectStart.insets = new Insets(0, 0, 5, 0);
+		gbc_lblProjectStart.gridx = 2;
+		gbc_lblProjectStart.gridy = 0;
+		contentPane.add(lblProjectStart, gbc_lblProjectStart);
+		
+		//"Projects" label
+		JLabel lblProjectEnd = new JLabel("End");
+		GridBagConstraints gbc_lblProjectEnd = new GridBagConstraints();
+		gbc_lblProjectEnd.insets = new Insets(0, 0, 5, 0);
+		gbc_lblProjectEnd.gridx = 3;
+		gbc_lblProjectEnd.gridy = 0;
+		contentPane.add(lblProjectEnd, gbc_lblProjectEnd);
 		
 		//Combobox for all the projects in 
 		projects = sh.getProjects();
@@ -87,8 +112,8 @@ public class Projects extends JFrame{
 		GridBagConstraints gbc_txtNewStart = new GridBagConstraints();
 		gbc_txtNewStart.insets = new Insets(0, 0, 5, 0);
 		gbc_txtNewStart.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNewStart.gridx = 1;
-		gbc_txtNewStart.gridy = 2;
+		gbc_txtNewStart.gridx = 2;
+		gbc_txtNewStart.gridy = 1;
 		contentPane.add(txtStart, gbc_txtNewStart);
 		txtStart.setColumns(10);
 		
@@ -101,8 +126,8 @@ public class Projects extends JFrame{
 		GridBagConstraints gbc_txtEnd = new GridBagConstraints();
 		gbc_txtEnd.insets = new Insets(0, 0, 5, 0);
 		gbc_txtEnd.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEnd.gridx = 1;
-		gbc_txtEnd.gridy = 3;
+		gbc_txtEnd.gridx = 3;
+		gbc_txtEnd.gridy = 1;
 		contentPane.add(txtEnd, gbc_txtEnd);
 		txtEnd.setColumns(10);
 		txtEnd.addMouseListener(new MouseAdapter() {
@@ -111,24 +136,51 @@ public class Projects extends JFrame{
 				txtEnd.setText("");
 			}
 		});	
-		
 
 		
-		//Update button
-		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
+		//Get Info button
+		JButton btnGetInfo = new JButton("Get Info");
+		btnGetInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtProjectLeaderID.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getProjectLeader() + "");
 				txtStart.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getStart() + "");
 				txtEnd.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getEnd() + "");
 			}
 		});
+		GridBagConstraints gbc_btnGetInfo = new GridBagConstraints();
+		gbc_btnGetInfo.insets = new Insets(0, 0, 0, 5);
+		gbc_btnGetInfo.gridx = 0;
+		gbc_btnGetInfo.gridy = 2;
+		contentPane.add(btnGetInfo, gbc_btnGetInfo);
+		
+		
+		//Update Info button
+		JButton btnUpdate = new JButton("Update Info");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String newID = txtProjectLeaderID.getText();
+					int newS = Integer.parseInt(txtStart.getText());
+					int newE = Integer.parseInt(txtEnd.getText());
+					if (sh.isEmployed(newID)) {
+						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setProjectLeader(newID);
+					}
+					if (newS >= 0 && newS <= 52) {
+						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setStartDate(newS);
+					}
+					if (newE >= 0 && newE <= 52) {
+						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setEndDate(newE);
+					}
+				} catch (Exception error) {
+					
+				}
+			}
+		});
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
 		gbc_btnProjects.insets = new Insets(0, 0, 0, 5);
-		gbc_btnProjects.gridx = 1;
-		gbc_btnProjects.gridy = 4;
+		gbc_btnProjects.gridx = 2;
+		gbc_btnProjects.gridy = 2;
 		contentPane.add(btnUpdate, gbc_btnProjects);
-		
 		
 	}
 }

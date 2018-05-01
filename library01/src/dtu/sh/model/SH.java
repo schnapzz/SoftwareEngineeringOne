@@ -19,6 +19,7 @@ public class SH {
 	
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "Test", "Mikk", employees));
+		add(new Project(numberOfProjects, "Test3", 5, 10));
 		add(new Project(numberOfProjects, "test2"));
 	}};	
 	
