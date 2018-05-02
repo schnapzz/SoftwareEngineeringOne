@@ -122,10 +122,7 @@ public class ProjectActivity extends Activity {
 //			throw new OperationNotAllowedException("Employee is already part of chosen activity");
 //		}
 		
-		
-		
 		employees.add(employee);
-		System.out.println("hej");
 		
 		
 	}
