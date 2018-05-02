@@ -377,10 +377,15 @@ public class Steps {
 
 	
 	
-	//Óli
+	/*
+	 * Steps for assign employee to a project activity
+	 * 
+	 * done by: Oli
+	 * 
+	 */
 	
 	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
-	public void the_employee_with_id_is_not_part_of_the_activity_with_title_for_project_with_title(String employeeId, String activityTitle, String projectId) throws Exception {
+	public void theEmployeeWithIdIsNotPartOfTheActivityWithTitleForProjectWithTitle(String employeeId, String activityTitle, String projectId) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
 		
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
@@ -391,21 +396,20 @@ public class Steps {
 	}
 	
 	@When("^the employee \\\"([^\\\"]*)\\\" is assigned to the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
-	public void the_employee_is_assigned_to_the_activity_with_the_title_for_project_with_title(String employeeId, String activityTitle, String projectId) throws Exception {
+	public void theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String employeeId, String activityTitle, String projectId) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
 		Employee employee = softwarehuset.getEmployeeWithId(employeeId);
 		
-		currentActivity.addEmployeeToActivity(employee);
+		currentActivity.addEmployeeToActivity(employee, employeeId);
 
 		
 	}
 	
 	
-	
 	@Then("^the employee \"([^\"]*)\" is part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
-	public void the_employee_is_part_of_the_activity_with_the_title_for_project_with_id(String employeeId, String activityTitle, String projectId) throws Exception {
+	public void theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(String employeeId, String activityTitle, String projectId) throws Exception {
 	    // Write code here that turns the phrase above into concrete actions
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
@@ -415,7 +419,32 @@ public class Steps {
 	}
 	
 	
+	//
+	@Given("^the employee \"([^\"]*)\" is already part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
+	public void theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(String employeeId, String activityTitle, String projectId) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		Project currentProject = softwarehuset.getProjectWithId(projectId);
+		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
+		Employee employee = softwarehuset.getEmployeeWithId(employeeId);
+		
+		currentActivity.addEmployeeToActivity(employee, employeeId);
+
+		
+		assertTrue(currentActivity.employeeWithIdExists(employeeId));
+		
+		//throw new PendingException();
+	}
 	
+	@Then("^the employee \"([^\"]*)\" is not assigned again to activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
+	public void the_employee_is_not_assigned_again_to_activity_with_title_for_project_with_title(String employeeId, String activityTitle, String projectId) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		Project currentProject = softwarehuset.getProjectWithId(projectId);
+		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
+		
+		 assertFalse(currentActivity.isDuplicateEmployee(employeeId));
 	
+		
+	    //throw new PendingException();
+	}
 	
 }

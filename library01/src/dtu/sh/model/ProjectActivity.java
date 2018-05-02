@@ -9,51 +9,51 @@ import dtu.sh.Exceptions.OperationNotAllowedException;
 public class ProjectActivity extends Activity {
 
 	private int priority;
-	
-	
-	private List<Employee> employees = new ArrayList<Employee>() {{
-		add(new Employee("Mikk"));
-		add(new Employee("abcd"));
-		//add(new Employee("efgh"));
-	}};
+
+	private List<Employee> employees = new ArrayList<Employee>() {
+		{
+			add(new Employee("Mikk"));
+			add(new Employee("abcd"));
+			// add(new Employee("efgh"));
+		}
+	};
 	private List<TimeRegistration> timeRegistrations;
 
-
 	private SH softwarehuset;
-	
+
 	public ProjectActivity(String title, String description, int priority) {
-		
+
 		super(title, description);
-		
+
 		this.priority = priority;
-		
+
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
-	
+
 	// Mikkel
 	public ProjectActivity(String title, String description, int priority, List<Employee> employees) {
 		super(title, description);
-		
+
 		this.priority = priority;
 		this.employees = employees;
-		
+
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
-	
+
 	public ProjectActivity(String title, String description, int start, int end, int priority) {
-		
+
 		super(title, description, start, end);
 
 		this.priority = priority;
-		
+
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	// Mikkel
 	public boolean employeeWithIdExists(String loggedInEmployeeId) {
-		
+
 		assert loggedInEmployeeId != null;
-		
+
 		for (Employee employee : employees) {
 			if (employee.getID().equals(loggedInEmployeeId)) {
 				return true;
@@ -66,65 +66,88 @@ public class ProjectActivity extends Activity {
 	public int numberOfTimeRegistrations() {
 		return timeRegistrations.size();
 	}
-	
+
 	// Mikkel
 	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
-		
+
 		assert employeeId.toCharArray().length == 4;
-		
-		if (isHoursProperlyFormatted(hours)) { 
-			
+
+		if (isHoursProperlyFormatted(hours)) {
+
 			TimeRegistration timeRegistration = new TimeRegistration(employeeId, hours);
 			timeRegistrations.add(timeRegistration);
 		}
 	}
-	
+
 	// Mikkel
 	private boolean isHoursProperlyFormatted(double hours) throws OperationNotAllowedException {
-		
+
 		if (isHoursPositive(hours) && isHoursWithoutHalfHourAccuracy(hours)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	// Mikkel
 	private boolean isHoursPositive(double hours) throws OperationNotAllowedException {
-		if (hours < 0) { throw new OperationNotAllowedException("Negative hours not allowed"); }
+		if (hours < 0) {
+			throw new OperationNotAllowedException("Negative hours not allowed");
+		}
 		return true;
 	}
-	
+
 	// Mikkel
 	private boolean isHoursWithoutHalfHourAccuracy(double hours) throws OperationNotAllowedException {
-		if (hours % 0.5 != 0) {	throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
+		if (hours % 0.5 != 0) {
+			throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy");
+		}
 		return true;
 	}
 
 	// Mikkel
 	public List<TimeRegistration> getTimeRegistrations() {
-		
+
 		List<TimeRegistration> copyRegistrations = new ArrayList<TimeRegistration>(timeRegistrations);
 		return copyRegistrations;
 	}
-	
-	public int getPriority() { 
+
+	public int getPriority() {
 		return priority;
 	}
-	
-	
-	//Óli
-	public void addEmployeeToActivity(Employee employee) throws OperationNotAllowedException {
-//		System.out.println("emp = " + softwarehuset.getEmployeeWithId(employee));
-//		if (!employeeWithIdExists(employee)) {
-//			employees.add(softwarehuset.getEmployeeWithId(employee));
-//		}
-//		else {
-//			throw new OperationNotAllowedException("Employee is already part of chosen activity");
-//		}
-		
-		employees.add(employee);
-		
-		
+
+	// Óli
+	public void addEmployeeToActivity(Employee employee, String employeeId) throws OperationNotAllowedException {
+		// System.out.println("emp = " + softwarehuset.getEmployeeWithId(employee));
+		// if (!employeeWithIdExists(employee)) {
+		// employees.add(softwarehuset.getEmployeeWithId(employee));
+		// }
+		// else {
+		// throw new OperationNotAllowedException("Employee is already part of chosen
+		// activity");
+		// }
+
+		if (!employeeWithIdExists(employeeId)) {
+
+			employees.add(employee);
+
+		}
 	}
-	
+
+	public boolean isDuplicateEmployee(String employeeId) {
+		int counter = 0;
+		for (Employee e : employees) {
+			if (e.getID().equals(employeeId)) {
+				counter++;
+			}
+			
+		}
+		System.out.println("counter " + counter);
+		if (counter < 1)
+			return true;
+
+		else
+			return false;
+
+	}
+
 }
