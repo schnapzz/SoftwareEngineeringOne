@@ -396,14 +396,23 @@ public class Steps {
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
 		Employee employee = softwarehuset.getEmployeeWithId(employeeId);
-			
+		
 		currentActivity.addEmployeeToActivity(employee);
+
 		
 	}
 	
 	
 	
-	
+	@Then("^the employee \"([^\"]*)\" is part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
+	public void the_employee_is_part_of_the_activity_with_the_title_for_project_with_id(String employeeId, String activityTitle, String projectId) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		Project currentProject = softwarehuset.getProjectWithId(projectId);
+		ProjectActivity currentActivity =  currentProject.getProjectActivityWithTitle(activityTitle);
+		assertTrue(currentActivity.employeeWithIdExists(employeeId));
+		
+	   // throw new PendingException();
+	}
 	
 	
 	
