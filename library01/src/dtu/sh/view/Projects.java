@@ -40,7 +40,7 @@ public class Projects extends JFrame{
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{120, 90, 90, 90, 90, 120};
-		gbl_contentPane.rowHeights = new int[]{40, 40, 40, 40, 40, 40, 40};
+		gbl_contentPane.rowHeights = new int[]{20, 40, 40, 40, 20, 40, 40};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
