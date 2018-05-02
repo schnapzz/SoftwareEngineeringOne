@@ -10,12 +10,16 @@ public class ProjectActivity extends Activity {
 
 	private int priority;
 	
+	
 	private List<Employee> employees = new ArrayList<Employee>() {{
 		add(new Employee("Mikk"));
 		add(new Employee("abcd"));
 		//add(new Employee("efgh"));
 	}};
 	private List<TimeRegistration> timeRegistrations;
+
+
+	private SH softwarehuset;
 	
 	public ProjectActivity(String title, String description, int priority) {
 		
@@ -105,6 +109,25 @@ public class ProjectActivity extends Activity {
 	
 	public int getPriority() { 
 		return priority;
+	}
+	
+	
+	//Óli
+	public void addEmployeeToActivity(Employee employee) throws OperationNotAllowedException {
+//		System.out.println("emp = " + softwarehuset.getEmployeeWithId(employee));
+//		if (!employeeWithIdExists(employee)) {
+//			employees.add(softwarehuset.getEmployeeWithId(employee));
+//		}
+//		else {
+//			throw new OperationNotAllowedException("Employee is already part of chosen activity");
+//		}
+		
+		
+		
+		employees.add(employee);
+		System.out.println("hej");
+		
+		
 	}
 	
 }

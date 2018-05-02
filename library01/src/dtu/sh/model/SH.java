@@ -15,6 +15,7 @@ public class SH {
 		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
 		add(new Employee("Hela"));
+		add(new Employee("efgh"));
 	}};
 	
 	private List<Project> projects = new ArrayList<Project>() {{ 
@@ -56,6 +57,16 @@ public class SH {
 	
 	// Mikkel
 	private Employee getEmployeeWithUsername(String username) {
+		for (Employee e : employees) {
+			if (e.getID().equals(username)) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
+	//public version of above method. Change??
+	public Employee getEmployeeWithId(String username) {
 		for (Employee e : employees) {
 			if (e.getID().equals(username)) {
 				return e;
