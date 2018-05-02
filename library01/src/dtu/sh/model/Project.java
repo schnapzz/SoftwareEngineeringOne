@@ -188,5 +188,12 @@ public class Project {
 	public List<ProjectActivity> getFinishedActivities() {
 		return finishedActivities;
 	}
+
+	public void setStartDate(int start) {
+		this.start = start;
+	}
 	
+	public void setEndDate(int end) {
+		this.end = end;
+	}
 }

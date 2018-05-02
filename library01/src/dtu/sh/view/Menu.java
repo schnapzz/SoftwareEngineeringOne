@@ -1,4 +1,4 @@
-package dtu.sh.main;
+package dtu.sh.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,7 +24,8 @@ import java.awt.event.MouseEvent;
 
 
 public class Menu extends JFrame{
-	private JPanel contentPane;
+	private JFrame frame;
+	private JPanel contentPane; 
 	
 	public Menu(SH sh) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,15 +43,14 @@ public class Menu extends JFrame{
 		JButton btnProjects = new JButton("Projects");
 		btnProjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Projects projects = new Projects(sh);
+				projects.setVisible(true);
 			}
 		});
-		
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
 		gbc_btnProjects.insets = new Insets(0, 0, 0, 5);
 		gbc_btnProjects.gridx = 3;
 		gbc_btnProjects.gridy = 3;
 		contentPane.add(btnProjects, gbc_btnProjects);
-		
 	}
 }
