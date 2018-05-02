@@ -8,7 +8,7 @@ Scenario: Employee logs in
     Then the employee is logged in 
 
 Scenario: Employee can't log in
-    Given that the employee has a four letter username "efgh"
+    Given that the employee has a four letter username "qwer"
     And the employee is not in the list of employees 
     When the employee logs in 
     And the employee gets the error message "Wrong username, try again"
