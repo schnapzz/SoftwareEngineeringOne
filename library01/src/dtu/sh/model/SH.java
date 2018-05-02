@@ -8,7 +8,7 @@ import dtu.sh.Exceptions.OperationNotAllowedException;
 
 public class SH {
 	
-	private int numberOfProjects = 1;
+	private int numberOfProjects = 4;
 	
 	private Employee loggedInEmployee; 
 	private List<Employee> employees = new ArrayList<Employee>() {{
