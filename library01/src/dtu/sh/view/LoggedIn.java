@@ -19,21 +19,29 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Menu;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class LoggedIn extends JFrame {
 
+	private SH softwarehuset;
+	
 	private JPanel contentPane;
 	private JTextField txtIminutter;
+	private JComboBox<String> projectComboBox;
+	private JComboBox<String> unfinishedActivityComboBox = new JComboBox<String>();
+	private JComboBox<String> finishedActivitiesComboBox = new JComboBox<String>();
 	private JButton btnCreateProjectActivity;
+//	private GridBagConstraints gbc_finishedActivitiesComboBox
 
 	public LoggedIn(SH softwarehuset) {
+		
+		this.softwarehuset = softwarehuset;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
@@ -47,28 +55,48 @@ public class LoggedIn extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		JLabel lblProjectLabel = new JLabel("Projects");
+		GridBagConstraints gbc_lblProjectLabel = new GridBagConstraints();
+		gbc_lblProjectLabel.anchor = GridBagConstraints.SOUTH;
+		gbc_lblProjectLabel.gridwidth = 2;
+		gbc_lblProjectLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblProjectLabel.gridx = 0;
+		gbc_lblProjectLabel.gridy = 0;
+		contentPane.add(lblProjectLabel, gbc_lblProjectLabel);
+		
+		JLabel lblUnfinishedActivities = new JLabel("Unfinished Activities");
+		GridBagConstraints gbc_lblUnfinishedActivities = new GridBagConstraints();
+		gbc_lblUnfinishedActivities.anchor = GridBagConstraints.SOUTH;
+		gbc_lblUnfinishedActivities.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUnfinishedActivities.gridx = 3;
+		gbc_lblUnfinishedActivities.gridy = 0;
+		contentPane.add(lblUnfinishedActivities, gbc_lblUnfinishedActivities);
+		
 		JLabel lblRegistrerTimer = new JLabel("Registrer Timer");
 		GridBagConstraints gbc_lblRegistrerTimer = new GridBagConstraints();
+		gbc_lblRegistrerTimer.anchor = GridBagConstraints.SOUTH;
 		gbc_lblRegistrerTimer.insets = new Insets(0, 0, 5, 0);
 		gbc_lblRegistrerTimer.gridx = 4;
 		gbc_lblRegistrerTimer.gridy = 0;
 		contentPane.add(lblRegistrerTimer, gbc_lblRegistrerTimer);
 		
-		JComboBox projectComboBox = new JComboBox();
-		// This needs to be loaded trough our lists.
+		projectComboBox = new JComboBox<String>();
 		// ==================
-		projectComboBox.addItem("Paul Fischer");
-		projectComboBox.addItem("Aksel Acne");
-		projectComboBox.addItem("Carsten");
+		List<Project> projects = softwarehuset.getProjects();
+		for (Project p : projects) {
+			projectComboBox.addItem(p.getId() + " - " + p.getTitle());
+		}
 		// ==================
 		projectComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent projectActionEvent) {
 				
 				// WARN: Check this when the proper info is added
-				String selectedProject = projectComboBox.getSelectedItem().toString();
+				String selectedProject = ((String)projectComboBox.getSelectedItem()).substring(0, 5);
+				System.out.println("Project: " + selectedProject);
 				Project project = softwarehuset.getProjectWithId(selectedProject);
 				
 				showCreateProjectActivityButtonIfProjectLeader(project.getProjectLeader(), softwarehuset.getLoggedInEmployee().getID());
+				reloadProjectActivityCombobox();
 			}
 		});
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -79,19 +107,14 @@ public class LoggedIn extends JFrame {
 		gbc_comboBox.gridy = 1;
 		contentPane.add(projectComboBox, gbc_comboBox);
 		
-		JComboBox activityComboBox = new JComboBox();
-		// This needs to be loaded trough our lists.
-		// ==================
-		activityComboBox.addItem("Kan ikke stave");
-		activityComboBox.addItem("Kan ikke regne");
-		activityComboBox.addItem("Kan ikke lide mennesker");
-		// ==================
-		GridBagConstraints gbc_comboBox_Activity = new GridBagConstraints();
-		gbc_comboBox_Activity.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_Activity.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_Activity.gridx = 3;
-		gbc_comboBox_Activity.gridy = 1;
-		contentPane.add(activityComboBox, gbc_comboBox_Activity);
+		
+		// Activity Combobox constraints
+		GridBagConstraints gbc_unfinished_Activity = new GridBagConstraints();
+		gbc_unfinished_Activity.insets = new Insets(0, 0, 5, 5);
+		gbc_unfinished_Activity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_unfinished_Activity.gridx = 3;
+		gbc_unfinished_Activity.gridy = 1;
+		contentPane.add(unfinishedActivityComboBox, gbc_unfinished_Activity);
 		
 		
 		txtIminutter = new JTextField();
@@ -114,8 +137,9 @@ public class LoggedIn extends JFrame {
 		JButton btnNewButton = new JButton("Tilf�j");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				Menu menu = new Menu(softwarehuset);
-//				menu.setVisible(true);
+				
+				Menu menu = new Menu(softwarehuset);
+				menu.setVisible(true);
 			}
 		});
 		
@@ -137,8 +161,15 @@ public class LoggedIn extends JFrame {
 		GridBagConstraints gbc_btnCreateProjectActivity = new GridBagConstraints();
 		gbc_btnCreateProjectActivity.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCreateProjectActivity.gridx = 3;
-		gbc_btnCreateProjectActivity.gridy = 4;
+		gbc_btnCreateProjectActivity.gridy = 2;
 		contentPane.add(btnCreateProjectActivity, gbc_btnCreateProjectActivity);
+		
+		JLabel lblFinishedActivities = new JLabel("Finished Activities");
+		GridBagConstraints gbc_lblFinishedActivities = new GridBagConstraints();
+		gbc_lblFinishedActivities.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFinishedActivities.gridx = 3;
+		gbc_lblFinishedActivities.gridy = 4;
+		contentPane.add(lblFinishedActivities, gbc_lblFinishedActivities);
 		
 		GridBagConstraints gbc_btnLogUd = new GridBagConstraints();
 		gbc_btnLogUd.insets = new Insets(0, 0, 0, 5);
@@ -156,20 +187,16 @@ public class LoggedIn extends JFrame {
 		
 		// Mikkel
 		JButton addRegistrationButton = new JButton("addRegistration");
-		btnNewButton.addActionListener(new ActionListener() {
+		addRegistrationButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
 					
-					// This is done from the notion that we use the ID of projects in the Combobox.
-					// We might want a format like: 'id - title' in other words '030109 - Test'
-					// In that case handle this.
-					String selectedProjectId = projectComboBox.getSelectedItem().toString();
-					String selectedActivityTitle = activityComboBox.getSelectedItem().toString();
+					String selectedActivityTitle = (String)unfinishedActivityComboBox.getSelectedItem();
 					String hoursAsString = txtIminutter.getText();
 					
 					// Get to the proper activity
-					Project project = softwarehuset.getProjectWithId(selectedProjectId);
+					Project project = getSelectedProject();
 					ProjectActivity projectActivity = project.getProjectActivityWithTitle(selectedActivityTitle);
 					
 					// Register the time.
@@ -191,8 +218,58 @@ public class LoggedIn extends JFrame {
 		gbc_btnNewButton.gridx = 4;
 		gbc_btnNewButton.gridy = 3;
 		contentPane.add(addRegistrationButton, gbc_btnNewButton);
+		
+		GridBagConstraints gbc_finishedActivitiesComboBox;
+		gbc_finishedActivitiesComboBox = new GridBagConstraints();
+		gbc_finishedActivitiesComboBox.anchor = GridBagConstraints.NORTH;
+		gbc_finishedActivitiesComboBox.insets = new Insets(0, 0, 0, 5);
+		gbc_finishedActivitiesComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_finishedActivitiesComboBox.gridx = 3;
+		gbc_finishedActivitiesComboBox.gridy = 5;
+		contentPane.add(finishedActivitiesComboBox, gbc_finishedActivitiesComboBox);
 	}
 	
+	// Mikkel
+	private void reloadProjectActivityCombobox() {
+		
+		clearActivityData();
+		
+		Project project = getSelectedProject();
+		List<ProjectActivity> unfinished = project.getUnfinishedActivities();
+		List<ProjectActivity> finished = project.getFinishedActivities();
+
+		// Load unfinished
+		for (ProjectActivity projectActivity : unfinished) {
+			unfinishedActivityComboBox.addItem(projectActivity.getTitle());
+		}
+		
+		// Load finished
+		for (ProjectActivity projectActivity : finished) {
+			finishedActivitiesComboBox.addItem(projectActivity.getTitle());
+		}
+	}
+	
+	private void clearActivityData() {
+		unfinishedActivityComboBox.removeAll();
+		finishedActivitiesComboBox.removeAll();
+	}
+
+	private Project getSelectedProject() {
+		
+		String selectedProjectId = ((String)projectComboBox.getSelectedItem()).substring(0, 5);
+		
+		return softwarehuset.getProjectWithId(selectedProjectId);
+	}
+	
+	private ProjectActivity getSelectedUnfinishedActivity() {
+		
+		String selectedActivity = (String)unfinishedActivityComboBox.getSelectedItem();
+		Project p = getSelectedProject();
+		ProjectActivity pa = p.getProjectActivityWithTitle(selectedActivity);
+		
+		return pa;
+	}
+
 	// Mikkel
 	// Makes sure it's not possible for employees who's not projectLeader on the selected project to add activities.
 	private void showCreateProjectActivityButtonIfProjectLeader(String projectLeader, String loggedInEmployee) {
