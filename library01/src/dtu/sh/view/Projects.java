@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
+import dtu.sh.model.Report;
 import dtu.sh.model.SH;
 
 import java.awt.GridLayout;
@@ -37,6 +38,8 @@ public class Projects extends JFrame{
 	private JPanel contentPane;
 	private List<Project> projects;
 	private SH sh;
+	private String username;
+	
 	private JComboBox<String> comboBox_Projects;
 	private JTextField txtProjectLeaderID;
 	private JTextField txtStart;
@@ -46,10 +49,12 @@ public class Projects extends JFrame{
 	private JTextField txtAddEnd;
 	private Boolean updating = false;
 	
-	public Projects(SH sh) {
+	public Projects(SH sh, String username) {
 		setTitle("Project Management");
 		this.sh = sh;
+		this.username = username;
 		projects = sh.getProjects();
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -335,7 +340,25 @@ public class Projects extends JFrame{
 				updateScene();
 			}
 		});
-		
+		/*
+		 * Stuff for Getting a report
+		 */
+		JButton btnRepport = new JButton("Report");
+		btnRepport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
+				Report r = sh.requestReport(p, username);
+				ReportFrame reportFrame = new ReportFrame(r); 
+//				reportFrame.setVisible(true);
+			}
+		});
+		btnRepport.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnRepport = new GridBagConstraints();
+		gbc_btnRepport.anchor = GridBagConstraints.NORTH;
+		gbc_btnRepport.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRepport.gridx = 4;
+		gbc_btnRepport.gridy = 2;
+		contentPane.add(btnRepport, gbc_btnRepport);
 		
 	}
 	public void updateScene() {
