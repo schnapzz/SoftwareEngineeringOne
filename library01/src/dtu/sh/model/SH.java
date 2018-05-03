@@ -107,7 +107,6 @@ public class SH {
 	public void createProject(String title) throws OperationNotAllowedException{
 		if (!doesProjectWithTitleExist(title)) {
 			projects.add(new Project(numberOfProjects, title));
-			
 			numberOfProjects = numberOfProjects + 1;
 		} else {
 			throw new OperationNotAllowedException("A project with that name already exists");

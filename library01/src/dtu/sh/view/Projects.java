@@ -50,7 +50,6 @@ public class Projects extends JFrame{
 		setTitle("Project Management");
 		this.sh = sh;
 		projects = sh.getProjects();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,7 +122,6 @@ public class Projects extends JFrame{
 		//Textfield for the ID of the project leader
 		txtProjectLeaderID = new JTextField();
 		txtProjectLeaderID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtProjectLeaderID.setText("<dynamic>");
 		txtProjectLeaderID.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtProjectLeaderID = new GridBagConstraints();
 		gbc_txtProjectLeaderID.anchor = GridBagConstraints.NORTH;
@@ -258,33 +256,6 @@ public class Projects extends JFrame{
 		gbc_lblAddEnd.gridy = 4;
 		contentPane.add(lblAddEnd, gbc_lblAddEnd);
 		
-		JButton btnAddProject = new JButton("Add Project");
-		btnAddProject.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAddProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String addT = txtAddTitle.getText();
-					int addS = 0;
-					int addE = 0;
-					if (txtAddStart.getText().isEmpty() && txtAddEnd.getText().isEmpty() && !txtAddTitle.getText().isEmpty()) {
-						sh.createProject(addT);
-					} 
-					if (!txtAddStart.getText().isEmpty() && !txtAddEnd.getText().isEmpty()) {
-						addS = Integer.parseInt(txtAddStart.getText());
-						addE = Integer.parseInt(txtAddEnd.getText());
-						if ((addS <= 52 && addS >= 1) && (addE <= 52 && addE >= 1)) {
-							sh.createProjectWithStartAndEnd(addT, addS, addE);
-						}
-						
-					}
-					updateScene();
-					updateComboBox();
-				} catch (Exception error) {
-					System.out.println(error.getMessage());
-				}
-				
-			}
-		});
 		
 		//TxtField for entering title
 		JTextField txtAddTitle = new JTextField();
@@ -328,6 +299,35 @@ public class Projects extends JFrame{
 		gbc_btnAddProject.anchor = GridBagConstraints.NORTH;
 		gbc_btnAddProject.gridx = 4;
 		gbc_btnAddProject.gridy = 5;
+		
+		
+		JButton btnAddProject = new JButton("Add Project");
+		btnAddProject.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAddProject.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					System.out.println("Test");
+					String addT = txtAddTitle.getText();
+					int addS = 0;
+					int addE = 0;
+					if (txtAddStart.getText().isEmpty() && txtAddEnd.getText().isEmpty() && !txtAddTitle.getText().isEmpty()) {
+						sh.createProject(addT);
+					} 
+					if (!txtAddStart.getText().isEmpty() && !txtAddEnd.getText().isEmpty()) {
+						addS = Integer.parseInt(txtAddStart.getText());
+						addE = Integer.parseInt(txtAddEnd.getText());
+						if ((addS <= 52 && addS >= 1) && (addE <= 52 && addE >= 1)) {
+							sh.createProjectWithStartAndEnd(addT, addS, addE);
+						}
+					}
+					updateScene();
+					updateComboBox();
+				} catch (Exception error) {
+					System.out.println(error);
+				}
+				
+			}
+		});
 		contentPane.add(btnAddProject, gbc_btnAddProject);
 		
 		comboBox_Projects.addActionListener(new ActionListener() {
