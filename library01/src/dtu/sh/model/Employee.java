@@ -1,4 +1,5 @@
 package dtu.sh.model;
+
 import java.util.List;
 
 import com.sun.javafx.image.impl.General;
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 
 public class Employee {
 	private String id;
-	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>();
-	
+	//private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>();
+	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>(){{ 
+		add(new GeneralActivity("sick", "test description", 5, 10));
+	}};
 	public Employee(String id) {
 		this.id = id;
 	}
@@ -23,14 +26,12 @@ public class Employee {
 	public void addGeneralActivity(String titleGeneralActivity) throws OperationNotAllowedException {
 		if (!hasGeneralActivity(titleGeneralActivity)) {
 			generalActivities.add(new GeneralActivity(titleGeneralActivity));
-		} else {
-			throw new OperationNotAllowedException();
-		}
-		
+		} 
+
 	}
 
 	private boolean hasGeneralActivity(String titleGeneralActivity) {
-		for (GeneralActivity g: generalActivities) {
+		for (GeneralActivity g : generalActivities) {
 			if (g.getTitle().equals(titleGeneralActivity)) {
 				return true;
 			}
@@ -38,16 +39,48 @@ public class Employee {
 		return false;
 	}
 
-	
-
-	public  GeneralActivity getActivity(String title) {
+	public GeneralActivity getActivity(String titleGeneralActivity) {
 		GeneralActivity a = null;
-		for (GeneralActivity g: generalActivities) {
-			if (g.getTitle().equals(title)) {
+		for (GeneralActivity g : generalActivities) {
+			if (g.getTitle().equals(titleGeneralActivity)) {
 				a = g;
 			}
 		}
 		return a;
 	}
+	
 
+	public boolean doesGeneralActivityExist(String titleGeneralActivity) {
+		for (GeneralActivity generalActivity : generalActivities) {
+			if (generalActivity.getTitle().equals(titleGeneralActivity)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void addExistingGeneralActivity(String titleGeneralActivity) throws OperationNotAllowedException {
+		if (hasGeneralActivity(titleGeneralActivity)) {
+			generalActivities.add(new GeneralActivity(titleGeneralActivity));
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
