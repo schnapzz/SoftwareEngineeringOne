@@ -35,7 +35,7 @@ public class ProjectActivity extends Activity {
 		super(title, description);
 
 		this.priority = priority;
-		this.employees = employees;
+		this.setEmployees(employees);
 
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
@@ -54,7 +54,7 @@ public class ProjectActivity extends Activity {
 
 		assert loggedInEmployeeId != null;
 
-		for (Employee employee : employees) {
+		for (Employee employee : getEmployees()) {
 			if (employee.getID().equals(loggedInEmployeeId)) {
 				return true;
 			}
@@ -128,26 +128,18 @@ public class ProjectActivity extends Activity {
 
 		if (!employeeWithIdExists(employeeId)) {
 
-			employees.add(employee);
+			getEmployees().add(employee);
 
 		}
 	}
 
-	public boolean isDuplicateEmployee(String employeeId) {
-		int counter = 0;
-		for (Employee e : employees) {
-			if (e.getID().equals(employeeId)) {
-				counter++;
-			}
-			
-		}
-		System.out.println("counter " + counter);
-		if (counter < 1)
-			return true;
 
-		else
-			return false;
+	public List<Employee> getEmployees() {
+		return employees;
+	}
 
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 
 }
