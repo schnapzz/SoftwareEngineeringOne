@@ -30,6 +30,7 @@ import java.util.List;
 public class LoggedIn extends JFrame {
 
 	private SH softwarehuset;
+	private LoggedIn self;
 	
 	private JPanel contentPane;
 	private JTextField txtIminutter;
@@ -41,6 +42,7 @@ public class LoggedIn extends JFrame {
 	public LoggedIn(SH softwarehuset) {
 		
 		this.softwarehuset = softwarehuset;
+		this.self = this;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
@@ -54,6 +56,7 @@ public class LoggedIn extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		// Mikkel
 		JLabel lblProjectLabel = new JLabel("Projects");
 		GridBagConstraints gbc_lblProjectLabel = new GridBagConstraints();
 		gbc_lblProjectLabel.anchor = GridBagConstraints.SOUTH;
@@ -63,6 +66,7 @@ public class LoggedIn extends JFrame {
 		gbc_lblProjectLabel.gridy = 0;
 		contentPane.add(lblProjectLabel, gbc_lblProjectLabel);
 		
+		// Mikkel
 		JLabel lblUnfinishedActivities = new JLabel("Unfinished Activities");
 		GridBagConstraints gbc_lblUnfinishedActivities = new GridBagConstraints();
 		gbc_lblUnfinishedActivities.anchor = GridBagConstraints.SOUTH;
@@ -79,6 +83,7 @@ public class LoggedIn extends JFrame {
 		gbc_lblRegistrerTimer.gridy = 0;
 		contentPane.add(lblRegistrerTimer, gbc_lblRegistrerTimer);
 		
+		// Mikkel
 		projectComboBox = new JComboBox<String>();
 		// ==================
 		List<Project> projects = softwarehuset.getProjects();
@@ -103,7 +108,7 @@ public class LoggedIn extends JFrame {
 		gbc_comboBox.gridy = 1;
 		contentPane.add(projectComboBox, gbc_comboBox);
 		
-		
+		// Mikkel
 		// Activity Combobox constraints
 		GridBagConstraints gbc_unfinished_Activity = new GridBagConstraints();
 		gbc_unfinished_Activity.insets = new Insets(0, 0, 5, 5);
@@ -130,14 +135,14 @@ public class LoggedIn extends JFrame {
 		contentPane.add(txtIminutter, gbc_txtIminutter);
 		txtIminutter.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Tilf�j");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Menu menu = new Menu(softwarehuset);
-				menu.setVisible(true);
-			}
-		});
+//		JButton btnNewButton = new JButton("Tilf�j");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				Menu menu = new Menu(softwarehuset);
+//				menu.setVisible(true);
+//			}
+//		});
 		
 		JButton btnLogUd = new JButton("Log ud");
 		btnLogUd.addActionListener(new ActionListener() {
@@ -150,7 +155,9 @@ public class LoggedIn extends JFrame {
 		btnCreateProjectActivity = new JButton("Create Project Activity");
 		btnCreateProjectActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(softwarehuset);
+				
+				Project project = getSelectedProject();
+				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(self, project, softwarehuset.getLoggedInEmployee());
 				createProjectActivity.setVisible(true);
 			}
 		});
@@ -160,19 +167,22 @@ public class LoggedIn extends JFrame {
 		gbc_btnCreateProjectActivity.gridy = 2;
 		contentPane.add(btnCreateProjectActivity, gbc_btnCreateProjectActivity);
 		
+		// Mikkel
 		JLabel lblFinishedActivities = new JLabel("Finished Activities");
 		GridBagConstraints gbc_lblFinishedActivities = new GridBagConstraints();
 		gbc_lblFinishedActivities.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFinishedActivities.gridx = 3;
 		gbc_lblFinishedActivities.gridy = 4;
 		contentPane.add(lblFinishedActivities, gbc_lblFinishedActivities);
-		
+
+		// Mikkel
 		GridBagConstraints gbc_btnLogUd = new GridBagConstraints();
 		gbc_btnLogUd.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLogUd.gridx = 0;
 		gbc_btnLogUd.gridy = 5;
 		contentPane.add(btnLogUd, gbc_btnLogUd);
 		
+		// Mikkel
 		JLabel lblErrormessage = new JLabel("ErrorMessage");
 		lblErrormessage.setVisible(false);
 		GridBagConstraints gbc_lblErrormessage = new GridBagConstraints();
@@ -215,6 +225,7 @@ public class LoggedIn extends JFrame {
 		gbc_btnNewButton.gridy = 3;
 		contentPane.add(addRegistrationButton, gbc_btnNewButton);
 		
+		// Mikkel
 		GridBagConstraints gbc_finishedActivitiesComboBox;
 		gbc_finishedActivitiesComboBox = new GridBagConstraints();
 		gbc_finishedActivitiesComboBox.anchor = GridBagConstraints.NORTH;
@@ -247,11 +258,13 @@ public class LoggedIn extends JFrame {
 		}
 	}
 	
+	// Mikkel
 	private void clearActivityData() {
 		unfinishedActivityComboBox.removeAllItems();
 		finishedActivitiesComboBox.removeAllItems();
 	}
 
+	// Mikkel
 	private Project getSelectedProject() {
 		
 		String selectedProjectId = ((String)projectComboBox.getSelectedItem()).substring(0, 6);
@@ -260,6 +273,7 @@ public class LoggedIn extends JFrame {
 		return softwarehuset.getProjectWithId(selectedProjectId);
 	}
 	
+	// Mikkel
 	private ProjectActivity getSelectedUnfinishedActivity() {
 		
 		String selectedActivity = (String)unfinishedActivityComboBox.getSelectedItem();

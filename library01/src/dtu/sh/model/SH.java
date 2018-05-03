@@ -15,7 +15,13 @@ public class SH {
 		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
 		add(new Employee("Hela"));
-		add(new Employee("efgh"));
+		add(new Employee("John"));
+		add(new Employee("SoAm"));
+		add(new Employee("OliG"));
+		add(new Employee("Poul"));
+		add(new Employee("Bear"));
+		add(new Employee("Kimm"));
+		add(new Employee("Duck"));
 	}};
 	
 	private List<Project> projects = new ArrayList<Project>() {{ 
@@ -183,6 +189,7 @@ public class SH {
 		return false;
 	}
 
+	// Mikkel
 	public Project getProjectWithId(String projectId) {
 		for (Project p : projects) {
 			if (p.getId().equalsIgnoreCase(projectId)) 
@@ -191,7 +198,7 @@ public class SH {
 		return null;
 	}
 
-
+	// Mikkel
 	public boolean hasProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -200,7 +207,7 @@ public class SH {
 		}
 		return false;
 	}
-
+	
 	public String getProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {

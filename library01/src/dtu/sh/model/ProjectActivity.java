@@ -6,21 +6,21 @@ import java.util.List;
 
 import dtu.sh.Exceptions.OperationNotAllowedException;
 
+// Mikkel
 public class ProjectActivity extends Activity {
 
 	private int priority;
 
+	// Mikkel
 	private List<Employee> employees = new ArrayList<Employee>() {
 		{
 			add(new Employee("Mikk"));
 			add(new Employee("abcd"));
-			// add(new Employee("efgh"));
 		}
 	};
 	private List<TimeRegistration> timeRegistrations;
 
-	private SH softwarehuset;
-
+	// Mikkel
 	public ProjectActivity(String title, String description, int priority) {
 
 		super(title, description);
@@ -40,6 +40,7 @@ public class ProjectActivity extends Activity {
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
+	// Mikkel
 	public ProjectActivity(String title, String description, int start, int end, int priority) {
 
 		super(title, description, start, end);
@@ -115,7 +116,7 @@ public class ProjectActivity extends Activity {
 		return priority;
 	}
 
-	// Óli
+	// ï¿½li
 	public void addEmployeeToActivity(Employee employee, String employeeId) throws OperationNotAllowedException {
 		// System.out.println("emp = " + softwarehuset.getEmployeeWithId(employee));
 		// if (!employeeWithIdExists(employee)) {

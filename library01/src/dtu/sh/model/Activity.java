@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+// Mikkel
 public abstract class Activity {
 
+	// Mikkel
 	private String title = "";
 	private String description = "";
 	private int startDate;
 	private int endDate;
 	
+	// Mikkel
 	public Activity(String title, String description) {
 		this.title = title;
 		this.description = description;
 	}
 	
+	// Mikkel
 	public Activity(String title, String description, int start, int end) {
 		this.title = title;
 		this.description = description;
@@ -23,6 +27,7 @@ public abstract class Activity {
 		this.endDate = end;
 	}
 
+	
 	public Activity(String title) {
 		this.title = title;
 	}
