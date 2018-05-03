@@ -378,7 +378,16 @@ public class Steps {
 	 * done by: Oli
 	 * 
 	 */
-
+	
+	@Given("^\"([^\"]*)\" is project leader of project with id \"([^\"]*)\"$")
+	public void is_project_leader_of_project_with_id(String leaderId, String projectId) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		Project currentProject = softwarehuset.getProjectWithId(projectId);
+		assertTrue(currentProject.getProjectLeader().equals(leaderId));
+		
+	    //throw new PendingException();
+	}
+	//Oli
 	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeWithIdIsNotPartOfTheActivityWithTitleForProjectWithTitle(String employeeId,
 			String activityTitle, String projectId) throws Exception {
@@ -390,7 +399,7 @@ public class Steps {
 		//
 		// throw new PendingException();
 	}
-
+	//Oli
 	@When("^the employee \\\"([^\\\"]*)\\\" is assigned to the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String employeeId,
 			String activityTitle, String projectId) throws Exception {
@@ -402,11 +411,11 @@ public class Steps {
 		currentActivity.addEmployeeToActivity(employee, employeeId);
 
 	}
-
+	//Oli
 	@Then("^the employee \"([^\"]*)\" is part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(String employeeId, String activityTitle,
 			String projectId) throws Exception {
-		// Write code here that turns the phrase above into concrete actions
+		
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
 		assertTrue(currentActivity.employeeWithIdExists(employeeId));
@@ -414,11 +423,11 @@ public class Steps {
 		// throw new PendingException();
 	}
 
-	//
+	//Oli
 	@Given("^the employee \"([^\"]*)\" is already part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(String employeeId,
 			String activityTitle, String projectId) throws Exception {
-		// Write code here that turns the phrase above into concrete actions
+		
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
 		Employee employee = softwarehuset.getEmployeeWithId(employeeId);
@@ -429,7 +438,8 @@ public class Steps {
 
 		// throw new PendingException();
 	}
-
+	
+	//Oli
 	@Then("^the employee \"([^\"]*)\" is not assigned again to activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
 	public void the_employee_is_not_assigned_again_to_activity_with_title_for_project_with_title(String employeeId,
 			String activityTitle, String projectId) throws Exception {
