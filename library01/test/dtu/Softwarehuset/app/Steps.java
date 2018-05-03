@@ -17,7 +17,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.Employee;
 import dtu.sh.model.Project;

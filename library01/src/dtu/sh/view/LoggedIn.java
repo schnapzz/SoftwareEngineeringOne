@@ -66,6 +66,21 @@ public class LoggedIn extends JFrame {
 		gbc_lblProjectLabel.gridy = 0;
 		contentPane.add(lblProjectLabel, gbc_lblProjectLabel);
 		
+		//Helena
+		JButton btnProjects = new JButton("Manage Projects");
+		btnProjects.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Projects projects = new Projects(softwarehuset);
+				projects.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
+		gbc_btnProjects.anchor = GridBagConstraints.SOUTH;
+		gbc_btnProjects.insets = new Insets(0, 0, 0, 5);
+		gbc_btnProjects.gridx = 0;
+		gbc_btnProjects.gridy = 2;
+		contentPane.add(btnProjects, gbc_btnProjects);
+		
 		// Mikkel
 		JLabel lblUnfinishedActivities = new JLabel("Unfinished Activities");
 		GridBagConstraints gbc_lblUnfinishedActivities = new GridBagConstraints();
