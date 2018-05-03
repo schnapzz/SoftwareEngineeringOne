@@ -38,7 +38,8 @@ public class Steps {
 	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
 	private String titleActivity;
-
+	private String titleGeneralActivity;
+	
 	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
 		this.errorMessageHolder = errorMessageHolder;
 		this.softwarehuset = softwarehuset;
@@ -296,15 +297,38 @@ public class Steps {
 
 	@When("^they create a general activity with the name \"([^\"]*)\"$")
 	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
-		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);
-		this.titleActivity = titleGeneralActivity;
+		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
+		this.titleGeneralActivity = titleGeneralActivity;
+
 	}
 
 	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
 	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
-		softwarehuset.getLoggedInEmployee().getActivity(titleActivity).addStartAndEndDate(start, end);
+	    softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(start,end);
 	}
 
+	@Then("^the general activity \"([^\"]*)\" is created$")
+	public void theGeneralActivityWithStartAndEndIsCreated(String titleGeneralActivity) throws Exception {
+		assertTrue(softwarehuset.getLoggedInEmployee().doesGeneralActivityExist(titleGeneralActivity));
+	}
+
+	@Given("^there is a general activity with the name \"([^\"]*)\"$")
+	public void thereIsAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
+		try {
+			System.out.println("hwj" + softwarehuset.getLoggedInEmployee().getID());
+			softwarehuset.getLoggedInEmployee().addExistingGeneralActivity(titleGeneralActivity);
+		} catch (OperationNotAllowedException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+		this.titleGeneralActivity = titleGeneralActivity;	}
+
+	@Then("^the general activity \"([^\"]*)\" with start \"([^\"]*)\" and end \"([^\"]*)\" is created$")
+	public void theGeneralActivityWithStartAndEndIsCreated(String titleGeneralActivity, int start, int end) throws Exception {
+		assertTrue(softwarehuset.getLoggedInEmployee().doesGeneralActivityExist(titleGeneralActivity));
+		assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate() == start);
+		assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getEndDate() == end);
+	}
+	
 	/*
 	 * Steps for employee log hours
 	 * 
@@ -371,7 +395,9 @@ public class Steps {
 	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {
 		assertTrue(projectActivity.numberOfTimeRegistrations() == numOfRegistrations);
 	}
-
+		
+	//�li
+	
 	/*
 	 * Steps for assign employee to a project activity
 	 * 
@@ -389,6 +415,7 @@ public class Steps {
 	}
 	
 	//Oli
+
 	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeWithIdIsNotPartOfTheActivityWithTitleForProjectWithTitle(String employeeId,
 			String activityTitle, String projectId) throws Exception {

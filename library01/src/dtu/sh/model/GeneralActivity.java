@@ -1,14 +1,13 @@
 package dtu.sh.model;
-
-import java.util.Date;
 import java.util.List;
-
+import java.util.Date;
 import dtu.sh.Exceptions.OperationNotAllowedException;
+
 
 // Sofie-Amalie
 public class GeneralActivity extends Activity {
-	private int startDate;
-	private int endDate;
+	private int startDate = 0;
+	private int endDate = 0;
 
 	public List<GeneralActivity> generalActivity;
 	
@@ -27,5 +26,14 @@ public class GeneralActivity extends Activity {
 		}
 	}
 
+	public int getStartDate() {
+		// TODO Auto-generated method stub
+		return startDate;
+	}
+
+	public int getEndDate() {
+		// TODO Auto-generated method stub
+		return endDate;
+	}
 
 }

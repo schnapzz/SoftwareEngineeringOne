@@ -37,7 +37,6 @@ public class LoggedIn extends JFrame {
 	private JComboBox<String> unfinishedActivityComboBox = new JComboBox<String>();
 	private JComboBox<String> finishedActivitiesComboBox = new JComboBox<String>();
 	private JButton btnCreateProjectActivity;
-//	private GridBagConstraints gbc_finishedActivitiesComboBox
 
 	public LoggedIn(SH softwarehuset) {
 		
@@ -90,10 +89,7 @@ public class LoggedIn extends JFrame {
 		projectComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent projectActionEvent) {
 				
-				// WARN: Check this when the proper info is added
-				String selectedProject = ((String)projectComboBox.getSelectedItem()).substring(0, 5);
-				System.out.println("Project: " + selectedProject);
-				Project project = softwarehuset.getProjectWithId(selectedProject);
+				Project project = getSelectedProject();
 				
 				showCreateProjectActivityButtonIfProjectLeader(project.getProjectLeader(), softwarehuset.getLoggedInEmployee().getID());
 				reloadProjectActivityCombobox();
@@ -227,6 +223,8 @@ public class LoggedIn extends JFrame {
 		gbc_finishedActivitiesComboBox.gridx = 3;
 		gbc_finishedActivitiesComboBox.gridy = 5;
 		contentPane.add(finishedActivitiesComboBox, gbc_finishedActivitiesComboBox);
+		
+		reloadProjectActivityCombobox();
 	}
 	
 	// Mikkel
@@ -250,13 +248,14 @@ public class LoggedIn extends JFrame {
 	}
 	
 	private void clearActivityData() {
-		unfinishedActivityComboBox.removeAll();
-		finishedActivitiesComboBox.removeAll();
+		unfinishedActivityComboBox.removeAllItems();
+		finishedActivitiesComboBox.removeAllItems();
 	}
 
 	private Project getSelectedProject() {
 		
-		String selectedProjectId = ((String)projectComboBox.getSelectedItem()).substring(0, 5);
+		String selectedProjectId = ((String)projectComboBox.getSelectedItem()).substring(0, 6);
+		System.out.println("ID of selected project is " + selectedProjectId);
 		
 		return softwarehuset.getProjectWithId(selectedProjectId);
 	}
@@ -275,11 +274,12 @@ public class LoggedIn extends JFrame {
 	private void showCreateProjectActivityButtonIfProjectLeader(String projectLeader, String loggedInEmployee) {
 		
 		if (projectLeader.equals(loggedInEmployee)) {
-			
+		
 			btnCreateProjectActivity.setVisible(true);
 			btnCreateProjectActivity.setEnabled(true);
 			
 		} else {
+			
 			btnCreateProjectActivity.setVisible(false);
 			btnCreateProjectActivity.setEnabled(false);
 		}

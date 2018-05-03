@@ -28,6 +28,7 @@ import java.util.List;
 
 
 public class Projects extends JFrame{
+	
 	private JFrame frame;
 	private JPanel contentPane;
 	private List<Project> projects;
@@ -40,7 +41,7 @@ public class Projects extends JFrame{
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{120, 90, 90, 90, 90, 120};
-		gbl_contentPane.rowHeights = new int[]{20, 40, 40, 40, 20, 40, 40};
+		gbl_contentPane.rowHeights = new int[]{40, 40, 40, 40, 40, 40, 40};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -78,8 +79,8 @@ public class Projects extends JFrame{
 		contentPane.add(lblProjectEnd, gbc_lblProjectEnd);
 		
 		//Combobox for all the projects in 
-		JComboBox comboBox_Projects= new JComboBox();
 		projects = sh.getProjects();
+		JComboBox comboBox_Projects= new JComboBox();
 		for (Project p:projects) {
 			comboBox_Projects.addItem(p.getTitle());
 		}
@@ -181,102 +182,6 @@ public class Projects extends JFrame{
 		gbc_btnProjects.gridx = 2;
 		gbc_btnProjects.gridy = 2;
 		contentPane.add(btnUpdate, gbc_btnProjects);
-		
-		/*
-		 * Stuff for Registering a project 
-		 */
-		//"Title" label
-		JLabel lblAddTitle = new JLabel("Title");
-		GridBagConstraints gbc_lblAddTitle = new GridBagConstraints();
-		gbc_lblAddTitle.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAddTitle.gridx = 0;
-		gbc_lblAddTitle.gridy = 4;
-		contentPane.add(lblAddTitle, gbc_lblAddTitle);
-		
-		//"Start" label
-		JLabel lblAddStart = new JLabel("Start");
-		GridBagConstraints gbc_lblAddStart = new GridBagConstraints();
-		gbc_lblAddStart.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAddStart.gridx = 1;
-		gbc_lblAddStart.gridy = 4;
-		contentPane.add(lblAddStart, gbc_lblAddStart);
-		
-		//"End" label
-		JLabel lblAddEnd = new JLabel("End");
-		GridBagConstraints gbc_lblAddEnd = new GridBagConstraints();
-		gbc_lblAddEnd.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAddEnd.gridx = 2;
-		gbc_lblAddEnd.gridy = 4;
-		contentPane.add(lblAddEnd, gbc_lblAddEnd);
-		
-		//TxtField for entering title
-		JTextField txtAddTitle = new JTextField();
-		txtAddTitle.setBounds(7,4,10,10);
-		txtAddTitle.setPreferredSize(new Dimension(10, 2));
-		GridBagConstraints gbc_txtAddTitle = new GridBagConstraints();
-		gbc_txtAddTitle.insets = new Insets(0, 0, 5, 0);
-		gbc_txtAddTitle.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAddTitle.gridx = 0;
-		gbc_txtAddTitle.gridy = 5;
-		contentPane.add(txtAddTitle, gbc_txtAddTitle);
-		txtAddTitle.setColumns(10);
-		
-		//TxtField for entering start
-		JTextField txtAddStart = new JTextField();
-		txtAddStart.setBounds(7,4,10,10);
-		txtAddStart.setPreferredSize(new Dimension(10, 2));
-		GridBagConstraints gbc_txtAddStart = new GridBagConstraints();
-		gbc_txtAddStart.insets = new Insets(0, 0, 5, 0);
-		gbc_txtAddStart.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAddStart.gridx = 1;
-		gbc_txtAddStart.gridy = 5;
-		contentPane.add(txtAddStart, gbc_txtAddStart);
-		txtAddStart.setColumns(10);
-		
-		//TxtField for entering end
-		JTextField txtAddEnd = new JTextField();
-		txtAddEnd.setBounds(7,4,10,10);
-		txtAddEnd.setPreferredSize(new Dimension(10, 2));
-		GridBagConstraints gbc_txtAddEnd = new GridBagConstraints();
-		gbc_txtAddEnd.insets = new Insets(0, 0, 5, 0);
-		gbc_txtAddEnd.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAddEnd.gridx = 2;
-		gbc_txtAddEnd.gridy = 5;
-		contentPane.add(txtAddEnd, gbc_txtAddEnd);
-		txtAddEnd.setColumns(10);
-		
-		JButton btnAddProject = new JButton("Add Project");
-		btnAddProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String addT = txtAddTitle.getText();
-					int addS = Integer.parseInt(txtAddStart.getText());
-					int addE = Integer.parseInt(txtAddEnd.getText());
-					if (txtAddStart.getText().equals("") && txtAddEnd.getText().equals("")) {
-						sh.createProject(addT);
-						projects = sh.getProjects();
-						comboBox_Projects.removeAllItems();
-						for (Project p:projects) {
-							comboBox_Projects.addItem(p.getTitle());
-						}
-					} else if ((addS <= 52 && addS >= 0) && (addE <= 52 && addE >= 0)) {
-						sh.createProjectWithStartAndEnd(addT, addS, addE);
-						projects = sh.getProjects();
-						comboBox_Projects.removeAllItems();
-						for (Project p:projects) {
-							comboBox_Projects.addItem(p.getTitle());
-						}
-					}
-				} catch (Exception error) {
-					
-				}
-			}
-		});
-		GridBagConstraints gbc_btnAddProject = new GridBagConstraints();
-		gbc_btnAddProject.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAddProject.gridx = 3;
-		gbc_btnAddProject.gridy = 5;
-		contentPane.add(btnAddProject, gbc_btnAddProject);
 		
 	}
 }
