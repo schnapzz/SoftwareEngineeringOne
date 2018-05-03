@@ -20,6 +20,7 @@ import java.awt.Color;
 public class Main {
 
 	private SH softwarehuset;
+	private Main self;
 	
 	private JFrame frame;
 	private JLabel loginErrorLabel;
@@ -46,6 +47,7 @@ public class Main {
 	 */
 	public Main() {
 		initialize();
+		self = this;
 		softwarehuset = new SH();
 	}
 
@@ -92,8 +94,9 @@ public class Main {
 						System.out.println(username);
 						softwarehuset.logInEmployee(username);
 						frame.dispose(); 
-						LoggedIn login = new LoggedIn(softwarehuset);
+						LoggedIn login = new LoggedIn(self, softwarehuset);
 						login.setVisible(true);
+						frame.setVisible(false);
 //						Menu menu = new Menu(softwarehuset);
 //						menu.setVisible(true);
 					}
@@ -119,5 +122,9 @@ public class Main {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 5;
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
+	}
+
+	public void showLogin() {
+		frame.setVisible(true);
 	}
 }

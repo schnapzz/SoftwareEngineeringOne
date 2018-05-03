@@ -39,4 +39,13 @@ public abstract class Activity {
 	public String getDescription() {
 		return description;
 	}
+	
+	public int getStartDate() {
+		return startDate;
+	}
+	
+	public int getEndDate() {
+		return endDate;
+	}
+	
 }
