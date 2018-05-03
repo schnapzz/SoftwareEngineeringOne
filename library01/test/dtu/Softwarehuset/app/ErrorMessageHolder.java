@@ -1,4 +1,4 @@
-package dtu.Softwarehuset.acceptance_tests;
+package dtu.Softwarehuset.app;
 
 public class ErrorMessageHolder {
 	private String errorMessage;

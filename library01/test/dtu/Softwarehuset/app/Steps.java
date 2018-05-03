@@ -20,7 +20,6 @@ import cucumber.api.java.en.When;
 import cucumber.api.java.it.Date;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.Employee;
-import dtu.Softwarehuset.acceptance_tests.ErrorMessageHolder;
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
 import dtu.sh.model.Report;
