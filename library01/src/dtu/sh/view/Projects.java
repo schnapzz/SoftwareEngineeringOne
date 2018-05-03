@@ -50,13 +50,8 @@ public class Projects extends JFrame{
 		setTitle("Project Management");
 		this.sh = sh;
 		projects = sh.getProjects();
-<<<<<<< HEAD
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 557, 377);
-=======
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 450);
->>>>>>> 5279a26fa23c085247253f526c14ce70c10d2696
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
