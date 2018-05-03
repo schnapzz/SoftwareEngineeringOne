@@ -387,6 +387,7 @@ public class Steps {
 		
 	    //throw new PendingException();
 	}
+	
 	//Oli
 	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeWithIdIsNotPartOfTheActivityWithTitleForProjectWithTitle(String employeeId,
@@ -399,6 +400,7 @@ public class Steps {
 		//
 		// throw new PendingException();
 	}
+	
 	//Oli
 	@When("^the employee \\\"([^\\\"]*)\\\" is assigned to the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String employeeId,
