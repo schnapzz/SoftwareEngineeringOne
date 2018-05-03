@@ -1,9 +1,8 @@
 package dtu.sh.model;
-
-import java.util.Date;
 import java.util.List;
-
+import java.util.Date;
 import dtu.sh.Exceptions.OperationNotAllowedException;
+
 
 // Sofie-Amalie
 public class GeneralActivity extends Activity {

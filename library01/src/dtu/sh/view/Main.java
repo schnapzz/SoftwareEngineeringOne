@@ -24,7 +24,6 @@ public class Main {
 	private JFrame frame;
 	private JLabel loginErrorLabel;
 	private JTextField txtUsername;
-	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -86,27 +85,34 @@ public class Main {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					String username = txtUsername.getText();
 					if (softwarehuset.isEmployed(username)) {
+						
 						System.out.println(username);
 						softwarehuset.logInEmployee(username);
 						frame.dispose(); 
-						Menu menu = new Menu(softwarehuset);
-						menu.setVisible(true);
+						LoggedIn login = new LoggedIn(softwarehuset);
+						login.setVisible(true);
+//						Menu menu = new Menu(softwarehuset);
+//						menu.setVisible(true);
 					}
+					
 				} catch (Exception e1) {
-					System.out.println("Fejl i login");
+					
+					loginErrorLabel.setText(e1.getMessage());
 				}
 			}
 		});
 		
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setForeground(Color.RED);
+		loginErrorLabel = new JLabel("New label");
+		loginErrorLabel.setForeground(Color.RED);
+		loginErrorLabel.setVisible(false);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 4;
-		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		frame.getContentPane().add(loginErrorLabel, gbc_lblNewLabel);
 		
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);

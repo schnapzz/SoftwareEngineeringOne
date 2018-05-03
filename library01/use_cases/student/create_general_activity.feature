@@ -1,3 +1,5 @@
+
+#Sofie-Amalie
 Feature: Creating a general activity
     Description: An employee creates a general activity for themselves
 	Actors: Employee
