@@ -197,7 +197,7 @@ public class LoggedIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					
+				
 					String selectedActivityTitle = (String)unfinishedActivityComboBox.getSelectedItem();
 					String hoursAsString = txtIminutter.getText();
 					
