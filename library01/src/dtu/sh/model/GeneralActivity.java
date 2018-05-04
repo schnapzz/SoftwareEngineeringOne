@@ -1,6 +1,8 @@
 package dtu.sh.model;
 import java.util.List;
 import java.util.Date;
+
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 
 
@@ -11,7 +13,7 @@ public class GeneralActivity extends Activity {
 
 	public List<GeneralActivity> generalActivity;
 	
-	public GeneralActivity(String title, String description, int start, int end) {
+	public GeneralActivity(String title, String description, int start, int end) throws IllegalWeekNumberFormatException {
 		super(title, description, start, end);
 	}
 	

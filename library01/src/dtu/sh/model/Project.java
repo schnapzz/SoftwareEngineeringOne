@@ -103,16 +103,6 @@ public class Project {
 		Report report = new Report(finishedActivities, unfinishedActivities);
 		return report;
 	}
-	
-	// Mikkel
-	public boolean employeeWithIdExists(String loggedInEmployeeId) {
-		for (Employee employee : employees) {
-			if (loggedInEmployeeId.equals(employee.getID())) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	// Mikkel
 	public ProjectActivity getProjectActivityWithTitle(String activityTitle) {
@@ -132,6 +122,7 @@ public class Project {
 		return projectActivity;
 	}
 	
+	// Mikkel
 	private ProjectActivity searchForProjectActivity(String activityTitle, List<ProjectActivity> projectActivities) {
 		assert projectActivities != null;
 		for (ProjectActivity pa : projectActivities) {

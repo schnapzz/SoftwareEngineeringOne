@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.Employee;
 import dtu.sh.model.Project;
@@ -189,6 +190,13 @@ public class CreateProjectActivityFrame extends JFrame {
 						
 						lblStartWeek.setForeground(Color.red);
 						lblEndWeek.setForeground(Color.red);
+						
+					} catch (NullPointerException e3) {
+						
+						System.out.println("Nullpointer exception caught in CreateProjectActivity at btnPressed");
+						System.out.println(e3.getMessage());
+						
+						// TODO: handle this UI wise
 					}
 					
 				} else {
@@ -220,7 +228,14 @@ public class CreateProjectActivityFrame extends JFrame {
 			int startWeek = Integer.parseInt(textFieldStartWeek.getText());
 			int endWeek = Integer.parseInt(textFieldEndWeek.getText());
 			
-			return new ProjectActivity(title, desc, priority, startWeek, endWeek);
+			try {
+				
+				return new ProjectActivity(title, desc, priority, startWeek, endWeek);
+				
+			} catch (IllegalWeekNumberFormatException e) {
+				
+				return null;
+			}
 		}
 	}
 

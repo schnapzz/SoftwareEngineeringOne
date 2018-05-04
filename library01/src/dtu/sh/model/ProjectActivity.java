@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 
 // Mikkel
@@ -41,10 +42,9 @@ public class ProjectActivity extends Activity {
 	}
 
 	// Mikkel
-	public ProjectActivity(String title, String description, int start, int end, int priority) {
+	public ProjectActivity(String title, String description, int priority, int start, int end) throws IllegalWeekNumberFormatException {
 
 		super(title, description, start, end);
-
 		this.priority = priority;
 
 		timeRegistrations = new ArrayList<TimeRegistration>();
