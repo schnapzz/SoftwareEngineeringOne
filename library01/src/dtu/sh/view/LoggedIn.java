@@ -31,6 +31,7 @@ public class LoggedIn extends JFrame {
 
 	private SH softwarehuset;
 	private LoggedIn self;
+	private String username;
 	
 	private JPanel contentPane;
 	private JTextField txtIminutter;
@@ -39,10 +40,11 @@ public class LoggedIn extends JFrame {
 	private JComboBox<String> finishedActivitiesComboBox = new JComboBox<String>();
 	private JButton btnCreateProjectActivity;
 
-	public LoggedIn(Main main, SH softwarehuset) {
+	public LoggedIn(Main main, SH softwarehuset, String username) {
 		
 		this.softwarehuset = softwarehuset;
 		this.self = this;
+		this.username = username;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
@@ -70,7 +72,7 @@ public class LoggedIn extends JFrame {
 		JButton btnProjects = new JButton("Manage Projects");
 		btnProjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Projects projects = new Projects(softwarehuset);
+				Projects projects = new Projects(softwarehuset, username);
 				projects.setVisible(true);
 			}
 		});

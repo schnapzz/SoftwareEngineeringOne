@@ -94,7 +94,7 @@ public class Main {
 						System.out.println(username);
 						softwarehuset.logInEmployee(username);
 						frame.dispose(); 
-						LoggedIn login = new LoggedIn(self, softwarehuset);
+						LoggedIn login = new LoggedIn(self, softwarehuset, username);
 						login.setVisible(true);
 						frame.setVisible(false);
 //						Menu menu = new Menu(softwarehuset);

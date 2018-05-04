@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
+import dtu.sh.model.Report;
 import dtu.sh.model.SH;
 
 import java.awt.GridLayout;
@@ -37,6 +38,8 @@ public class Projects extends JFrame{
 	private JPanel contentPane;
 	private List<Project> projects;
 	private SH sh;
+	private String username;
+	
 	private JComboBox<String> comboBox_Projects;
 	private JTextField txtProjectLeaderID;
 	private JTextField txtStart;
@@ -46,13 +49,13 @@ public class Projects extends JFrame{
 	private JTextField txtAddEnd;
 	private Boolean updating = false;
 	
-	public Projects(SH sh) {
+	public Projects(SH sh, String username) {
 		setTitle("Project Management");
 		this.sh = sh;
+		this.username = username;
 		projects = sh.getProjects();
-		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 557, 377);
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 650, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -124,7 +127,6 @@ public class Projects extends JFrame{
 		//Textfield for the ID of the project leader
 		txtProjectLeaderID = new JTextField();
 		txtProjectLeaderID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtProjectLeaderID.setText("<dynamic>");
 		txtProjectLeaderID.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtProjectLeaderID = new GridBagConstraints();
 		gbc_txtProjectLeaderID.anchor = GridBagConstraints.NORTH;
@@ -259,33 +261,6 @@ public class Projects extends JFrame{
 		gbc_lblAddEnd.gridy = 4;
 		contentPane.add(lblAddEnd, gbc_lblAddEnd);
 		
-		JButton btnAddProject = new JButton("Add Project");
-		btnAddProject.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAddProject.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String addT = txtAddTitle.getText();
-					int addS = 0;
-					int addE = 0;
-					if (txtAddStart.getText().isEmpty() && txtAddEnd.getText().isEmpty() && !txtAddTitle.getText().isEmpty()) {
-						sh.createProject(addT);
-					} 
-					if (!txtAddStart.getText().isEmpty() && !txtAddEnd.getText().isEmpty()) {
-						addS = Integer.parseInt(txtAddStart.getText());
-						addE = Integer.parseInt(txtAddEnd.getText());
-						if ((addS <= 52 && addS >= 1) && (addE <= 52 && addE >= 1)) {
-							sh.createProjectWithStartAndEnd(addT, addS, addE);
-						}
-						
-					}
-					updateScene();
-					updateComboBox();
-				} catch (Exception error) {
-					System.out.println(error.getMessage());
-				}
-				
-			}
-		});
 		
 		//TxtField for entering title
 		JTextField txtAddTitle = new JTextField();
@@ -329,6 +304,35 @@ public class Projects extends JFrame{
 		gbc_btnAddProject.anchor = GridBagConstraints.NORTH;
 		gbc_btnAddProject.gridx = 4;
 		gbc_btnAddProject.gridy = 5;
+		
+		
+		JButton btnAddProject = new JButton("Add Project");
+		btnAddProject.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAddProject.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					System.out.println("Test");
+					String addT = txtAddTitle.getText();
+					int addS = 0;
+					int addE = 0;
+					if (txtAddStart.getText().isEmpty() && txtAddEnd.getText().isEmpty() && !txtAddTitle.getText().isEmpty()) {
+						sh.createProject(addT);
+					} 
+					if (!txtAddStart.getText().isEmpty() && !txtAddEnd.getText().isEmpty()) {
+						addS = Integer.parseInt(txtAddStart.getText());
+						addE = Integer.parseInt(txtAddEnd.getText());
+						if ((addS <= 52 && addS >= 1) && (addE <= 52 && addE >= 1)) {
+							sh.createProjectWithStartAndEnd(addT, addS, addE);
+						}
+					}
+					updateScene();
+					updateComboBox();
+				} catch (Exception error) {
+					System.out.println(error);
+				}
+				
+			}
+		});
 		contentPane.add(btnAddProject, gbc_btnAddProject);
 		
 		comboBox_Projects.addActionListener(new ActionListener() {
@@ -336,7 +340,25 @@ public class Projects extends JFrame{
 				updateScene();
 			}
 		});
-		
+		/*
+		 * Stuff for Getting a report
+		 */
+		JButton btnRepport = new JButton("Report");
+		btnRepport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
+				Report r = sh.requestReport(p, username);
+				ReportFrame reportFrame = new ReportFrame(r); 
+//				reportFrame.setVisible(true);
+			}
+		});
+		btnRepport.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnRepport = new GridBagConstraints();
+		gbc_btnRepport.anchor = GridBagConstraints.NORTH;
+		gbc_btnRepport.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRepport.gridx = 4;
+		gbc_btnRepport.gridy = 2;
+		contentPane.add(btnRepport, gbc_btnRepport);
 		
 	}
 	public void updateScene() {
