@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+// Mikkel
 public class CreateProjectActivityFrame extends JFrame {
 
 	private CreateProjectActivityFrame self;
@@ -46,6 +47,7 @@ public class CreateProjectActivityFrame extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * Mikkel
 	 */
 	public CreateProjectActivityFrame(LoggedIn loginFrame, Project project, Employee loggedInEmployee) {
 		
@@ -162,6 +164,8 @@ public class CreateProjectActivityFrame extends JFrame {
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
+			
+			// Mikkel
 			public void actionPerformed(ActionEvent e) {
 				
 				if (isMandatoryFieldsFilled()) {
@@ -200,7 +204,8 @@ public class CreateProjectActivityFrame extends JFrame {
 		contentPane.add(btnCreate, gbc_btnCreate);
 	}
 
-	protected ProjectActivity createProjectActivity() {
+	// Mikkel
+	private ProjectActivity createProjectActivity() {
 		
 		String title = textFieldTitle.getText();
 		int priority = Integer.parseInt((String)comboBoxPriority.getSelectedItem());
@@ -219,6 +224,7 @@ public class CreateProjectActivityFrame extends JFrame {
 		}
 	}
 
+	// Mikkel
 	private boolean isMandatoryFieldsFilled() {
 		
 		if (textFieldTitle.getText().isEmpty()) {

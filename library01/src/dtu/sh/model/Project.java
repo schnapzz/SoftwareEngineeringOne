@@ -142,16 +142,6 @@ public class Project {
 		return null;
 	}
 
-//	// Mikkel
-//	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
-//		
-//		assert employeeId != null;
-//		
-//		if (isHoursImproperlyFormatted(hours)) { throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
-//		
-//		activeProjectActivity.registerHours(employeeId, hours);
-//	}
-
 	// ===== GETTERS AND SETTERS =====
 	
 	public String getId() {

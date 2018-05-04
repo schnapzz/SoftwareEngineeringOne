@@ -1,11 +1,11 @@
 $(document).ready(function() {var formatter = new CucumberHTML.DOMFormatter($('.cucumber-report'));formatter.uri("use_cases/student/assign_employee_to_a_project_activity.feature");
 formatter.feature({
   "name": "Assign employee to a project-activity",
-  "description": "    Description: A project is added to the list of projects\n\tActors: Project leader and Employee",
+  "description": "\tDescription: A project is added to the list of projects\n\tActors: Project leader and Employee",
   "keyword": "Feature"
 });
 formatter.scenario({
-  "name": "Employee is assigned activity",
+  "name": "Employee is assigned to activity",
   "description": "",
   "keyword": "Scenario"
 });
@@ -20,11 +20,21 @@ formatter.result({
   "status": "passed"
 });
 formatter.step({
+  "name": "\"Mikk\" is project leader of project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.is_project_leader_of_project_with_id(String,String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
   "name": "the employee with id \"efgh\" is not part of the activity with title \"test\" for project with id \"030901\"",
   "keyword": "Given "
 });
 formatter.match({
-  "location": "Steps.the_employee_with_id_is_not_part_of_the_activity_with_title_for_project_with_title(String,String,String)"
+  "location": "Steps.theEmployeeWithIdIsNotPartOfTheActivityWithTitleForProjectWithTitle(String,String,String)"
 });
 formatter.result({
   "status": "passed"
@@ -34,10 +44,77 @@ formatter.step({
   "keyword": "When "
 });
 formatter.match({
-  "location": "Steps.the_employee_is_assigned_to_the_activity_with_the_title_for_project_with_title(String,String,String)"
+  "location": "Steps.theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String,String,String)"
 });
 formatter.result({
   "status": "passed"
+});
+formatter.step({
+  "name": "the employee \"efgh\" is part of the activity with the title \"test\" for project with id \"030901\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(String,String,String)"
+});
+formatter.result({
+  "error_message": "java.lang.NullPointerException\n\tat dtu.sh.model.ProjectActivity.employeeWithIdExists(ProjectActivity.java:59)\n\tat dtu.Softwarehuset.app.Steps.theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(Steps.java:448)\n\tat ✽.the employee \"efgh\" is part of the activity with the title \"test\" for project with id \"030901\"(use_cases/student/assign_employee_to_a_project_activity.feature:10)\n",
+  "status": "failed"
+});
+formatter.scenario({
+  "name": "Employee is not assigned to activity",
+  "description": "",
+  "keyword": "Scenario"
+});
+formatter.step({
+  "name": "the project leader \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.theProjectLeaderIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "\"Mikk\" is project leader of project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.is_project_leader_of_project_with_id(String,String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee \"efgh\" is already part of the activity with the title \"test\" for project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(String,String,String)"
+});
+formatter.result({
+  "error_message": "java.lang.NullPointerException\n\tat dtu.sh.model.ProjectActivity.employeeWithIdExists(ProjectActivity.java:59)\n\tat dtu.Softwarehuset.app.Steps.theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(Steps.java:464)\n\tat ✽.the employee \"efgh\" is already part of the activity with the title \"test\" for project with id \"030901\"(use_cases/student/assign_employee_to_a_project_activity.feature:15)\n",
+  "status": "failed"
+});
+formatter.step({
+  "name": "the employee \"efgh\" is assigned to the activity with the title \"test\" for project with id \"030901\"",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "Steps.theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String,String,String)"
+});
+formatter.result({
+  "status": "skipped"
+});
+formatter.step({
+  "name": "the employee \"efgh\" is not assigned again to activity with title \"test\" for project with title \"030901\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.the_employee_is_not_assigned_again_to_activity_with_title_for_project_with_title(String,String,String)"
+});
+formatter.result({
+  "status": "skipped"
 });
 formatter.uri("use_cases/student/assign_project_leader_to_project.feature");
 formatter.feature({
@@ -182,6 +259,61 @@ formatter.step({
 });
 formatter.match({
   "location": "Steps.theySetStartTimeToAndTheEndTimeTo(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the general activity \"sick\" is created",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theGeneralActivityWithStartAndEndIsCreated(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.scenario({
+  "name": "Add existing general activiy when employee is logged in",
+  "description": "",
+  "keyword": "Scenario"
+});
+formatter.step({
+  "name": "that the employee \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.thatTheEmployeeIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "there is a general activity with the name \"sick\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.thereIsAGeneralActivityWithTheName(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "they set start time to \"14\" and the end time to \"16\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.theySetStartTimeToAndTheEndTimeTo(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the general activity \"sick\" with start \"14\" and end \"16\" is created",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theGeneralActivityWithStartAndEndIsCreated(String,int,int)"
 });
 formatter.result({
   "status": "passed"

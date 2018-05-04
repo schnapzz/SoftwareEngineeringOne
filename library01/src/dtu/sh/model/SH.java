@@ -12,12 +12,12 @@ public class SH {
 	
 	private Employee loggedInEmployee; 
 	private List<Employee> employees = new ArrayList<Employee>() {{
-		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
 		add(new Employee("Hela"));
-		add(new Employee("John"));
 		add(new Employee("SoAm"));
 		add(new Employee("OliG"));
+		add(new Employee("abcd"));
+		add(new Employee("John"));
 		add(new Employee("Poul"));
 		add(new Employee("Bear"));
 		add(new Employee("Kimm"));
