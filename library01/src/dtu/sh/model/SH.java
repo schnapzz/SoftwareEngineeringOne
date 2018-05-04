@@ -17,6 +17,7 @@ public class SH {
 		add(new Employee("SoAm"));
 		add(new Employee("OliG"));
 		add(new Employee("abcd"));
+		add(new Employee("efgh"));
 		add(new Employee("John"));
 		add(new Employee("Poul"));
 		add(new Employee("Bear"));
