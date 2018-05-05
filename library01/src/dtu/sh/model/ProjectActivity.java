@@ -6,6 +6,7 @@ import java.util.List;
 
 import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
+import dtu.sh.model.TimeRegistration;
 
 // Mikkel
 public class ProjectActivity extends Activity {
