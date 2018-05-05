@@ -97,8 +97,6 @@ public class Main {
 						LoggedIn login = new LoggedIn(self, softwarehuset, username);
 						login.setVisible(true);
 						frame.setVisible(false);
-//						Menu menu = new Menu(softwarehuset);
-//						menu.setVisible(true);
 					}
 					
 				} catch (Exception e1) {

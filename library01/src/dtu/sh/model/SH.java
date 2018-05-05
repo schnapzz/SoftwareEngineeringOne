@@ -161,8 +161,8 @@ public class SH {
 	public Report requestReport(Project project, String id) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(project.getTitle()) && p.getProjectLeader().equals(id)) {
-				Report report = p.createReport();
-				return report;
+				Report r = p.createReport();
+				return r;
 			}
 		}
 		return null;

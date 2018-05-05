@@ -54,7 +54,7 @@ public class Projects extends JFrame{
 		this.sh = sh;
 		this.username = username;
 		projects = sh.getProjects();
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		setBounds(100, 100, 650, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,6 +128,7 @@ public class Projects extends JFrame{
 		txtProjectLeaderID = new JTextField();
 		txtProjectLeaderID.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtProjectLeaderID.setBounds(7,4,10,10);
+		txtProjectLeaderID.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(0) + "").getProjectLeader() + "");
 		GridBagConstraints gbc_txtProjectLeaderID = new GridBagConstraints();
 		gbc_txtProjectLeaderID.anchor = GridBagConstraints.NORTH;
 		gbc_txtProjectLeaderID.insets = new Insets(0, 0, 5, 5);
@@ -346,10 +347,14 @@ public class Projects extends JFrame{
 		JButton btnRepport = new JButton("Report");
 		btnRepport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
-				Report r = sh.requestReport(p, username);
-				ReportFrame reportFrame = new ReportFrame(r); 
-//				reportFrame.setVisible(true);
+				try {
+					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
+					Report r = sh.requestReport(p, username);
+					Reports reports = new Reports(r);
+				} catch (Exception e) {
+					System.out.println("You are not the project leader, " + username);
+				}
+				
 			}
 		});
 		btnRepport.setFont(new Font("Tahoma", Font.PLAIN, 16));

@@ -1,5 +1,9 @@
 package dtu.sh.model;
 
+/*
+ * Mikkel
+ */
+
 public class TimeRegistration {
 	
 	private String employeeId;
