@@ -13,7 +13,7 @@ public class GeneralActivity extends Activity {
 
 	public List<GeneralActivity> generalActivity;
 	
-	public GeneralActivity(String title, String description, int start, int end) throws IllegalWeekNumberFormatException {
+	public GeneralActivity(String title, String description, int start, int end) {
 		super(title, description, start, end);
 	}
 	

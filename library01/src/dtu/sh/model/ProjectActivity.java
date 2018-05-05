@@ -28,26 +28,19 @@ public class ProjectActivity extends Activity {
 		super(title, description);
 
 		this.priority = priority;
-
-		timeRegistrations = new ArrayList<TimeRegistration>();
+		
+		
+		this.timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	// Mikkel
-	public ProjectActivity(String title, String description, int priority, List<Employee> employees) {
-		super(title, description);
-
-		this.priority = priority;
-		this.setEmployees(employees);
-
-		timeRegistrations = new ArrayList<TimeRegistration>();
-	}
-
-	// Mikkel
-	public ProjectActivity(String title, String description, int priority, int start, int end) throws IllegalWeekNumberFormatException {
+	public ProjectActivity(String title, String description, int priority, int start, int end, List<Employee> employees) {
 
 		super(title, description, start, end);
+		
 		this.priority = priority;
-
+		this.employees = employees;
+		
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
@@ -140,8 +133,8 @@ public class ProjectActivity extends Activity {
 		return employees;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
+//	public void setEmployees(List<Employee> employees) {
+//		this.employees = employees;
+//	}
 
 }

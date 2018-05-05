@@ -37,11 +37,17 @@ public class SH {
 
 	//Helena
 	public Boolean isEmployed(String username) {
+		
+		assert true;
+		
 		for (Employee e: employees) {
 			if (e.getID().equals(username)) {
 				return true;
 			}
 		}
+		
+		assert true;
+		
 		return false;
 	}
 	
@@ -173,7 +179,6 @@ public class SH {
 			return k;
 		}
 	
-	//===GETTERS & SETTERS & CHECKERS
 	//Helena
 	public Employee getLoggedInEmployee() {
 		return loggedInEmployee;
@@ -208,6 +213,27 @@ public class SH {
 		return false;
 	}
 	
+	// Mikkel
+	public boolean isEmployeeIdsLegalForAssignments(String[] employeeIds) {
+		
+		assert employeeIds != null && employeeIds.length > 0 && this.employees.size() > 0;
+		
+		for (String employeeId : employeeIds) {	
+			if (isIllegalIdFormat(employeeId) && !isEmployed(employeeId)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// Mikkel
+	private boolean isIllegalIdFormat(String employeeId) {
+		
+		assert true;
+		
+		return employeeId.length() != 4;
+	}
+	
 	public String getProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -230,5 +256,15 @@ public class SH {
 
 	public List<Project> getProjects() {
 		return projects;
+	}
+
+	public List<Employee> getEmployeesFromIds(String[] employeeIds) {
+		
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		for (String employeeId : employeeIds) {
+			Employee emp = getEmployeeWithId(employeeId);
+			list.add(emp);
+		}
+		return list;
 	}
 }

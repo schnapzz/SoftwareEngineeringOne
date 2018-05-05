@@ -45,12 +45,14 @@ public class CreateProjectActivityFrame extends JFrame {
 	private JTextField textFieldEndWeek;
 	private JLabel lblPriority;
 	private JComboBox<String> comboBoxPriority;
+	private JLabel lblAddEmployees;
+	private JTextField textFieldCSVEmployees;
 
 	/**
 	 * Create the frame.
 	 * Mikkel
 	 */
-	public CreateProjectActivityFrame(LoggedIn loginFrame, Project project, Employee loggedInEmployee) {
+	public CreateProjectActivityFrame(LoggedIn loginFrame, Project project, SH softwarehuset) {
 		
 		this.self = this;
 		
@@ -65,15 +67,15 @@ public class CreateProjectActivityFrame extends JFrame {
 		setTitle("Create A New Project Activity");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 360);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{134, 300, 6, 0};
-		gbl_contentPane.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		lblTitle = new JLabel("*Title:");
@@ -169,13 +171,27 @@ public class CreateProjectActivityFrame extends JFrame {
 			// Mikkel
 			public void actionPerformed(ActionEvent e) {
 				
-				if (isMandatoryFieldsFilled()) {
+				String[] employeeIds = textFieldCSVEmployees.getText().split(",");
+				if (isMandatoryFieldsFilled() && isEmployeeCSVCorrectlyFormatted(employeeIds, softwarehuset)) {
 					
-					lblTitle.setForeground(Color.black);
 					try {
 						
-						ProjectActivity activity = createProjectActivity();
-						project.addActivity(activity, loggedInEmployee);
+						String title = textFieldTitle.getText();
+						String desc = textPaneDescription.getText();
+						int priority = Integer.parseInt((String)comboBoxPriority.getSelectedItem());
+						
+						if (textFieldStartWeek.getText().isEmpty() && textFieldEndWeek.getText().isEmpty() ) {
+							
+							project.addActivity(title, desc, priority, softwarehuset.getLoggedInEmployee());
+							
+						} else {
+							
+							int startWeek = Integer.parseInt(textFieldStartWeek.getText());
+							int endWeek = Integer.parseInt(textFieldEndWeek.getText());
+							
+							project.addActivity(title, desc, priority, startWeek, endWeek, softwarehuset.getEmployeesFromIds(employeeIds), 
+																						  softwarehuset.getLoggedInEmployee());
+						}
 						
 						loginFrame.reloadProjectActivityCombobox();
 						
@@ -184,68 +200,64 @@ public class CreateProjectActivityFrame extends JFrame {
 						
 					} catch (OperationNotAllowedException e1) {
 					
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "Error during creation of a project activity", ERROR);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Error during creation of a project activity", JOptionPane.ERROR_MESSAGE);
 						
-					} catch (NumberFormatException e2) {
+					} catch (NumberFormatException|IllegalWeekNumberFormatException e2) {
 						
 						lblStartWeek.setForeground(Color.red);
 						lblEndWeek.setForeground(Color.red);
 						
-					} catch (NullPointerException e3) {
-						
-						System.out.println("Nullpointer exception caught in CreateProjectActivity at btnPressed");
-						System.out.println(e3.getMessage());
-						
-						// TODO: handle this UI wise
 					}
 					
-				} else {
-					
-					lblTitle.setForeground(Color.red);
 				}
 			}
 		});
+		
+		lblAddEmployees = new JLabel("<html><pre>Add Employees\n(CSV format)</pre></html>");
+		GridBagConstraints gbc_lblAddEmployees = new GridBagConstraints();
+		gbc_lblAddEmployees.anchor = GridBagConstraints.EAST;
+		gbc_lblAddEmployees.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAddEmployees.gridx = 0;
+		gbc_lblAddEmployees.gridy = 7;
+		contentPane.add(lblAddEmployees, gbc_lblAddEmployees);
+		
+		textFieldCSVEmployees = new JTextField();
+		GridBagConstraints gbc_textFieldCSVEmployees = new GridBagConstraints();
+		gbc_textFieldCSVEmployees.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCSVEmployees.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCSVEmployees.gridx = 1;
+		gbc_textFieldCSVEmployees.gridy = 7;
+		contentPane.add(textFieldCSVEmployees, gbc_textFieldCSVEmployees);
+		textFieldCSVEmployees.setColumns(10);
 		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
 		gbc_btnCreate.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCreate.gridx = 1;
-		gbc_btnCreate.gridy = 7;
+		gbc_btnCreate.gridy = 8;
 		contentPane.add(btnCreate, gbc_btnCreate);
 	}
-
-	// Mikkel
-	private ProjectActivity createProjectActivity() {
-		
-		String title = textFieldTitle.getText();
-		int priority = Integer.parseInt((String)comboBoxPriority.getSelectedItem());
-		String desc = textPaneDescription.getText();
-		
-		if (textFieldStartWeek.getText().isEmpty() && textFieldEndWeek.getText().isEmpty() ) {
-			
-			return new ProjectActivity(title, desc, priority);
-			
-		} else {
-			
-			int startWeek = Integer.parseInt(textFieldStartWeek.getText());
-			int endWeek = Integer.parseInt(textFieldEndWeek.getText());
-			
-			try {
-				
-				return new ProjectActivity(title, desc, priority, startWeek, endWeek);
-				
-			} catch (IllegalWeekNumberFormatException e) {
-				
-				return null;
-			}
-		}
-	}
+	
 
 	// Mikkel
 	private boolean isMandatoryFieldsFilled() {
 		
 		if (textFieldTitle.getText().isEmpty()) {
+			lblTitle.setForeground(Color.red);
 			return false;
 		}
+		lblTitle.setForeground(Color.black);
 		
 		return true;
 	}
+	
+	// Mikkel
+	private boolean isEmployeeCSVCorrectlyFormatted(String[] employeeIds, SH softwarehuset) {
+
+		if (softwarehuset.isEmployeeIdsLegalForAssignments(employeeIds) || (employeeIds[0].isEmpty() && employeeIds.length == 1)) {
+			lblAddEmployees.setForeground(Color.black);
+			return true;
+		}
+		lblAddEmployees.setForeground(Color.red);
+		return false;
+	}
+	
 }

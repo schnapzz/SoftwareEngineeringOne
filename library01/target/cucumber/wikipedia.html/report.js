@@ -57,8 +57,7 @@ formatter.match({
   "location": "Steps.theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(String,String,String)"
 });
 formatter.result({
-  "error_message": "java.lang.NullPointerException\r\n\tat dtu.sh.model.ProjectActivity.employeeWithIdExists(ProjectActivity.java:59)\r\n\tat dtu.Softwarehuset.app.Steps.theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(Steps.java:448)\r\n\tat ✽.the employee \"efgh\" is part of the activity with the title \"test\" for project with id \"030901\"(use_cases/student/assign_employee_to_a_project_activity.feature:10)\r\n",
-  "status": "failed"
+  "status": "passed"
 });
 formatter.scenario({
   "name": "Employee is not assigned to activity",
@@ -93,8 +92,7 @@ formatter.match({
   "location": "Steps.theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(String,String,String)"
 });
 formatter.result({
-  "error_message": "java.lang.NullPointerException\r\n\tat dtu.sh.model.ProjectActivity.employeeWithIdExists(ProjectActivity.java:59)\r\n\tat dtu.Softwarehuset.app.Steps.theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(Steps.java:464)\r\n\tat ✽.the employee \"efgh\" is already part of the activity with the title \"test\" for project with id \"030901\"(use_cases/student/assign_employee_to_a_project_activity.feature:15)\r\n",
-  "status": "failed"
+  "status": "passed"
 });
 formatter.step({
   "name": "the employee \"efgh\" is assigned to the activity with the title \"test\" for project with id \"030901\"",
@@ -104,7 +102,7 @@ formatter.match({
   "location": "Steps.theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String,String,String)"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.step({
   "name": "the employee \"efgh\" is not assigned again to activity with title \"test\" for project with title \"030901\"",
@@ -114,7 +112,7 @@ formatter.match({
   "location": "Steps.the_employee_is_not_assigned_again_to_activity_with_title_for_project_with_title(String,String,String)"
 });
 formatter.result({
-  "status": "skipped"
+  "status": "passed"
 });
 formatter.uri("use_cases/student/assign_project_leader_to_project.feature");
 formatter.feature({
@@ -342,11 +340,11 @@ formatter.step({
   "keyword": "And "
 });
 formatter.step({
-  "name": "the employee create a new activity with title \u003ctitle\u003e and description \u003cdesc\u003e and priority \u003cpriority\u003e to the project",
+  "name": "the employee create a new activity with title \u003ctitle\u003e description \u003cdesc\u003e priority \u003cpriority\u003e startweek \u003cstart\u003e endweek \u003cend\u003e to the project",
   "keyword": "When "
 });
 formatter.step({
-  "name": "there is a new unfinished activity with title \u003ctitle\u003e and description \u003cdesc\u003e and priority \u003cpriority\u003e in the project",
+  "name": "there is a new unfinished activity with title \u003ctitle\u003e description \u003cdesc\u003e priority \u003cpriority\u003e startweek \u003cstart\u003e endweek \u003cend\u003e in the project",
   "keyword": "Then "
 });
 formatter.examples({
@@ -358,21 +356,27 @@ formatter.examples({
       "cells": [
         "title",
         "desc",
-        "priority"
+        "priority",
+        "start",
+        "end"
       ]
     },
     {
       "cells": [
         "\"TestOne\"",
         "\"Hello World\"",
-        "0"
+        "1",
+        "10",
+        "15"
       ]
     },
     {
       "cells": [
         "\"TestTwo\"",
         "\"hålløj æææhh?\"",
-        "1"
+        "3",
+        "10",
+        "9"
       ]
     }
   ]
@@ -413,21 +417,21 @@ formatter.result({
   "status": "passed"
 });
 formatter.step({
-  "name": "the employee create a new activity with title \"TestOne\" and description \"Hello World\" and priority 0 to the project",
+  "name": "the employee create a new activity with title \"TestOne\" description \"Hello World\" priority 1 startweek 10 endweek 15 to the project",
   "keyword": "When "
 });
 formatter.match({
-  "location": "Steps.theEmployeeCreateANewActivityWithTitleAndDescriptionAndPriorityToTheProject(String,String,int)"
+  "location": "Steps.theEmployeeCreateANewActivityWithTitleDescriptionPriorityStartweekEndweekToTheProject(String,String,int,int,int)"
 });
 formatter.result({
   "status": "passed"
 });
 formatter.step({
-  "name": "there is a new unfinished activity with title \"TestOne\" and description \"Hello World\" and priority 0 in the project",
+  "name": "there is a new unfinished activity with title \"TestOne\" description \"Hello World\" priority 1 startweek 10 endweek 15 in the project",
   "keyword": "Then "
 });
 formatter.match({
-  "location": "Steps.thereIsANewUnfinishedActivityWithTitleAndDescriptionAndPriorityInTheProject(String,String,int)"
+  "location": "Steps.thereIsANewUnfinishedActivityWithTitleDescriptionPriorityStartweekEndweekInTheProject(String,String,int,int,int)"
 });
 formatter.result({
   "status": "passed"
@@ -468,27 +472,309 @@ formatter.result({
   "status": "passed"
 });
 formatter.step({
-  "name": "the employee create a new activity with title \"TestTwo\" and description \"hålløj æææhh?\" and priority 1 to the project",
+  "name": "the employee create a new activity with title \"TestTwo\" description \"hålløj æææhh?\" priority 3 startweek 10 endweek 9 to the project",
   "keyword": "When "
 });
 formatter.match({
-  "location": "Steps.theEmployeeCreateANewActivityWithTitleAndDescriptionAndPriorityToTheProject(String,String,int)"
+  "location": "Steps.theEmployeeCreateANewActivityWithTitleDescriptionPriorityStartweekEndweekToTheProject(String,String,int,int,int)"
 });
 formatter.result({
   "status": "passed"
 });
 formatter.step({
-  "name": "there is a new unfinished activity with title \"TestTwo\" and description \"hålløj æææhh?\" and priority 1 in the project",
+  "name": "there is a new unfinished activity with title \"TestTwo\" description \"hålløj æææhh?\" priority 3 startweek 10 endweek 9 in the project",
   "keyword": "Then "
 });
 formatter.match({
-  "location": "Steps.thereIsANewUnfinishedActivityWithTitleAndDescriptionAndPriorityInTheProject(String,String,int)"
+  "location": "Steps.thereIsANewUnfinishedActivityWithTitleDescriptionPriorityStartweekEndweekInTheProject(String,String,int,int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.scenarioOutline({
+  "name": "Create a new project activity with illegal week numbers",
+  "description": "",
+  "keyword": "Scenario Outline"
+});
+formatter.step({
+  "name": "the project leader \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.step({
+  "name": "there is a project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.step({
+  "name": "an activity with title \"TestOne\" is not already registered as an activity in that project",
+  "keyword": "And "
+});
+formatter.step({
+  "name": "the employee create a new project activity with start week \u003cstartweek\u003e and end week \u003cendweek\u003e",
+  "keyword": "When "
+});
+formatter.step({
+  "name": "the employee gets the error message \"Illegal week number format\"",
+  "keyword": "Then "
+});
+formatter.examples({
+  "name": "",
+  "description": "",
+  "keyword": "Examples",
+  "rows": [
+    {
+      "cells": [
+        "startweek",
+        "endweek"
+      ]
+    },
+    {
+      "cells": [
+        "-1",
+        "10"
+      ]
+    },
+    {
+      "cells": [
+        "10",
+        "-1"
+      ]
+    },
+    {
+      "cells": [
+        "53",
+        "4"
+      ]
+    },
+    {
+      "cells": [
+        "3",
+        "53"
+      ]
+    }
+  ]
+});
+formatter.scenario({
+  "name": "Create a new project activity with illegal week numbers",
+  "description": "",
+  "keyword": "Scenario Outline"
+});
+formatter.step({
+  "name": "the project leader \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.theProjectLeaderIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "there is a project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.thereIsAProjectWithId(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "an activity with title \"TestOne\" is not already registered as an activity in that project",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee create a new project activity with start week -1 and end week 10",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "Steps.theEmployeeCreateANewProjectActivityWithStartWeekAndEndWeek(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee gets the error message \"Illegal week number format\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theEmployeeGetsTheErrorMessage(String)"
 });
 formatter.result({
   "status": "passed"
 });
 formatter.scenario({
-  "name": "Project activity is not created",
+  "name": "Create a new project activity with illegal week numbers",
+  "description": "",
+  "keyword": "Scenario Outline"
+});
+formatter.step({
+  "name": "the project leader \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.theProjectLeaderIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "there is a project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.thereIsAProjectWithId(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "an activity with title \"TestOne\" is not already registered as an activity in that project",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee create a new project activity with start week 10 and end week -1",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "Steps.theEmployeeCreateANewProjectActivityWithStartWeekAndEndWeek(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee gets the error message \"Illegal week number format\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theEmployeeGetsTheErrorMessage(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.scenario({
+  "name": "Create a new project activity with illegal week numbers",
+  "description": "",
+  "keyword": "Scenario Outline"
+});
+formatter.step({
+  "name": "the project leader \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.theProjectLeaderIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "there is a project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.thereIsAProjectWithId(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "an activity with title \"TestOne\" is not already registered as an activity in that project",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee create a new project activity with start week 53 and end week 4",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "Steps.theEmployeeCreateANewProjectActivityWithStartWeekAndEndWeek(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee gets the error message \"Illegal week number format\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theEmployeeGetsTheErrorMessage(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.scenario({
+  "name": "Create a new project activity with illegal week numbers",
+  "description": "",
+  "keyword": "Scenario Outline"
+});
+formatter.step({
+  "name": "the project leader \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.theProjectLeaderIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "there is a project with id \"030901\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.thereIsAProjectWithId(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "an activity with title \"TestOne\" is not already registered as an activity in that project",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.anActivityWithTitleIsNotAlreadyRegisteredAsAnActivityInThatProject(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee create a new project activity with start week 3 and end week 53",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "Steps.theEmployeeCreateANewProjectActivityWithStartWeekAndEndWeek(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "the employee gets the error message \"Illegal week number format\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.theEmployeeGetsTheErrorMessage(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.scenario({
+  "name": "Create Project Activity that already exists",
   "description": "",
   "keyword": "Scenario"
 });
@@ -523,11 +809,11 @@ formatter.result({
   "status": "passed"
 });
 formatter.step({
-  "name": "the employee create a new activity with title \"TestFinished\" and description \"This is bad\" and priority 1 to the project",
+  "name": "the employee create a new activity with title \"TestFinished\" description \"This is bad\" priority 1 startweek 10 endweek 14 to the project",
   "keyword": "When "
 });
 formatter.match({
-  "location": "Steps.theEmployeeCreateANewActivityWithTitleAndDescriptionAndPriorityToTheProject(String,String,int)"
+  "location": "Steps.theEmployeeCreateANewActivityWithTitleDescriptionPriorityStartweekEndweekToTheProject(String,String,int,int,int)"
 });
 formatter.result({
   "status": "passed"

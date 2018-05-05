@@ -10,14 +10,8 @@ import java.util.ArrayList;
 public class Employee {
 	
 	private String id;
-	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>(){{ 
-		try {
-			
-			add(new GeneralActivity("sick", "test description", 5, 10));
-		} catch (IllegalWeekNumberFormatException e1) {
-			System.out.println("Test objects is messed up in Employee");
-			System.out.println(e1.getMessage());
-		}
+	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>(){{ 		
+		add(new GeneralActivity("sick", "test description", 5, 10));
 	}};
 	public Employee(String id) {
 		this.id = id;
