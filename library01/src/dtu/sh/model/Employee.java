@@ -2,18 +2,22 @@ package dtu.sh.model;
 
 import java.util.List;
 
-import com.sun.javafx.image.impl.General;
-
-import cucumber.api.java.it.Date;
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 
 import java.util.ArrayList;
 
 public class Employee {
+	
 	private String id;
-	//private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>();
 	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>(){{ 
-		add(new GeneralActivity("sick", "test description", 5, 10));
+		try {
+			
+			add(new GeneralActivity("sick", "test description", 5, 10));
+		} catch (IllegalWeekNumberFormatException e1) {
+			System.out.println("Test objects is messed up in Employee");
+			System.out.println(e1.getMessage());
+		}
 	}};
 	public Employee(String id) {
 		this.id = id;

@@ -58,9 +58,12 @@ public class ReportFrame {
 		
 		JComboBox<String> comboBox_finishedActivities = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_finishedActivities = new GridBagConstraints();
-		for(ProjectActivity pa: report.getFinishedActivities()) {
-			comboBox_finishedActivities.addItem(pa.getTitle());
+		if (!report.getFinishedActivities().equals(null)) {
+			for(ProjectActivity pa: report.getFinishedActivities()) {
+				comboBox_finishedActivities.addItem(pa.getTitle());
+			}
 		}
+		
 		gbc_comboBox_finishedActivities.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_finishedActivities.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_finishedActivities.gridx = 1;

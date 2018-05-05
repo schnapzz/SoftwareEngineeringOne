@@ -103,16 +103,6 @@ public class Project {
 		Report report = new Report(finishedActivities, unfinishedActivities);
 		return report;
 	}
-	
-	// Mikkel
-	public boolean employeeWithIdExists(String loggedInEmployeeId) {
-		for (Employee employee : employees) {
-			if (loggedInEmployeeId.equals(employee.getID())) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	// Mikkel
 	public ProjectActivity getProjectActivityWithTitle(String activityTitle) {
@@ -132,6 +122,7 @@ public class Project {
 		return projectActivity;
 	}
 	
+	// Mikkel
 	private ProjectActivity searchForProjectActivity(String activityTitle, List<ProjectActivity> projectActivities) {
 		assert projectActivities != null;
 		for (ProjectActivity pa : projectActivities) {
@@ -141,16 +132,6 @@ public class Project {
 		}
 		return null;
 	}
-
-//	// Mikkel
-//	public void registerHours(String employeeId, double hours) throws OperationNotAllowedException {
-//		
-//		assert employeeId != null;
-//		
-//		if (isHoursImproperlyFormatted(hours)) { throw new OperationNotAllowedException("Hours logged need to be with half (0.5) hours accuracy"); }
-//		
-//		activeProjectActivity.registerHours(employeeId, hours);
-//	}
 
 	// ===== GETTERS AND SETTERS =====
 	

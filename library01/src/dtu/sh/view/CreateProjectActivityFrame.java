@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.Employee;
 import dtu.sh.model.Project;
@@ -29,6 +30,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+// Mikkel
 public class CreateProjectActivityFrame extends JFrame {
 
 	private CreateProjectActivityFrame self;
@@ -46,6 +48,7 @@ public class CreateProjectActivityFrame extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * Mikkel
 	 */
 	public CreateProjectActivityFrame(LoggedIn loginFrame, Project project, Employee loggedInEmployee) {
 		
@@ -162,6 +165,8 @@ public class CreateProjectActivityFrame extends JFrame {
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
+			
+			// Mikkel
 			public void actionPerformed(ActionEvent e) {
 				
 				if (isMandatoryFieldsFilled()) {
@@ -185,6 +190,13 @@ public class CreateProjectActivityFrame extends JFrame {
 						
 						lblStartWeek.setForeground(Color.red);
 						lblEndWeek.setForeground(Color.red);
+						
+					} catch (NullPointerException e3) {
+						
+						System.out.println("Nullpointer exception caught in CreateProjectActivity at btnPressed");
+						System.out.println(e3.getMessage());
+						
+						// TODO: handle this UI wise
 					}
 					
 				} else {
@@ -200,7 +212,8 @@ public class CreateProjectActivityFrame extends JFrame {
 		contentPane.add(btnCreate, gbc_btnCreate);
 	}
 
-	protected ProjectActivity createProjectActivity() {
+	// Mikkel
+	private ProjectActivity createProjectActivity() {
 		
 		String title = textFieldTitle.getText();
 		int priority = Integer.parseInt((String)comboBoxPriority.getSelectedItem());
@@ -215,10 +228,18 @@ public class CreateProjectActivityFrame extends JFrame {
 			int startWeek = Integer.parseInt(textFieldStartWeek.getText());
 			int endWeek = Integer.parseInt(textFieldEndWeek.getText());
 			
-			return new ProjectActivity(title, desc, priority, startWeek, endWeek);
+			try {
+				
+				return new ProjectActivity(title, desc, priority, startWeek, endWeek);
+				
+			} catch (IllegalWeekNumberFormatException e) {
+				
+				return null;
+			}
 		}
 	}
 
+	// Mikkel
 	private boolean isMandatoryFieldsFilled() {
 		
 		if (textFieldTitle.getText().isEmpty()) {

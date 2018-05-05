@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
+import dtu.sh.Exceptions.OperationNotAllowedException;
+
 // Mikkel
 public abstract class Activity {
 
 	// Mikkel
 	private String title = "";
-	private String description = "";
+	private String description;
+	
 	private int startDate;
 	private int endDate;
 	
@@ -20,11 +24,21 @@ public abstract class Activity {
 	}
 	
 	// Mikkel
-	public Activity(String title, String description, int start, int end) {
+	public Activity(String title, String description, int start, int end) throws IllegalWeekNumberFormatException 
+	{
 		this.title = title;
 		this.description = description;
-		this.startDate = start;
-		this.endDate = end;
+		
+		if (0 < start && start < 53 && 
+			0 < end   && end < 53  ) {
+			
+			this.startDate = start;
+			this.endDate = end;
+			
+		} else {
+			
+			throw new IllegalWeekNumberFormatException();
+		}
 	}
 
 	

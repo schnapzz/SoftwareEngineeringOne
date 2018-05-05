@@ -1,2 +1,3 @@
-target/
+*.DS_store
+
 library01/target/

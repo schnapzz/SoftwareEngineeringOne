@@ -201,6 +201,8 @@ public class LoggedIn extends JFrame {
 		// Mikkel
 		JButton addRegistrationButton = new JButton("addRegistration");
 		addRegistrationButton.addActionListener(new ActionListener() {
+			
+			// Mikkel
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
