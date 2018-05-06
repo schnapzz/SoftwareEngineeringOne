@@ -41,6 +41,7 @@ public class Projects extends JFrame{
 	private String username;
 	private Boolean updating = false;
 	private LoggedIn loggedIn;
+	private Projects self;
 	
 	private JComboBox<String> comboBox_Projects;
 	private JTextField txtProjectLeaderID;
@@ -57,6 +58,7 @@ public class Projects extends JFrame{
 		this.username = username;
 		projects = sh.getProjects();
 		this.loggedIn = loggedIn;
+		this.self = this;
 //		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		setBounds(100, 100, 683, 450);
 		contentPane = new JPanel();
@@ -254,7 +256,7 @@ public class Projects extends JFrame{
 		txtAddTitle.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtAddTitle = new GridBagConstraints();
 		gbc_txtAddTitle.anchor = GridBagConstraints.NORTH;
-		gbc_txtAddTitle.insets = new Insets(0, 0, 0, 5);
+		gbc_txtAddTitle.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddTitle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddTitle.gridx = 1;
 		gbc_txtAddTitle.gridy = 5;
@@ -267,7 +269,7 @@ public class Projects extends JFrame{
 		txtAddStart.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtAddStart = new GridBagConstraints();
 		gbc_txtAddStart.anchor = GridBagConstraints.NORTH;
-		gbc_txtAddStart.insets = new Insets(0, 0, 0, 5);
+		gbc_txtAddStart.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddStart.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddStart.gridx = 2;
 		gbc_txtAddStart.gridy = 5;
@@ -280,13 +282,14 @@ public class Projects extends JFrame{
 		txtAddEnd.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtAddEnd = new GridBagConstraints();
 		gbc_txtAddEnd.anchor = GridBagConstraints.NORTH;
-		gbc_txtAddEnd.insets = new Insets(0, 0, 0, 5);
+		gbc_txtAddEnd.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddEnd.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddEnd.gridx = 3;
 		gbc_txtAddEnd.gridy = 5;
 		contentPane.add(txtAddEnd, gbc_txtAddEnd);
 		txtAddEnd.setColumns(10);
 		GridBagConstraints gbc_btnAddProject = new GridBagConstraints();
+		gbc_btnAddProject.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAddProject.anchor = GridBagConstraints.NORTH;
 		gbc_btnAddProject.gridx = 4;
 		gbc_btnAddProject.gridy = 5;
@@ -352,6 +355,22 @@ public class Projects extends JFrame{
 		gbc_btnRepport.gridx = 4;
 		gbc_btnRepport.gridy = 2;
 		contentPane.add(btnRepport, gbc_btnRepport);
+		
+		/* 
+		 * Back-button
+		 */
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				self.dispose();
+			}
+		});
+		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.insets = new Insets(0, 0, 0, 5);
+		gbc_btnBack.gridx = 0;
+		gbc_btnBack.gridy = 6;
+		contentPane.add(btnBack, gbc_btnBack);
 		
 	}
 	public void updateScene() {

@@ -28,6 +28,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/*
+ * Done by everyone
+ */
 public class LoggedIn extends JFrame {
 
 	private SH softwarehuset;
@@ -337,7 +340,7 @@ public class LoggedIn extends JFrame {
 	}
 
 	// Mikkel
-	// Makes sure it's not possible for employees who's not projectLeader on the selected project to add activities.
+	// Makes sure it's not possible for employees who are not projectLeader on the selected project to add activities.
 	private void showCreateProjectActivityButtonIfProjectLeader(String projectLeader, String loggedInEmployee) {
 		if (projectLeader.equals(loggedInEmployee))  {
 			btnCreateProjectActivity.setVisible(true);
