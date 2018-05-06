@@ -64,6 +64,7 @@ public class CreateProjectActivityFrame extends JFrame {
 		    }
 		});
 		
+		
 		setTitle("Create A New Project Activity");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -172,6 +173,10 @@ public class CreateProjectActivityFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String[] employeeIds = textFieldCSVEmployees.getText().split(",");
+				
+				for (String s : employeeIds) {
+					System.out.println(s);
+				}
 				if (isMandatoryFieldsFilled() && isEmployeeCSVCorrectlyFormatted(employeeIds, softwarehuset)) {
 					
 					try {
@@ -252,7 +257,7 @@ public class CreateProjectActivityFrame extends JFrame {
 	// Mikkel
 	private boolean isEmployeeCSVCorrectlyFormatted(String[] employeeIds, SH softwarehuset) {
 
-		if (softwarehuset.isEmployeeIdsLegalForAssignments(employeeIds) || (employeeIds[0].isEmpty() && employeeIds.length == 1)) {
+		if (softwarehuset.isEmployeeIdsLegalForAssignments(employeeIds)) {
 			lblAddEmployees.setForeground(Color.black);
 			return true;
 		}

@@ -31,12 +31,13 @@ public class Employee {
 	}
 
 	private boolean hasGeneralActivity(String titleGeneralActivity) {
+		boolean hasActivity = false;
 		for (GeneralActivity g : generalActivities) {
 			if (g.getTitle().equals(titleGeneralActivity)) {
-				return true;
+				hasActivity = true;
 			}
 		}
-		return false;
+		return hasActivity;
 	}
 
 	public GeneralActivity getActivity(String titleGeneralActivity) {

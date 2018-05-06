@@ -12,6 +12,11 @@ import org.junit.Test;
 import dtu.sh.model.Report;
 import dtu.sh.model.SH;
 
+/**
+ * 
+ * @author mikkelmuller-hansen
+ *
+ */
 public class RequestingAReport {
 
 	private SH softwarehuset;
