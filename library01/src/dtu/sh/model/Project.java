@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 
 public class Project {
@@ -70,16 +71,42 @@ public class Project {
 	}
 	
 	// Mikkel
-	public void addActivity(ProjectActivity activity, Employee employee) throws OperationNotAllowedException {
+	public void addActivity(String title, String desc, int priority, int start, int end, 
+						   List<Employee> employees, Employee loggedInEmployee) throws OperationNotAllowedException, 
+																				      IllegalWeekNumberFormatException {
 		
-		if (activityExistsWithTitle(activity.getTitle())) { throw new OperationNotAllowedException("Project already has an activity with this name"); }
-		else if (!isEmployeeProjectLeader(employee)) { throw new OperationNotAllowedException("Only the project leader can create activities for a project"); }
-	
-		unfinishedActivities.add(activity);
+		if (activityExistsWithTitle(title)) { throw new OperationNotAllowedException("Project already has an activity with this name"); }
+		else if (!isEmployeeProjectLeader(loggedInEmployee)) { throw new OperationNotAllowedException("Only the project leader can create activities for a project"); }
+		else if (!isLegalWeekNumbers(start, end)) { throw new IllegalWeekNumberFormatException(); }
+		else {
+			
+			ProjectActivity activity = new ProjectActivity(title, desc, priority, start, end, employees);
+			unfinishedActivities.add(activity);
+		}
+		
+		
 	}
 	
+	// Mikkel
+	public void addActivity(String title, String desc, int priority, Employee employee) throws OperationNotAllowedException {
+		
+		if (activityExistsWithTitle(title)) { throw new OperationNotAllowedException("Project already has an activity with this name"); }
+		else if (!isEmployeeProjectLeader(employee)) { throw new OperationNotAllowedException("Only the project leader can create activities for a project"); }
+		else {
+			
+			ProjectActivity activity = new ProjectActivity(title, desc, priority);
+			unfinishedActivities.add(activity);
+		}
+	}
+	
+	// Mikkel
 	private boolean isEmployeeProjectLeader(Employee employee) {
 		return employee.getID().equalsIgnoreCase(getProjectLeader());
+	}
+	
+	// Mikkel
+	private boolean isLegalWeekNumbers(int startWeek, int endWeek) {
+		return 0 < startWeek && startWeek < 53 && 0 < endWeek && endWeek < 53;
 	}
 	
 	//Helena

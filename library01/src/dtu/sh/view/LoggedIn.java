@@ -158,7 +158,7 @@ public class LoggedIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Project project = getSelectedProject();
-				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(self, project, softwarehuset.getLoggedInEmployee());
+				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(self, project, softwarehuset);
 				createProjectActivity.setVisible(true);
 				self.setVisible(false);
 			}

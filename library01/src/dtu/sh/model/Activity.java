@@ -24,21 +24,12 @@ public abstract class Activity {
 	}
 	
 	// Mikkel
-	public Activity(String title, String description, int start, int end) throws IllegalWeekNumberFormatException 
+	public Activity(String title, String description, int start, int end) 
 	{
 		this.title = title;
 		this.description = description;
-		
-		if (0 < start && start < 53 && 
-			0 < end   && end < 53  ) {
-			
-			this.startDate = start;
-			this.endDate = end;
-			
-		} else {
-			
-			throw new IllegalWeekNumberFormatException();
-		}
+		this.startDate = start;
+		this.endDate = end;
 	}
 
 	
