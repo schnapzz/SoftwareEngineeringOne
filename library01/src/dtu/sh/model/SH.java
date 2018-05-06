@@ -40,12 +40,11 @@ public class SH {
 		
 		assert true;
 		
-		for (Employee e: employees) {
+		for (Employee e : employees) {
 			if (e.getID().equals(username)) {
 				return true;
 			}
 		}
-		
 		assert true;
 		
 		return false;
@@ -216,10 +215,10 @@ public class SH {
 	// Mikkel
 	public boolean isEmployeeIdsLegalForAssignments(String[] employeeIds) {
 		
-		assert employeeIds != null && employeeIds.length > 0 && this.employees.size() > 0;
+		assert employeeIds != null && this.employees.size() > 0;
 		
 		for (String employeeId : employeeIds) {	
-			if (isIllegalIdFormat(employeeId) && !isEmployed(employeeId)) {
+			if (isIllegalIdFormat(employeeId) || !isEmployed(employeeId)) {
 				return false;
 			}
 		}
