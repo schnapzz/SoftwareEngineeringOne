@@ -39,6 +39,8 @@ public class Projects extends JFrame{
 	private List<Project> projects;
 	private SH sh;
 	private String username;
+	private Boolean updating = false;
+	private LoggedIn loggedIn;
 	
 	private JComboBox<String> comboBox_Projects;
 	private JTextField txtProjectLeaderID;
@@ -47,13 +49,14 @@ public class Projects extends JFrame{
 	private JTextField txtAddTitle;
 	private JTextField txtAddStart;
 	private JTextField txtAddEnd;
-	private Boolean updating = false;
 	
-	public Projects(SH sh, String username) {
+	
+	public Projects(SH sh, String username, LoggedIn loggedIn) {
 		setTitle("Project Management");
 		this.sh = sh;
 		this.username = username;
 		projects = sh.getProjects();
+		this.loggedIn = loggedIn;
 //		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		setBounds(100, 100, 683, 450);
 		contentPane = new JPanel();
@@ -205,7 +208,6 @@ public class Projects extends JFrame{
 		/*
 		 * Stuff for Registering a project 
 		 */
-		
 		JLabel lblAddAProject = new JLabel("Add a Project");
 		lblAddAProject.setFont(new Font("Tahoma", Font.BOLD, 25));
 		GridBagConstraints gbc_lblAddAProject = new GridBagConstraints();
@@ -309,6 +311,7 @@ public class Projects extends JFrame{
 							sh.createProjectWithStartAndEnd(addT, addS, addE);
 						}
 					}
+					loggedIn.updateProjectsCombo();
 					updateScene();
 					updateComboBox();
 				} catch (Exception error) {
@@ -324,6 +327,7 @@ public class Projects extends JFrame{
 				updateScene();
 			}
 		});
+		
 		/*
 		 * Stuff for Getting a report
 		 */

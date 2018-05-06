@@ -33,16 +33,16 @@ public class LoggedIn extends JFrame {
 	private SH softwarehuset;
 	private LoggedIn self;
 	private String username;
+	private boolean updating = false;
 	
 	private JPanel contentPane;
 	private JTextField txtIminutter;
-	private JComboBox<String> projectComboBox;
+	private JComboBox<String> projectComboBox = new JComboBox<String>();
 	private JComboBox<String> unfinishedActivityComboBox = new JComboBox<String>();
 	private JComboBox<String> finishedActivitiesComboBox = new JComboBox<String>();
 	private JButton btnCreateProjectActivity;
 
 	public LoggedIn(Main main, SH softwarehuset, String username) {
-		
 		this.softwarehuset = softwarehuset;
 		this.self = this;
 		this.username = username;
@@ -73,7 +73,7 @@ public class LoggedIn extends JFrame {
 		JButton btnProjects = new JButton("Manage Projects");
 		btnProjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Projects projects = new Projects(softwarehuset, username);
+				Projects projects = new Projects(softwarehuset, username, self);
 				projects.setVisible(true);
 			}
 		});
@@ -102,20 +102,16 @@ public class LoggedIn extends JFrame {
 		contentPane.add(lblRegistrerTimer, gbc_lblRegistrerTimer);
 		
 		// Mikkel
-		projectComboBox = new JComboBox<String>();
 		// ==================
-		List<Project> projects = softwarehuset.getProjects();
-		for (Project p : projects) {
-			projectComboBox.addItem(p.getId() + " - " + p.getTitle());
-		}
+		updateProjectsCombo();
 		// ==================
 		projectComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent projectActionEvent) {
-				
-				Project project = getSelectedProject();
-				
+				if (!updating) {
+					Project project = getSelectedProject();
 				showCreateProjectActivityButtonIfProjectLeader(project.getProjectLeader(), softwarehuset.getLoggedInEmployee().getID());
 				reloadProjectActivityCombobox();
+				}
 			}
 		});
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -279,9 +275,20 @@ public class LoggedIn extends JFrame {
 		reloadProjectActivityCombobox();
 	}
 
+	//Helena
+	public void updateProjectsCombo() {
+		updating = true;
+		List<Project> projects = softwarehuset.getProjects();
+		projectComboBox.removeAllItems();
+		for (Project p : projects) {
+			projectComboBox.addItem(p.getId() + " - " + p.getTitle());
+		}
+		reloadProjectActivityCombobox();
+		updating = false;
+	}
+
 	// Mikkel
 	public void reloadProjectActivityCombobox() {
-		
 		clearActivityData();
 		
 		Project project = getSelectedProject();
@@ -301,7 +308,6 @@ public class LoggedIn extends JFrame {
 	
 	// Mikkel
 	private void openActivityInformation(JComboBox<String> chosenComboBox) {
-	
 		ProjectActivity projectActivity = getSelectedActivity(chosenComboBox);
 		ActivityInformation ai = new ActivityInformation(self, projectActivity);
 		ai.setVisible(true);
@@ -316,35 +322,27 @@ public class LoggedIn extends JFrame {
 
 	// Mikkel
 	private Project getSelectedProject() {
-		
 		String selectedProjectId = ((String)projectComboBox.getSelectedItem()).substring(0, 6);
 		System.out.println("ID of selected project is " + selectedProjectId);
-		
 		return softwarehuset.getProjectWithId(selectedProjectId);
 	}
 	
 
 	// Mikkel
 	private ProjectActivity getSelectedActivity(JComboBox<String> comboBox) {
-
 		String selectedActivity = (String)comboBox.getSelectedItem();
 		Project p = getSelectedProject();
 		ProjectActivity pa = p.getProjectActivityWithTitle(selectedActivity);
-
 		return pa;
 	}
 
 	// Mikkel
 	// Makes sure it's not possible for employees who's not projectLeader on the selected project to add activities.
 	private void showCreateProjectActivityButtonIfProjectLeader(String projectLeader, String loggedInEmployee) {
-		
-		if (projectLeader.equals(loggedInEmployee)) {
-		
+		if (projectLeader.equals(loggedInEmployee))  {
 			btnCreateProjectActivity.setVisible(true);
 			btnCreateProjectActivity.setEnabled(true);
-			
 		} else {
-			
 			btnCreateProjectActivity.setVisible(false);
 			btnCreateProjectActivity.setEnabled(false);
 		}
