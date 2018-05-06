@@ -54,7 +54,7 @@ public class Projects extends JFrame{
 		this.sh = sh;
 		this.username = username;
 		projects = sh.getProjects();
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		setBounds(100, 100, 650, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,7 +68,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjects = new JLabel("Projects:");
-		lblProjects.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjects.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjects.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjects = new GridBagConstraints();
 		gbc_lblProjects.anchor = GridBagConstraints.SOUTH;
@@ -79,7 +79,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjectleader = new JLabel("Leader");
-		lblProjectleader.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjectleader.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjectleader.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjectleader = new GridBagConstraints();
 		gbc_lblProjectleader.anchor = GridBagConstraints.SOUTH;
@@ -91,7 +91,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjectStart = new JLabel("Start");
-		lblProjectStart.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjectStart.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjectStart.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjectStart = new GridBagConstraints();
 		gbc_lblProjectStart.anchor = GridBagConstraints.SOUTH;
@@ -102,7 +102,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjectEnd = new JLabel("End");
-		lblProjectEnd.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjectEnd.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjectEnd.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjectEnd = new GridBagConstraints();
 		gbc_lblProjectEnd.anchor = GridBagConstraints.SOUTH;
@@ -128,6 +128,7 @@ public class Projects extends JFrame{
 		txtProjectLeaderID = new JTextField();
 		txtProjectLeaderID.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtProjectLeaderID.setBounds(7,4,10,10);
+		txtProjectLeaderID.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(0) + "").getProjectLeader() + "");
 		GridBagConstraints gbc_txtProjectLeaderID = new GridBagConstraints();
 		gbc_txtProjectLeaderID.anchor = GridBagConstraints.NORTH;
 		gbc_txtProjectLeaderID.insets = new Insets(0, 0, 5, 5);
@@ -188,7 +189,7 @@ public class Projects extends JFrame{
 		
 		//Update Info button
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnUpdate.setHorizontalAlignment(SwingConstants.LEADING);
 		btnUpdate.setVerticalAlignment(SwingConstants.TOP);
 		btnUpdate.addActionListener(new ActionListener() {
@@ -233,7 +234,7 @@ public class Projects extends JFrame{
 		contentPane.add(lblAddAProject, gbc_lblAddAProject);
 		//"Title" label
 		JLabel lblAddTitle = new JLabel("Title");
-		lblAddTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAddTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAddTitle = new GridBagConstraints();
 		gbc_lblAddTitle.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddTitle.insets = new Insets(0, 0, 5, 5);
@@ -243,7 +244,7 @@ public class Projects extends JFrame{
 		
 		//"Start" label
 		JLabel lblAddStart = new JLabel("Start");
-		lblAddStart.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAddStart.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAddStart = new GridBagConstraints();
 		gbc_lblAddStart.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddStart.insets = new Insets(0, 0, 5, 5);
@@ -253,7 +254,7 @@ public class Projects extends JFrame{
 		
 		//"End" label
 		JLabel lblAddEnd = new JLabel("End");
-		lblAddEnd.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAddEnd.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAddEnd = new GridBagConstraints();
 		gbc_lblAddEnd.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddEnd.insets = new Insets(0, 0, 5, 5);
@@ -307,7 +308,7 @@ public class Projects extends JFrame{
 		
 		
 		JButton btnAddProject = new JButton("Add Project");
-		btnAddProject.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAddProject.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnAddProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -346,13 +347,17 @@ public class Projects extends JFrame{
 		JButton btnRepport = new JButton("Report");
 		btnRepport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
-				Report r = sh.requestReport(p, username);
-				ReportFrame reportFrame = new ReportFrame(r); 
-//				reportFrame.setVisible(true);
+				try {
+					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
+					Report r = sh.requestReport(p, username);
+					Reports reports = new Reports(r);
+					reports.setVisible(true);
+				} catch (Exception e) {
+					System.out.println("You are not the project leader, " + username);
+				}
 			}
 		});
-		btnRepport.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRepport.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_btnRepport = new GridBagConstraints();
 		gbc_btnRepport.anchor = GridBagConstraints.NORTH;
 		gbc_btnRepport.insets = new Insets(0, 0, 5, 0);

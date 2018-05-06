@@ -1,6 +1,7 @@
 package dtu.sh.view;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -165,7 +166,7 @@ public class LoggedIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Project project = getSelectedProject();
-				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(self, project, softwarehuset.getLoggedInEmployee());
+				CreateProjectActivityFrame createProjectActivity = new CreateProjectActivityFrame(self, project, softwarehuset);
 				createProjectActivity.setVisible(true);
 				self.setVisible(false);
 			}
@@ -235,6 +236,8 @@ public class LoggedIn extends JFrame {
 		// Mikkel
 		JButton addRegistrationButton = new JButton("addRegistration");
 		addRegistrationButton.addActionListener(new ActionListener() {
+			
+			// Mikkel
 			public void actionPerformed(ActionEvent e) {
 				
 				try {

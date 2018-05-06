@@ -2,16 +2,14 @@ package dtu.sh.model;
 
 import java.util.List;
 
-import com.sun.javafx.image.impl.General;
-
-import cucumber.api.java.it.Date;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 
 import java.util.ArrayList;
 
 public class Employee {
+	
 	private String id;
-	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>(){{ 
+	private List<GeneralActivity> generalActivities = new ArrayList<GeneralActivity>(){{ 		
 		add(new GeneralActivity("sick", "test description", 5, 10));
 		add(new GeneralActivity("Holiday", "test with holliday", 42, 44));
 	}};
@@ -76,21 +74,4 @@ public class Employee {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//hej 

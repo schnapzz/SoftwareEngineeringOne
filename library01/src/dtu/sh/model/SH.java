@@ -12,12 +12,13 @@ public class SH {
 	
 	private Employee loggedInEmployee; 
 	private List<Employee> employees = new ArrayList<Employee>() {{
-		add(new Employee("abcd"));
 		add(new Employee("Mikk"));
 		add(new Employee("Hela"));
-		add(new Employee("John"));
 		add(new Employee("SoAm"));
 		add(new Employee("OliG"));
+		add(new Employee("abcd"));
+		add(new Employee("efgh"));
+		add(new Employee("John"));
 		add(new Employee("Poul"));
 		add(new Employee("Bear"));
 		add(new Employee("Kimm"));
@@ -36,11 +37,17 @@ public class SH {
 
 	//Helena
 	public Boolean isEmployed(String username) {
+		
+		assert true;
+		
 		for (Employee e: employees) {
 			if (e.getID().equals(username)) {
 				return true;
 			}
 		}
+		
+		assert true;
+		
 		return false;
 	}
 	
@@ -154,8 +161,8 @@ public class SH {
 	public Report requestReport(Project project, String id) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(project.getTitle()) && p.getProjectLeader().equals(id)) {
-				Report report = p.createReport();
-				return report;
+				Report r = p.createReport();
+				return r;
 			}
 		}
 		return null;
@@ -172,7 +179,6 @@ public class SH {
 			return k;
 		}
 	
-	//===GETTERS & SETTERS & CHECKERS
 	//Helena
 	public Employee getLoggedInEmployee() {
 		return loggedInEmployee;
@@ -207,6 +213,27 @@ public class SH {
 		return false;
 	}
 	
+	// Mikkel
+	public boolean isEmployeeIdsLegalForAssignments(String[] employeeIds) {
+		
+		assert employeeIds != null && employeeIds.length > 0 && this.employees.size() > 0;
+		
+		for (String employeeId : employeeIds) {	
+			if (isIllegalIdFormat(employeeId) && !isEmployed(employeeId)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// Mikkel
+	private boolean isIllegalIdFormat(String employeeId) {
+		
+		assert true;
+		
+		return employeeId.length() != 4;
+	}
+	
 	public String getProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -229,5 +256,15 @@ public class SH {
 
 	public List<Project> getProjects() {
 		return projects;
+	}
+
+	public List<Employee> getEmployeesFromIds(String[] employeeIds) {
+		
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		for (String employeeId : employeeIds) {
+			Employee emp = getEmployeeWithId(employeeId);
+			list.add(emp);
+		}
+		return list;
 	}
 }

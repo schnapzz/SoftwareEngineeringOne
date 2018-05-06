@@ -17,6 +17,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.Employee;
 import dtu.sh.model.Project;
@@ -228,22 +229,23 @@ public class Steps {
 		assertFalse(project.activityExistsWithTitle(activityTitle));
 	}
 
-	@When("^the employee create a new activity with title \"([^\"]*)\" and description \"([^\"]*)\" and priority (\\d+) to the project$")
-	public void theEmployeeCreateANewActivityWithTitleAndDescriptionAndPriorityToTheProject(String activityTitle,
-			String desc, int priority) throws Exception {
-		projectActivity = new ProjectActivity(activityTitle, desc, priority);
+	@When("^the employee create a new activity with title \"([^\"]*)\" description \"([^\"]*)\" priority (\\d+) startweek (\\d+) endweek (\\d+) to the project$")
+	public void theEmployeeCreateANewActivityWithTitleDescriptionPriorityStartweekEndweekToTheProject(String activityTitle, String desc, int priority, int start, int end) throws Exception {
 		try {
-			project.addActivity(projectActivity, softwarehuset.getLoggedInEmployee());
+//			projectActivity = new ProjectActivity(activityTitle, desc, priority, start, end);
+			project.addActivity(activityTitle, desc, priority, start, end, new ArrayList<Employee>(), softwarehuset.getLoggedInEmployee());
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
+		} catch (IllegalWeekNumberFormatException e2) {
+			errorMessageHolder.setErrorMessage(e2.getMessage());
 		}
 	}
 
 	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
 	public void iCreateAnActivityWithDescriptionToTheProject(String activityTitle) throws Exception {
 		int testLength = project.getUnfinishedActivities().size();
-		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
-		project.addActivity(activity, softwarehuset.getLoggedInEmployee());
+//		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
+		project.addActivity(activityTitle, "This is a test description", 1, softwarehuset.getLoggedInEmployee());
 		assertTrue(testLength + 1 == project.getUnfinishedActivities().size());
 	}
 
@@ -269,22 +271,25 @@ public class Steps {
 	public void theEmployeeTriesToCreateAnActivityForTheProjectWithId(String projectId) throws Exception {
 		int numberOfActivities = project.getUnfinishedActivities().size();
 		try {
-			project.addActivity(new ProjectActivity("bla", "bla", 1), softwarehuset.getLoggedInEmployee());
+			project.addActivity("bla", "Bla", 1, softwarehuset.getLoggedInEmployee());
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		}
 		assertEquals(numberOfActivities, project.getUnfinishedActivities().size());
 	}
 
-	@Then("^there is a new unfinished activity with title \"([^\"]*)\" and description \"([^\"]*)\" and priority (\\d+) in the project$")
-	public void thereIsANewUnfinishedActivityWithTitleAndDescriptionAndPriorityInTheProject(String aTitle, String aDesc,
-			int aPriority) throws Exception {
-
+	@Then("^there is a new unfinished activity with title \"([^\"]*)\" description \"([^\"]*)\" priority (\\d+) startweek (\\d+) endweek (\\d+) in the project$")
+	public void thereIsANewUnfinishedActivityWithTitleDescriptionPriorityStartweekEndweekInTheProject(String aTitle, String aDesc, int aPriority, int aStart, int aEnd) throws Exception {
+		
 		ProjectActivity pa = project.getProjectActivityWithTitle(aTitle);
 
 		assertTrue(pa.getTitle().equals(aTitle));
 		assertTrue(pa.getDescription().equals(aDesc));
+		System.out.println(pa.getPriority() + " == " + aPriority);
 		assertTrue(pa.getPriority() == aPriority);
+		assertTrue(pa.getStartDate() == aStart);
+		assertTrue(pa.getEndDate() == aEnd);
+
 	}
 
 	/*
@@ -340,8 +345,8 @@ public class Steps {
 
 		project = softwarehuset.getProjectWithId(projectId);
 		String loggedInEmployeeId = softwarehuset.getLoggedInEmployee().getID();
-		assertTrue(project.employeeWithIdExists(loggedInEmployeeId));
 		assertTrue(project.activityExistsWithTitle(activityTitle));
+		
 
 		projectActivity = project.getProjectActivityWithTitle(activityTitle);
 		assertTrue(projectActivity.employeeWithIdExists(loggedInEmployeeId));
@@ -388,6 +393,20 @@ public class Steps {
 		}
 		assertTrue(sum == hours);
 	}
+	
+	@When("^the employee create a new project activity with start week (.+) and end week (.+)$")
+	public void theEmployeeCreateANewProjectActivityWithStartWeekAndEndWeek(int startWeek, int endWeek) throws Exception {
+
+		try {
+//			ProjectActivity pa = new ProjectActivity("TestTest", "test test test", 2, startWeek, endWeek);
+			project.addActivity("TestTest", "test test test", 2, startWeek, endWeek, new ArrayList<Employee>(), softwarehuset.getLoggedInEmployee());
+			
+		} catch (IllegalWeekNumberFormatException e) {
+			errorMessageHolder.setErrorMessage(e.getMessage());
+		}
+	}
+
+
 
 	@Then("^the activity have (\\d+) time registrations$")
 	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {

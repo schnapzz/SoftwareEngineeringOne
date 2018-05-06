@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
+import dtu.sh.model.TimeRegistration;
+
 
 // Mikkel
 public class ProjectActivity extends Activity {
@@ -18,36 +21,31 @@ public class ProjectActivity extends Activity {
 			add(new Employee("abcd"));
 		}
 	};
-	private List<TimeRegistration> timeRegistrations;
+	private List<TimeRegistration> timeRegistrations = new ArrayList<TimeRegistration>() {
+		{
+			add(new TimeRegistration("Mikk", 4.0));
+			add(new TimeRegistration("Mikk", 2.0));
+			add(new TimeRegistration("abcd", 4.0));
+			add(new TimeRegistration("abcd", 2.0));
+		}
+	};
 
 	// Mikkel
 	public ProjectActivity(String title, String description, int priority) {
-
 		super(title, description);
-
 		this.priority = priority;
-
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	// Mikkel
-	public ProjectActivity(String title, String description, int priority, List<Employee> employees) {
-		super(title, description);
-
-		this.priority = priority;
-		this.setEmployees(employees);
-
-		timeRegistrations = new ArrayList<TimeRegistration>();
-	}
-
-	// Mikkel
-	public ProjectActivity(String title, String description, int start, int end, int priority) {
+	public ProjectActivity(String title, String description, int priority, int start, int end, List<Employee> employees) {
 
 		super(title, description, start, end);
-
+		
 		this.priority = priority;
-
-		timeRegistrations = new ArrayList<TimeRegistration>();
+		this.employees = employees;
+		
+//		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	// Mikkel
@@ -108,7 +106,10 @@ public class ProjectActivity extends Activity {
 	// Mikkel
 	public List<TimeRegistration> getTimeRegistrations() {
 
+		System.out.println("getTR Called");
+		System.out.println(timeRegistrations.size());
 		List<TimeRegistration> copyRegistrations = new ArrayList<TimeRegistration>(timeRegistrations);
+		System.out.println(copyRegistrations.size());
 		return copyRegistrations;
 	}
 
@@ -139,8 +140,8 @@ public class ProjectActivity extends Activity {
 		return employees;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
+//	public void setEmployees(List<Employee> employees) {
+//		this.employees = employees;
+//	}
 
 }
