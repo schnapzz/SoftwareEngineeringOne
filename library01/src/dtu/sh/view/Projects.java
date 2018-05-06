@@ -169,25 +169,8 @@ public class Projects extends JFrame{
 		gbc_txtEnd.gridy = 1;
 		contentPane.add(txtEnd, gbc_txtEnd);
 		txtEnd.setColumns(10);
-
 		
-		//Get Info button
-//		JButton btnGetInfo = new JButton("Get Info");
-//		btnGetInfo.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				txtProjectLeaderID.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getProjectLeader() + "");
-//				txtStart.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getStart() + "");
-//				txtEnd.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getEnd() + "");
-//			}
-//		});
-//		GridBagConstraints gbc_btnGetInfo = new GridBagConstraints();
-//		gbc_btnGetInfo.insets = new Insets(0, 0, 0, 5);
-//		gbc_btnGetInfo.gridx = 0;
-//		gbc_btnGetInfo.gridy = 2;
-//		contentPane.add(btnGetInfo, gbc_btnGetInfo);
-		
-		
-		//Update Info button
+		//Update Project button
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnUpdate.setHorizontalAlignment(SwingConstants.LEADING);
@@ -198,14 +181,13 @@ public class Projects extends JFrame{
 					String newID = txtProjectLeaderID.getText();
 					int newS = Integer.parseInt(txtStart.getText());
 					int newE = Integer.parseInt(txtEnd.getText());
+					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
 					if (sh.isEmployed(newID)) {
-						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setProjectLeader(newID);
+						p.setProjectLeader(newID);
 					}
-					if (newS >= 0 && newS <= 52) {
-						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setStartDate(newS);
-					}
-					if (newE >= 0 && newE <= 52) {
-						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setEndDate(newE);
+					if (sh.isValidWeekNumber(newS) && sh.isValidWeekNumber(newE)) {
+						p.setStartDate(newS);
+						p.setEndDate(newE);
 					}
 				} catch (Exception error) {
 					
