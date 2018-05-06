@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import dtu.sh.model.SH;
 
+/**
+ * 
+ * @author mikkelmuller-hansen
+ *
+ */
 public class ValidityOfWeekNumbers {
 
 	private SH softwarehuset;

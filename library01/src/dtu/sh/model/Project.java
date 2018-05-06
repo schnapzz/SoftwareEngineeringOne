@@ -90,8 +90,6 @@ public class Project {
 			ProjectActivity activity = new ProjectActivity(title, desc, priority, start, end, employees);
 			unfinishedActivities.add(activity);
 		}
-		
-		
 	}
 	
 	// Mikkel
@@ -151,6 +149,7 @@ public class Project {
 		assert projectActivity != null;
 		
 		
+		
 		return projectActivity;
 	}
 	
@@ -159,12 +158,14 @@ public class Project {
 		
 		assert projectActivities != null;
 		
+		ProjectActivity projectActivity = null;
 		for (ProjectActivity pa : projectActivities) {
 			if (pa.getTitle().equals(activityTitle)) {
-				return pa;
+				projectActivity = pa;
+				break;
 			}
 		}
-		return null;
+		return projectActivity;
 	}
 
 	// ===== GETTERS AND SETTERS =====
