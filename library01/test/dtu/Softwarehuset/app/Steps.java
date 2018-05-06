@@ -305,10 +305,30 @@ public class Steps {
 
 	}
 
+	@When("^a general activity with the title \"([^\"]*)\" and start time  \"([^\"]*)\" and  end time to \"([^\"]*)\"$")
+	public void aGeneralActivityWithTheTitleAndStartTimeAndEndTimeTo(String activityTitle, String start, String end) throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
+		try {
+			int intStart = Integer.parseInt(start);
+			int intEnd = Integer.parseInt(end);
+			softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(intStart,intEnd);			
+		}catch(NumberFormatException e){
+			assertThat(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(Integer.parseInt(start),Integer.parseInt(end)), is(not(true)));
+		}
+	}
+	
 	@When("^they set start time to \"([^\"]*)\" and the end time to \"([^\"]*)\"$")
 	public void theySetStartTimeToAndTheEndTimeTo(int start, int end) throws Exception {
-	    softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(start,end);
+		
+		softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(start, end);	
+		
 	}
+	
+//	@When("^the activity \"([^\"]*)\" has start time  set to \"([^\"]*)\" and end time set to \"([^\"]*)\"$")
+//	public void theActivityHasStartTimeSetToAndEndTimeSetTo(String titleGeneralActivity, int start, int end) throws Exception {
+//	    // Write code here that turns the phrase above into concrete actions
+//		softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(start, end);	
+//	}
 
 	@Then("^the general activity \"([^\"]*)\" is created$")
 	public void theGeneralActivityWithStartAndEndIsCreated(String titleGeneralActivity) throws Exception {
@@ -330,6 +350,17 @@ public class Steps {
 		assertTrue(softwarehuset.getLoggedInEmployee().doesGeneralActivityExist(titleGeneralActivity));
 		assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate() == start);
 		assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getEndDate() == end);
+	}
+	
+	
+	
+	@Then("^Dates are not added to general activity with title \"([^\"]*)\"$")
+	public void datesAreNotAddedToGeneralActivityWithTitle(String titleGeneralActivity) throws Exception {
+	 	assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate() == 0);
+	 	assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getEndDate() == 0);
+
+		System.out.println("Din mor " + softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate());
+		//assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate());
 	}
 	
 	/*

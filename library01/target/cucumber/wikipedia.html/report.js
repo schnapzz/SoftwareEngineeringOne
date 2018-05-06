@@ -316,6 +316,51 @@ formatter.match({
 formatter.result({
   "status": "passed"
 });
+formatter.scenario({
+  "name": "Add existing general activiy when employee is logged in",
+  "description": "",
+  "keyword": "Scenario"
+});
+formatter.step({
+  "name": "that the employee \"Mikk\" is logged in",
+  "keyword": "Given "
+});
+formatter.match({
+  "location": "Steps.thatTheEmployeeIsLoggedIn(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "there is a general activity with the name \"sick\"",
+  "keyword": "And "
+});
+formatter.match({
+  "location": "Steps.thereIsAGeneralActivityWithTheName(String)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "they set start time to \"0\" and the end time to \"53\"",
+  "keyword": "When "
+});
+formatter.match({
+  "location": "Steps.theySetStartTimeToAndTheEndTimeTo(int,int)"
+});
+formatter.result({
+  "status": "passed"
+});
+formatter.step({
+  "name": "Dates are not added to general activity with title \"sick\"",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "Steps.datesAreNotAddedToGeneralActivityWithTitle(String)"
+});
+formatter.result({
+  "status": "passed"
+});
 formatter.uri("use_cases/student/create_project_activity.feature");
 formatter.feature({
   "name": "Creating a project activity",
