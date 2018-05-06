@@ -23,10 +23,10 @@ public class ProjectActivity extends Activity {
 	};
 	private List<TimeRegistration> timeRegistrations = new ArrayList<TimeRegistration>() {
 		{
-			add(new TimeRegistration("Mikk", 4.0));
-			add(new TimeRegistration("Mikk", 2.0));
-			add(new TimeRegistration("abcd", 4.0));
-			add(new TimeRegistration("abcd", 2.0));
+//			add(new TimeRegistration("Mikk", 4.0));
+//			add(new TimeRegistration("Mikk", 2.0));
+//			add(new TimeRegistration("abcd", 4.0));
+//			add(new TimeRegistration("abcd", 2.0));
 		}
 	};
 
@@ -75,6 +75,7 @@ public class ProjectActivity extends Activity {
 
 			TimeRegistration timeRegistration = new TimeRegistration(employeeId, hours);
 			timeRegistrations.add(timeRegistration);
+			
 		}
 	}
 
@@ -106,10 +107,7 @@ public class ProjectActivity extends Activity {
 	// Mikkel
 	public List<TimeRegistration> getTimeRegistrations() {
 
-		System.out.println("getTR Called");
-		System.out.println(timeRegistrations.size());
 		List<TimeRegistration> copyRegistrations = new ArrayList<TimeRegistration>(timeRegistrations);
-		System.out.println(copyRegistrations.size());
 		return copyRegistrations;
 	}
 

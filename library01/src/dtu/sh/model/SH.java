@@ -40,12 +40,11 @@ public class SH {
 		
 		assert true;
 		
-		for (Employee e: employees) {
+		for (Employee e : employees) {
 			if (e.getID().equals(username)) {
 				return true;
 			}
 		}
-		
 		assert true;
 		
 		return false;
@@ -64,7 +63,7 @@ public class SH {
 	public void logInEmployee(String username) throws OperationNotAllowedException {
 		if (isValidUsername(username) && isEmployed(username)) {
 			loggedInEmployee = getEmployeeWithUsername(username);
-		} else {
+			} else {
 			throw new OperationNotAllowedException("Wrong username, try again");
 		}
 	}
@@ -205,9 +204,9 @@ public class SH {
 	
 	// Mikkel
 	public boolean isEmployeeIdsLegalForAssignments(String[] employeeIds) {
-		assert employeeIds != null && employeeIds.length > 0 && this.employees.size() > 0;
+		assert employeeIds != null && this.employees.size() > 0;
 		for (String employeeId : employeeIds) {	
-			if (isIllegalIdFormat(employeeId) && !isEmployed(employeeId)) {
+			if (isIllegalIdFormat(employeeId) || !isEmployed(employeeId)) {
 				return false;
 			}
 		}
@@ -252,5 +251,12 @@ public class SH {
 			list.add(emp);
 		}
 		return list;
+	}
+	
+	public boolean allFieldsFilled(String title, String description, String start, String end) {
+		if ((title.isEmpty() || description.isEmpty() || start.isEmpty() || end.isEmpty()) == true)
+			return false;
+		else
+			return true;
 	}
 }
