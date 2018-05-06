@@ -318,7 +318,7 @@ public class Projects extends JFrame{
 					updateScene();
 					updateComboBox();
 				} catch (Exception error) {
-					System.out.println(error);
+//					System.out.println(error);
 				}
 				
 			}

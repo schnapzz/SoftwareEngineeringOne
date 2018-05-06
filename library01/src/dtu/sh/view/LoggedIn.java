@@ -96,7 +96,7 @@ public class LoggedIn extends JFrame {
 		gbc_lblUnfinishedActivities.gridy = 0;
 		contentPane.add(lblUnfinishedActivities, gbc_lblUnfinishedActivities);
 		
-		JLabel lblRegistrerTimer = new JLabel("Registrer Timer");
+		JLabel lblRegistrerTimer = new JLabel("Log hours");
 		GridBagConstraints gbc_lblRegistrerTimer = new GridBagConstraints();
 		gbc_lblRegistrerTimer.anchor = GridBagConstraints.SOUTH;
 		gbc_lblRegistrerTimer.insets = new Insets(0, 0, 5, 0);
@@ -142,7 +142,7 @@ public class LoggedIn extends JFrame {
 			}
 		});
 		
-		txtIminutter.setText("I Minutter");
+		txtIminutter.setText("In half-hours");
 		GridBagConstraints gbc_txtIminutter = new GridBagConstraints();
 		gbc_txtIminutter.insets = new Insets(0, 0, 5, 0);
 		gbc_txtIminutter.fill = GridBagConstraints.HORIZONTAL;
@@ -258,7 +258,7 @@ public class LoggedIn extends JFrame {
 		gbc_finishedActivityBtn.gridy = 7;
 		contentPane.add(finishedActivityBtn, gbc_finishedActivityBtn);
 		
-		JButton btnLogUd = new JButton("Log ud");
+		JButton btnLogUd = new JButton("Log out");
 		btnLogUd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				self.dispose();
