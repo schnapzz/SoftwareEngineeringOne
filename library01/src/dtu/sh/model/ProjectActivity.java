@@ -8,6 +8,7 @@ import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.TimeRegistration;
 
+
 // Mikkel
 public class ProjectActivity extends Activity {
 
@@ -24,11 +25,8 @@ public class ProjectActivity extends Activity {
 
 	// Mikkel
 	public ProjectActivity(String title, String description, int priority) {
-
 		super(title, description);
-
 		this.priority = priority;
-
 		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
