@@ -32,7 +32,6 @@ import java.util.List;
  * Done by everyone
  */
 public class LoggedIn extends JFrame {
-
 	private SH softwarehuset;
 	private LoggedIn self;
 	private String username;

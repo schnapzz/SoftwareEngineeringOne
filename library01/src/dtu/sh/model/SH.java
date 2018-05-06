@@ -184,16 +184,6 @@ public class SH {
 		return loggedInEmployee;
 	}
 
-	//Helena
-	public boolean containsProject(Project project) {
-		for (Project p: projects) {
-			if (p.equals(project)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	// Mikkel
 	public Project getProjectWithId(String projectId) {
 		for (Project p : projects) {
@@ -215,9 +205,7 @@ public class SH {
 	
 	// Mikkel
 	public boolean isEmployeeIdsLegalForAssignments(String[] employeeIds) {
-		
 		assert employeeIds != null && employeeIds.length > 0 && this.employees.size() > 0;
-		
 		for (String employeeId : employeeIds) {	
 			if (isIllegalIdFormat(employeeId) && !isEmployed(employeeId)) {
 				return false;
@@ -228,9 +216,7 @@ public class SH {
 	
 	// Mikkel
 	private boolean isIllegalIdFormat(String employeeId) {
-		
 		assert true;
-		
 		return employeeId.length() != 4;
 	}
 	
