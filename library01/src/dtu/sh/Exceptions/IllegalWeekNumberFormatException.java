@@ -4,7 +4,7 @@ package dtu.sh.Exceptions;
 public class IllegalWeekNumberFormatException extends Exception{
 
 	/**
-	 * 
+	 * Mikkel
 	 */
 	private static final long serialVersionUID = 1L;
 	

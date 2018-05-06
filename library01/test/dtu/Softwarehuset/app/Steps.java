@@ -36,7 +36,6 @@ public class Steps {
 	// private Employee loggedInEmployee;
 	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
-	private String titleActivity;
 	private String titleGeneralActivity;
 	
 	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {

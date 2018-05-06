@@ -25,15 +25,12 @@ public class SH {
 		add(new Employee("Duck"));
 	}};
 	
+	
 	private List<Project> projects = new ArrayList<Project>() {{ 
 		add(new Project("030901", "Test", "Mikk", employees));
 		add(new Project(2, "Test3", 5, 10));
 		add(new Project(3, "test2"));
 	}};	
-	
-	public SH() {
-		// Exists only to defeat instantiation
-	}
 
 	//Helena
 	public Boolean isEmployed(String username) {
@@ -62,40 +59,34 @@ public class SH {
 	//Helena
 	public void logInEmployee(String username) throws OperationNotAllowedException {
 		if (isValidUsername(username) && isEmployed(username)) {
-			loggedInEmployee = getEmployeeWithUsername(username);
+			loggedInEmployee = getEmployeeWithId(username);
 			} else {
 			throw new OperationNotAllowedException("Wrong username, try again");
 		}
 	}
 	
-	// Mikkel
-	private Employee getEmployeeWithUsername(String username) {
-		for (Employee e : employees) {
-			if (e.getID().equals(username)) {
-				return e;
-			}
-		}
-		return null;
-	}
-	
-	//public version of above method. Change??
 	public Employee getEmployeeWithId(String username) {
+		Employee emp = null;
 		for (Employee e : employees) {
 			if (e.getID().equals(username)) {
-				return e;
+				emp = e;
+				break;
 			}
 		}
-		return null;
+		return emp;
 	}
 	
 	//Mikkel
 	public boolean doesProjectWithIdExist(String projectId) {
+		
+		boolean projectExists = false;
 		for (Project project : projects) {
 			if (project.getId().equalsIgnoreCase(projectId)) {
-				return true;
+				projectExists = true;
+				break;
 			}
 		}
-		return false;
+		return projectExists;
 	}
 	
 	//Mikkel + Helena
@@ -135,11 +126,16 @@ public class SH {
 	
 	//Helena
 	public boolean isValidWeekNumber(int start) {
+		
+		assert true;
+		
+		boolean isValid = false;
 		if ((start >= 1) && (start <= 52)) {
-			return true;
-		} else {
-			return false;
+			isValid = true;
 		}
+		
+		assert true;
+		return isValid;
 	}
 
 	//Helena
@@ -158,25 +154,31 @@ public class SH {
 	
 	//Helena
 	public Report requestReport(Project project, String id) {
+		
+		assert project != null && id != null && projects != null && id.length() == 4 && projects.size() > 0;
+		
+		Report repport = null;
 		for (Project p: projects) {
 			if (p.getTitle().equals(project.getTitle()) && p.getProjectLeader().equals(id)) {
-				Report r = p.createReport();
-				return r;
+				repport = p.createReport();
+				break;
 			}
 		}
-		return null;
+		assert repport == null || repport instanceof Report;
+		
+		return repport;
 	}
 	
 	//Helena
-		public int projectsWithTitle(String title) {
-			int k = 0;
-			for (Project p: projects) {
-				if (p.getTitle().equals(title)) {
-					k = k + 1;
-				}
+	public int projectsWithTitle(String title) {
+		int k = 0;
+		for (Project p: projects) {
+			if (p.getTitle().equals(title)) {
+				k = k + 1;
 			}
-			return k;
 		}
+		return k;
+	}
 	
 	//Helena
 	public Employee getLoggedInEmployee() {
@@ -243,7 +245,7 @@ public class SH {
 	}
 	
 	public Project getProjectFromTitle(String title) {
-		Project pt = null;//new Project(numberOfProjects, "placeholder");
+		Project pt = null;
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
 				pt = p;

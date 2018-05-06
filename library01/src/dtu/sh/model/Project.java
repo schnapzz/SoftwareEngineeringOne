@@ -15,6 +15,7 @@ public class Project {
 	private int start = 0;
 	private int end = 0;
 	
+	
 	private List<Employee> employees;
 	private List<ProjectActivity> unfinishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestUnfinished", "test description", 1));
@@ -48,25 +49,31 @@ public class Project {
 	// Mikkel
 	public boolean activityExistsWithTitle(String title) {
 		
-		assert title.toCharArray().length > 0;
+		assert title != null;
 		
 		if (containsActivityWithTitle(unfinishedActivities, title) ||
 			containsActivityWithTitle(finishedActivities, title)) {
 			return true;
-		}		
+		}
+		
+		assert true;
+		
 		return false;
 	}
 
 	// Mikkel
 	private boolean containsActivityWithTitle(List<ProjectActivity> activities, String title) {
 		
-		assert activities.size() > 0;
+		assert activities != null;
 		
 		for (Activity a : activities) {
-			if (a.getTitle().equalsIgnoreCase(title)) {
+			if (a.getTitle().equals(title)) {
 				return true;
 			}
 		}
+	
+		assert true;
+		
 		return false;
 	}
 	
@@ -134,7 +141,7 @@ public class Project {
 	// Mikkel
 	public ProjectActivity getProjectActivityWithTitle(String activityTitle) {
 		
-		assert activityTitle.toCharArray().length > 0;
+		assert activityTitle != null && activityTitle.isEmpty() != true;
 		
 		ProjectActivity projectActivity = searchForProjectActivity(activityTitle, unfinishedActivities);
 		if (projectActivity == null) {
@@ -143,15 +150,15 @@ public class Project {
 		
 		assert projectActivity != null;
 		
-		// remember to copy.
-		// Talk to members about when to copy an object
 		
 		return projectActivity;
 	}
 	
 	// Mikkel
 	private ProjectActivity searchForProjectActivity(String activityTitle, List<ProjectActivity> projectActivities) {
+		
 		assert projectActivities != null;
+		
 		for (ProjectActivity pa : projectActivities) {
 			if (pa.getTitle().equals(activityTitle)) {
 				return pa;

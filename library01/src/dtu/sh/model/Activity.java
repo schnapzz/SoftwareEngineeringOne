@@ -1,12 +1,5 @@
 package dtu.sh.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
-import dtu.sh.Exceptions.OperationNotAllowedException;
-
 // Mikkel
 public abstract class Activity {
 

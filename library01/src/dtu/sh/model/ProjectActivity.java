@@ -6,7 +6,6 @@ import java.util.List;
 
 import dtu.sh.Exceptions.IllegalWeekNumberFormatException;
 import dtu.sh.Exceptions.OperationNotAllowedException;
-import dtu.sh.model.TimeRegistration;
 
 
 // Mikkel
@@ -74,18 +73,18 @@ public class ProjectActivity extends Activity {
 		if (isHoursProperlyFormatted(hours)) {
 
 			TimeRegistration timeRegistration = new TimeRegistration(employeeId, hours);
-			timeRegistrations.add(timeRegistration);
-			
+			timeRegistrations.add(timeRegistration);		
 		}
 	}
 
 	// Mikkel
 	private boolean isHoursProperlyFormatted(double hours) throws OperationNotAllowedException {
 
+		boolean properFormat = false;
 		if (isHoursPositive(hours) && isHoursWithoutHalfHourAccuracy(hours)) {
-			return true;
+			properFormat = true;
 		}
-		return false;
+		return properFormat;
 	}
 
 	// Mikkel
