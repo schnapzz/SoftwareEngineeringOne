@@ -48,19 +48,19 @@ public class GeneralActivityFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{54, 37, 125, 37, 55, 46, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{24, 0, 58, 59, 42, 53, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 54, 37, 125, 37, 55, 46, 0, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 24, 0, 58, 59, 42, 53, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		JLabel lblTitle = new JLabel("Title:");
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 		gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTitle.gridx = 1;
 		gbc_lblTitle.gridy = 1;
 		contentPane.add(lblTitle, gbc_lblTitle);
-		
+
 		txtTtitlefield = new JTextField();
 		txtTtitlefield.setText("");
 		GridBagConstraints gbc_txtTtitlefield = new GridBagConstraints();
@@ -70,14 +70,14 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_txtTtitlefield.gridy = 1;
 		contentPane.add(txtTtitlefield, gbc_txtTtitlefield);
 		txtTtitlefield.setColumns(10);
-		
+
 		JLabel lblDescription = new JLabel("Description:");
 		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
 		gbc_lblDescription.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDescription.gridx = 1;
 		gbc_lblDescription.gridy = 2;
 		contentPane.add(lblDescription, gbc_lblDescription);
-		
+
 		txtpnDescriptionfield = new JTextPane();
 		txtpnDescriptionfield.setText("");
 		GridBagConstraints gbc_txtpnDescriptionfield = new GridBagConstraints();
@@ -86,7 +86,7 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_txtpnDescriptionfield.gridx = 2;
 		gbc_txtpnDescriptionfield.gridy = 2;
 		contentPane.add(txtpnDescriptionfield, gbc_txtpnDescriptionfield);
-		
+
 		lblStartWeek = new JLabel("Start Week:");
 		GridBagConstraints gbc_lblStartWeek = new GridBagConstraints();
 		gbc_lblStartWeek.anchor = GridBagConstraints.EAST;
@@ -94,7 +94,7 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_lblStartWeek.gridx = 1;
 		gbc_lblStartWeek.gridy = 3;
 		contentPane.add(lblStartWeek, gbc_lblStartWeek);
-		
+
 		txtStartfield = new JTextField();
 		txtStartfield.setText("");
 		GridBagConstraints gbc_txtStartfield = new GridBagConstraints();
@@ -104,7 +104,7 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_txtStartfield.gridy = 3;
 		contentPane.add(txtStartfield, gbc_txtStartfield);
 		txtStartfield.setColumns(10);
-		
+
 		lblEndWeek = new JLabel("End Week:");
 		GridBagConstraints gbc_lblEndWeek = new GridBagConstraints();
 		gbc_lblEndWeek.anchor = GridBagConstraints.EAST;
@@ -112,7 +112,7 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_lblEndWeek.gridx = 1;
 		gbc_lblEndWeek.gridy = 4;
 		contentPane.add(lblEndWeek, gbc_lblEndWeek);
-		
+
 		txtEndfield = new JTextField();
 		txtEndfield.setText("");
 		GridBagConstraints gbc_txtEndfield = new GridBagConstraints();
@@ -122,20 +122,30 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_txtEndfield.gridy = 4;
 		contentPane.add(txtEndfield, gbc_txtEndfield);
 		txtEndfield.setColumns(10);
-		
+
 		btnCreate = new JButton("Create");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				System.out.println(software.getLoggedInEmployee().getID());
 				String title = txtTtitlefield.getText();
 				String description = txtpnDescriptionfield.getText();
-				int start = Integer.parseInt((String)txtStartfield.getText());
-				int end = Integer.parseInt((String)txtEndfield.getText());
+				System.out.println("description is " + description != null);
 
-				GeneralActivity gifflar = new GeneralActivity(title,description, start,end);
-				employee.addGeneralActivity(gifflar);
-				loggedIn.reloadGenActCombo(employee);		
+				try {
+					int start = Integer.parseInt((String) txtStartfield.getText());
+					int end = Integer.parseInt((String) txtEndfield.getText());
+					if (software.allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText())) {
+						GeneralActivity gifflar = new GeneralActivity(title, description, start, end);
+						employee.addGeneralActivity(gifflar);
+						loggedIn.reloadGenActCombo(employee);
+					}
+				} catch (NumberFormatException n) {
+					System.out.println("Weeks should be integers");
+				}
+
 			}
+
 		});
 		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
 		gbc_btnCreate.insets = new Insets(0, 0, 0, 5);
