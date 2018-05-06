@@ -190,6 +190,7 @@ public class LoggedIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				GeneralActivityFrame generalActivityFrame = new GeneralActivityFrame(softwarehuset, self);
 				generalActivityFrame.setVisible(true);
+				self.setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnCreateGeneralActivity = new GridBagConstraints();

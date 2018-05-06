@@ -114,16 +114,9 @@ public class ProjectActivity extends Activity {
 		return priority;
 	}
 
-	// �li
+	// Oli
 	public void addEmployeeToActivity(Employee employee, String employeeId) throws OperationNotAllowedException {
-		// System.out.println("emp = " + softwarehuset.getEmployeeWithId(employee));
-		// if (!employeeWithIdExists(employee)) {
-		// employees.add(softwarehuset.getEmployeeWithId(employee));
-		// }
-		// else {
-		// throw new OperationNotAllowedException("Employee is already part of chosen
-		// activity");
-		// }
+
 
 		if (!employeeWithIdExists(employeeId)) {
 
