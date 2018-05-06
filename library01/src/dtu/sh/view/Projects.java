@@ -55,14 +55,14 @@ public class Projects extends JFrame{
 		this.username = username;
 		projects = sh.getProjects();
 //		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-		setBounds(100, 100, 650, 450);
+		setBounds(100, 100, 683, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{120, 106, 101, 91, 79, 120};
+		gbl_contentPane.columnWidths = new int[]{95, 86, 101, 75, 96, 120};
 		gbl_contentPane.rowHeights = new int[]{40, 24, 141, 48, 23, 77, 40};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -213,6 +213,7 @@ public class Projects extends JFrame{
 			}
 		});
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
+		gbc_btnProjects.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnProjects.anchor = GridBagConstraints.NORTH;
 		gbc_btnProjects.insets = new Insets(0, 0, 5, 5);
 		gbc_btnProjects.gridx = 2;
@@ -359,6 +360,7 @@ public class Projects extends JFrame{
 		});
 		btnRepport.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_btnRepport = new GridBagConstraints();
+		gbc_btnRepport.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnRepport.anchor = GridBagConstraints.NORTH;
 		gbc_btnRepport.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRepport.gridx = 4;
