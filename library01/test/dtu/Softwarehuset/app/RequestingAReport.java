@@ -9,27 +9,47 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import dtu.sh.model.Employee;
-import dtu.sh.model.Project;
+import dtu.sh.model.Report;
+import dtu.sh.model.SH;
 
 public class RequestingAReport {
 
-	private Project p1;
-	private Project p2;
+	private SH softwarehuset;
+	private final String title1 = "TestProjectOne";
+	private final String title2 = "TestProjectTwo";
+
 	
 	@Before
 	public void setUp() throws Exception {
-		p1 = new Project("SomeId", "SomeTitle", "Mikk", new ArrayList<Employee>() {{ add(new Employee("Mikk")); }} );
-		p2 = new Project("SomeId2", "SomeTitle2", "Olii", new ArrayList<Employee>() {{ add(new Employee("Olii")); }} );
+		softwarehuset = new SH();
+			
+		
+		softwarehuset.createProject(title1);
+		softwarehuset.getProjectFromTitle(title1).setProjectLeader("Mikk");
+		softwarehuset.createProject(title2);
+		softwarehuset.getProjectFromTitle(title2).setProjectLeader("Olii");
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		softwarehuset = null;
 	}
 
 	@Test
 	public void projectLeaderRequestsRapport() {
-		p1.createReport();
+		Report r1 = softwarehuset.requestReport(softwarehuset.getProjectFromTitle(title1), "Mikk");
+		Report r2 = softwarehuset.requestReport(softwarehuset.getProjectFromTitle(title2), "Olii");
+		
+		assertTrue(r1 != null);
+		assertTrue(r2 != null);
 	}
 
+	@Test
+	public void regularEmployeeRequestsRapport() {
+		Report r1 = softwarehuset.requestReport(softwarehuset.getProjectFromTitle(title1), "Olii");
+		Report r2 = softwarehuset.requestReport(softwarehuset.getProjectFromTitle(title2), "Mikk");
+		
+		assertTrue(r1 == null);
+		assertTrue(r2 == null);
+	}
 }
