@@ -34,7 +34,6 @@ import java.util.List;
  * Done by everyone
  */
 public class LoggedIn extends JFrame {
-
 	private SH softwarehuset;
 	private LoggedIn self;
 	private String username;
@@ -55,7 +54,7 @@ public class LoggedIn extends JFrame {
 		this.employee = softwarehuset.getLoggedInEmployee();
 		this.softwarehuset = softwarehuset;
 		this.self = this;
-		this.username = username;
+		this.username = username; 
 		generalActivities = employee.getGeneralActivities();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
