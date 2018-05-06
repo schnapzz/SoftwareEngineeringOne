@@ -169,6 +169,7 @@ public class SH {
 		return repport;
 	}
 	
+	
 	//Helena
 	public int projectsWithTitle(String title) {
 		int k = 0;
