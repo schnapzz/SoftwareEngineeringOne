@@ -14,3 +14,9 @@ Scenario: Add existing general activiy when employee is logged in
 	And there is a general activity with the name "sick" 
 	And they set start time to "14" and the end time to "16" 
 	Then the general activity "sick" with start "14" and end "16" is created 
+
+Scenario: Add existing general activiy when employee is logged in 
+	Given that the employee "Mikk" is logged in 
+	And there is a general activity with the name "sick" 
+	When they set start time to "0" and the end time to "53"
+	Then Dates are not added to general activity with title "sick" 

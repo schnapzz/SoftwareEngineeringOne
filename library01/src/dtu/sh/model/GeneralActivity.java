@@ -22,7 +22,7 @@ public class GeneralActivity extends Activity {
 	}
 
 	public boolean addStartAndEndDate(int start, int end) throws OperationNotAllowedException {
-		if ((start < 52) && start > 1 && (end < 52) && (end > 1)) {
+		if ((start <= 52) && (start >= 1) && (end <= 52) && (end >= 1)) {
 			this.startDate = start;
 			this.endDate = end;
 			return true;
