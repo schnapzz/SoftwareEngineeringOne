@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import dtu.sh.model.Activity;
 import dtu.sh.model.ProjectActivity;
+import dtu.sh.model.TimeRegistration;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -18,6 +20,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
@@ -27,7 +30,9 @@ public class ActivityInformation extends JFrame {
 	private ActivityInformation self;
 	
 	private JPanel contentPane;
-
+//	private JTextPane txtpnEmployees;
+	private JScrollPane scrollPane;
+	private JLabel lblassignednemployees;
 	/**
 	 * Create the frame.
 	 * Mikkel
@@ -145,14 +150,14 @@ public class ActivityInformation extends JFrame {
 			}
 		});
 		
-		JLabel lblassignednemployees = new JLabel("<html><pre>Assigned\nEmployees</pre></html>");
+		lblassignednemployees = new JLabel("<html><pre>Assigned\nEmployees</pre></html>");
 		GridBagConstraints gbc_lblassignednemployees = new GridBagConstraints();
 		gbc_lblassignednemployees.insets = new Insets(0, 0, 5, 5);
 		gbc_lblassignednemployees.gridx = 0;
 		gbc_lblassignednemployees.gridy = 5;
 		contentPane.add(lblassignednemployees, gbc_lblassignednemployees);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -161,7 +166,7 @@ public class ActivityInformation extends JFrame {
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		JTextPane txtpnEmployees = new JTextPane();
-		txtpnEmployees.setText(""); // Set employees hours here
+		txtpnEmployees.setText(makeRegistrationList(activity)); // Set employees hours here
 		scrollPane.setViewportView(txtpnEmployees);
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
 		gbc_btnBack.insets = new Insets(0, 0, 5, 5);
@@ -205,6 +210,25 @@ public class ActivityInformation extends JFrame {
 			// Present information here
 			return "TEST TEST TEST";
 		}
+	}
+	
+	// Mikkel
+	private String makeRegistrationList(Activity activity) {
+		
+		String result = "";
+		if (activity instanceof ProjectActivity) {
+
+			List<TimeRegistration> registrations = ((ProjectActivity)activity).getTimeRegistrations(); 
+			for (TimeRegistration entry : registrations) {
+				result = result.concat(entry.getEmployeeId() + " - " + entry.getHours() + " hours\n");
+			}
+		} else {
+			
+			lblassignednemployees.setVisible(false);
+			scrollPane.setVisible(false);
+		}
+		System.out.println(result);
+		return result;
 	}
 	
 	// Mikkel

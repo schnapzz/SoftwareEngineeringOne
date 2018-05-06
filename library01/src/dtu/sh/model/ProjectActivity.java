@@ -20,7 +20,14 @@ public class ProjectActivity extends Activity {
 			add(new Employee("abcd"));
 		}
 	};
-	private List<TimeRegistration> timeRegistrations;
+	private List<TimeRegistration> timeRegistrations = new ArrayList<TimeRegistration>() {
+		{
+			add(new TimeRegistration("Mikk", 4.0));
+			add(new TimeRegistration("Mikk", 2.0));
+			add(new TimeRegistration("abcd", 4.0));
+			add(new TimeRegistration("abcd", 2.0));
+		}
+	};
 
 	// Mikkel
 	public ProjectActivity(String title, String description, int priority) {
@@ -30,7 +37,7 @@ public class ProjectActivity extends Activity {
 		this.priority = priority;
 		
 		
-		this.timeRegistrations = new ArrayList<TimeRegistration>();
+//		this.timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	// Mikkel
@@ -41,7 +48,7 @@ public class ProjectActivity extends Activity {
 		this.priority = priority;
 		this.employees = employees;
 		
-		timeRegistrations = new ArrayList<TimeRegistration>();
+//		timeRegistrations = new ArrayList<TimeRegistration>();
 	}
 
 	// Mikkel
@@ -102,7 +109,10 @@ public class ProjectActivity extends Activity {
 	// Mikkel
 	public List<TimeRegistration> getTimeRegistrations() {
 
+		System.out.println("getTR Called");
+		System.out.println(timeRegistrations.size());
 		List<TimeRegistration> copyRegistrations = new ArrayList<TimeRegistration>(timeRegistrations);
+		System.out.println(copyRegistrations.size());
 		return copyRegistrations;
 	}
 
