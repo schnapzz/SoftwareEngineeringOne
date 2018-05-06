@@ -33,10 +33,8 @@ public class Steps {
 	private SH softwarehuset;
 	private Project project;
 	private ProjectActivity projectActivity;
-	// private Employee loggedInEmployee;
 	private Report report;
 	private ErrorMessageHolder errorMessageHolder;
-	private String titleActivity;
 	private String titleGeneralActivity;
 	
 	public Steps(SH softwarehuset, ErrorMessageHolder errorMessageHolder) {
@@ -45,7 +43,7 @@ public class Steps {
 	}
 
 	/*
-	 * Steps for login in as an employee
+	 * Steps for logging in as an employee
 	 * 
 	 * done by: Helena
 	 */
@@ -93,8 +91,6 @@ public class Steps {
 	@Given("^that the employee \"([^\"]*)\" is logged in$")
 	public void thatTheEmployeeIsLoggedIn(String username) throws Exception {
 		softwarehuset.logInEmployee(username);
-		// Assertions shouldn't be used in a given statement following cucumber
-		// guidelines
 		assertTrue(softwarehuset.getLoggedInEmployee().getID().equals(username));
 		this.username = username;
 	}
@@ -210,7 +206,6 @@ public class Steps {
 	 * done by: Mikkel
 	 * 
 	 */
-
 	@Given("^the project leader \"([^\"]*)\" is logged in$")
 	public void theProjectLeaderIsLoggedIn(String leaderId) throws Exception {
 		softwarehuset.logInEmployee(leaderId);
@@ -232,21 +227,12 @@ public class Steps {
 	@When("^the employee create a new activity with title \"([^\"]*)\" description \"([^\"]*)\" priority (\\d+) startweek (\\d+) endweek (\\d+) to the project$")
 	public void theEmployeeCreateANewActivityWithTitleDescriptionPriorityStartweekEndweekToTheProject(String activityTitle, String desc, int priority, int start, int end) throws Exception {
 		try {
-//			projectActivity = new ProjectActivity(activityTitle, desc, priority, start, end);
 			project.addActivity(activityTitle, desc, priority, start, end, new ArrayList<Employee>(), softwarehuset.getLoggedInEmployee());
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
 		} catch (IllegalWeekNumberFormatException e2) {
 			errorMessageHolder.setErrorMessage(e2.getMessage());
 		}
-	}
-
-	@Then("^I create an activity with description \"([^\"]*)\" to the project$")
-	public void iCreateAnActivityWithDescriptionToTheProject(String activityTitle) throws Exception {
-		int testLength = project.getUnfinishedActivities().size();
-//		ProjectActivity activity = new ProjectActivity(activityTitle, "This is a test description", 1);
-		project.addActivity(activityTitle, "This is a test description", 1, softwarehuset.getLoggedInEmployee());
-		assertTrue(testLength + 1 == project.getUnfinishedActivities().size());
 	}
 
 	@Given("^an activity with title \"([^\"]*)\" is already an activity in the project with id \"([^\"]*)\"$")
@@ -256,40 +242,15 @@ public class Steps {
 		assertTrue(project.activityExistsWithTitle(activityTitle));
 	}
 
-	@Given("^the employee \"([^\"]*)\" is logged in$")
-	public void theEmployeeIsLoggedIn(String employeeId) throws Exception {
-		softwarehuset.logInEmployee(employeeId);
-	}
-
-	@Given("^the logged in employee is not the project leader$")
-	public void theLoggedInEmployeeIsNotTheProjectLeader() throws Exception {
-		Employee loggedInEmployee = softwarehuset.getLoggedInEmployee();
-		assertFalse(loggedInEmployee.getID().equalsIgnoreCase(project.getProjectLeader()));
-	}
-
-	@Then("^the employee tries to create an activity for the project with id \"([^\"]*)\"$")
-	public void theEmployeeTriesToCreateAnActivityForTheProjectWithId(String projectId) throws Exception {
-		int numberOfActivities = project.getUnfinishedActivities().size();
-		try {
-			project.addActivity("bla", "Bla", 1, softwarehuset.getLoggedInEmployee());
-		} catch (OperationNotAllowedException e) {
-			errorMessageHolder.setErrorMessage(e.getMessage());
-		}
-		assertEquals(numberOfActivities, project.getUnfinishedActivities().size());
-	}
-
 	@Then("^there is a new unfinished activity with title \"([^\"]*)\" description \"([^\"]*)\" priority (\\d+) startweek (\\d+) endweek (\\d+) in the project$")
 	public void thereIsANewUnfinishedActivityWithTitleDescriptionPriorityStartweekEndweekInTheProject(String aTitle, String aDesc, int aPriority, int aStart, int aEnd) throws Exception {
-		
 		ProjectActivity pa = project.getProjectActivityWithTitle(aTitle);
-
 		assertTrue(pa.getTitle().equals(aTitle));
 		assertTrue(pa.getDescription().equals(aDesc));
 		System.out.println(pa.getPriority() + " == " + aPriority);
 		assertTrue(pa.getPriority() == aPriority);
 		assertTrue(pa.getStartDate() == aStart);
 		assertTrue(pa.getEndDate() == aEnd);
-
 	}
 
 	/*
@@ -297,7 +258,6 @@ public class Steps {
 	 * 
 	 * Done by: Sofie-Amalie
 	 */
-
 	@When("^they create a general activity with the name \"([^\"]*)\"$")
 	public void theyCreateAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
 		softwarehuset.getLoggedInEmployee().addGeneralActivity(titleGeneralActivity);	
@@ -373,19 +333,15 @@ public class Steps {
 	@Given("^the employee is part of activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsPartOfActivityWithTitleForProjectWithTitle(String activityTitle, String projectId)
 			throws Exception {
-
 		project = softwarehuset.getProjectWithId(projectId);
 		String loggedInEmployeeId = softwarehuset.getLoggedInEmployee().getID();
 		assertTrue(project.activityExistsWithTitle(activityTitle));
-		
-
 		projectActivity = project.getProjectActivityWithTitle(activityTitle);
 		assertTrue(projectActivity.employeeWithIdExists(loggedInEmployeeId));
 	}
 
 	@When("^the employee logs (.+) hours$")
 	public void theEmployeeWithIdLogsHours(double hours) throws Exception {
-
 		try {
 			projectActivity.registerHours(softwarehuset.getLoggedInEmployee().getID(), hours);
 		} catch (OperationNotAllowedException e) {
@@ -395,29 +351,16 @@ public class Steps {
 
 	@Then("^(.+) hours are logged for employee \"([^\"]*)\" for activity \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void hoursAreLoggedForEmployeeForActivityForProjectWithTitle(double hours, String employeeId,
-			String activityTitle, String projectId) throws Exception {
-
-		// Get the objects from softwarehuset to check if they've been properly updated
-		// Project p = softwarehuset.getProjectWithId(projectId);
-		// projectActivity = p.getProjectActivityWithTitle(activityTitle);
-
+		String activityTitle, String projectId) throws Exception {
 		List<TimeRegistration> timeRegistrations = projectActivity.getTimeRegistrations();
-
-		// Check that there's any Time Registrations at all
 		assertTrue(projectActivity.getTimeRegistrations().size() > 0);
-
-		// Extract registrations for the employee
 		List<TimeRegistration> employeeWithIdRegistrations = new ArrayList<TimeRegistration>();
 		for (TimeRegistration tr : timeRegistrations) {
 			if (tr.getEmployeeId().equals(employeeId)) {
 				employeeWithIdRegistrations.add(tr);
 			}
 		}
-
-		// See it there is any registrations
 		assertTrue(employeeWithIdRegistrations.size() > 0);
-
-		// Check if the sum of registrations adds up to hours
 		double sum = 0.0;
 		for (TimeRegistration tr : employeeWithIdRegistrations) {
 			sum += tr.getHours();
@@ -427,9 +370,7 @@ public class Steps {
 	
 	@When("^the employee create a new project activity with start week (.+) and end week (.+)$")
 	public void theEmployeeCreateANewProjectActivityWithStartWeekAndEndWeek(int startWeek, int endWeek) throws Exception {
-
 		try {
-//			ProjectActivity pa = new ProjectActivity("TestTest", "test test test", 2, startWeek, endWeek);
 			project.addActivity("TestTest", "test test test", 2, startWeek, endWeek, new ArrayList<Employee>(), softwarehuset.getLoggedInEmployee());
 			
 		} catch (IllegalWeekNumberFormatException e) {
@@ -437,106 +378,76 @@ public class Steps {
 		}
 	}
 
-
-
 	@Then("^the activity have (\\d+) time registrations$")
 	public void theActivityHaveTimeRegistrations(int numOfRegistrations) throws Exception {
 		assertTrue(projectActivity.numberOfTimeRegistrations() == numOfRegistrations);
 	}
 		
-	//�li
-	
 	/*
 	 * Steps for assign employee to a project activity
 	 * 
 	 * done by: Oli
 	 * 
 	 */
-	
 	@Given("^\"([^\"]*)\" is project leader of project with id \"([^\"]*)\"$")
 	public void is_project_leader_of_project_with_id(String leaderId, String projectId) throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		assertTrue(currentProject.getProjectLeader().equals(leaderId));
-		
-	    //throw new PendingException();
 	}
 	
 	//Oli
-
 	@Given("^the employee with id \"([^\"]*)\" is not part of the activity with title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeWithIdIsNotPartOfTheActivityWithTitleForProjectWithTitle(String employeeId,
-			String activityTitle, String projectId) throws Exception {
-		// Write code here that turns the phrase above into concrete actions
-
+		String activityTitle, String projectId) throws Exception {
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
 		assertFalse(currentActivity.employeeWithIdExists(employeeId));
-		//
-		// throw new PendingException();
 	}
 	
 	//Oli
 	@When("^the employee \\\"([^\\\"]*)\\\" is assigned to the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsAssignedToTheActivityWithTheTitleForProjectWithTitle(String employeeId,
-			String activityTitle, String projectId) throws Exception {
-		// Write code here that turns the phrase above into concrete actions
+		String activityTitle, String projectId) throws Exception {
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
 		Employee employee = softwarehuset.getEmployeeWithId(employeeId);
-
 		currentActivity.addEmployeeToActivity(employee, employeeId);
-
 	}
+	
 	//Oli
 	@Then("^the employee \"([^\"]*)\" is part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsPartOfTheActivityWithTheTitleForProjectWithId(String employeeId, String activityTitle,
-			String projectId) throws Exception {
-		
+		String projectId) throws Exception {
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
 		assertTrue(currentActivity.employeeWithIdExists(employeeId));
-
-		// throw new PendingException();
 	}
 
 	//Oli
 	@Given("^the employee \"([^\"]*)\" is already part of the activity with the title \"([^\"]*)\" for project with id \"([^\"]*)\"$")
 	public void theEmployeeIsAlreadyPartOfTheActivityWithTheTitleFor_project_with_id(String employeeId,
-			String activityTitle, String projectId) throws Exception {
-		
+		String activityTitle, String projectId) throws Exception {
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
 		Employee employee = softwarehuset.getEmployeeWithId(employeeId);
-
 		currentActivity.addEmployeeToActivity(employee, employeeId);
-
 		assertTrue(currentActivity.employeeWithIdExists(employeeId));
-
-		// throw new PendingException();
 	}
 	
 	//Oli
 	@Then("^the employee \"([^\"]*)\" is not assigned again to activity with title \"([^\"]*)\" for project with title \"([^\"]*)\"$")
 	public void the_employee_is_not_assigned_again_to_activity_with_title_for_project_with_title(String employeeId,
-			String activityTitle, String projectId) throws Exception {
-		// Write code here that turns the phrase above into concrete actions
+		String activityTitle, String projectId) throws Exception {
 		Project currentProject = softwarehuset.getProjectWithId(projectId);
 		ProjectActivity currentActivity = currentProject.getProjectActivityWithTitle(activityTitle);
-
 		int counter = 0;
-		boolean onlyOnce;
+		boolean onlyOnce = false;
 		for (Employee e : currentActivity.getEmployees()) {
 			if (e.getID().equals(employeeId)) {
 				counter++;
 			}
-
 		}
-		
-		if (counter < 1)
-			onlyOnce = false;
-
-		else
+		if (counter == 1)
 			onlyOnce = true;
 
 		assertTrue(onlyOnce);
