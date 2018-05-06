@@ -20,9 +20,14 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class GeneralActivityFrame extends JFrame {
+	
+	private GeneralActivityFrame self;
+	
 	private Employee employee;
 	private SH software;
 	private LoggedIn loggedIn;
@@ -39,6 +44,17 @@ public class GeneralActivityFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public GeneralActivityFrame(SH software, LoggedIn loggedIn) {
+		
+		this.self = this;
+		
+		this.addWindowListener(new WindowAdapter()
+		{
+		    public void windowClosing(WindowEvent e)
+		    {
+		    		loggedIn.showLoggedIn();
+		    }
+		});
+		
 		this.software = software;
 		this.loggedIn = loggedIn;
 		employee = software.getLoggedInEmployee();
@@ -139,6 +155,8 @@ public class GeneralActivityFrame extends JFrame {
 						GeneralActivity gifflar = new GeneralActivity(title, description, start, end);
 						employee.addGeneralActivity(gifflar);
 						loggedIn.reloadGenActCombo(employee);
+						loggedIn.setVisible(true);
+						self.dispose();
 					}
 				} catch (NumberFormatException n) {
 					System.out.println("Weeks should be integers");
