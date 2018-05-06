@@ -135,7 +135,7 @@ public class GeneralActivityFrame extends JFrame {
 				try {
 					int start = Integer.parseInt((String) txtStartfield.getText());
 					int end = Integer.parseInt((String) txtEndfield.getText());
-					if (software.allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText())) {
+					if (software.allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText()) && software.isValidWeekNumber(start) && software.isValidWeekNumber(end)) {
 						GeneralActivity gifflar = new GeneralActivity(title, description, start, end);
 						employee.addGeneralActivity(gifflar);
 						loggedIn.reloadGenActCombo(employee);

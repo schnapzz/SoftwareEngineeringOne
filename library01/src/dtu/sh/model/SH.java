@@ -135,7 +135,7 @@ public class SH {
 	}
 	
 	//Helena
-	private boolean isValidWeekNumber(int start) {
+	public boolean isValidWeekNumber(int start) {
 		if ((start >= 1) && (start <= 52)) {
 			return true;
 		} else {
