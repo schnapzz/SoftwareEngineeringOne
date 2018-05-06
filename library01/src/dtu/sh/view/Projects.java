@@ -39,6 +39,9 @@ public class Projects extends JFrame{
 	private List<Project> projects;
 	private SH sh;
 	private String username;
+	private Boolean updating = false;
+	private LoggedIn loggedIn;
+	private Projects self;
 	
 	private JComboBox<String> comboBox_Projects;
 	private JTextField txtProjectLeaderID;
@@ -47,28 +50,30 @@ public class Projects extends JFrame{
 	private JTextField txtAddTitle;
 	private JTextField txtAddStart;
 	private JTextField txtAddEnd;
-	private Boolean updating = false;
 	
-	public Projects(SH sh, String username) {
+	
+	public Projects(SH sh, String username, LoggedIn loggedIn) {
 		setTitle("Project Management");
 		this.sh = sh;
 		this.username = username;
 		projects = sh.getProjects();
+		this.loggedIn = loggedIn;
+		this.self = this;
 //		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-		setBounds(100, 100, 650, 450);
+		setBounds(100, 100, 683, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{120, 106, 101, 91, 79, 120};
+		gbl_contentPane.columnWidths = new int[]{95, 86, 101, 75, 96, 120};
 		gbl_contentPane.rowHeights = new int[]{40, 24, 141, 48, 23, 77, 40};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		//"Projects" label
 		JLabel lblProjects = new JLabel("Projects:");
-		lblProjects.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjects.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjects.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjects = new GridBagConstraints();
 		gbc_lblProjects.anchor = GridBagConstraints.SOUTH;
@@ -79,7 +84,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjectleader = new JLabel("Leader");
-		lblProjectleader.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjectleader.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjectleader.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjectleader = new GridBagConstraints();
 		gbc_lblProjectleader.anchor = GridBagConstraints.SOUTH;
@@ -91,7 +96,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjectStart = new JLabel("Start");
-		lblProjectStart.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjectStart.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjectStart.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjectStart = new GridBagConstraints();
 		gbc_lblProjectStart.anchor = GridBagConstraints.SOUTH;
@@ -102,7 +107,7 @@ public class Projects extends JFrame{
 		
 		//"Projects" label
 		JLabel lblProjectEnd = new JLabel("End");
-		lblProjectEnd.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProjectEnd.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProjectEnd.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblProjectEnd = new GridBagConstraints();
 		gbc_lblProjectEnd.anchor = GridBagConstraints.SOUTH;
@@ -169,27 +174,10 @@ public class Projects extends JFrame{
 		gbc_txtEnd.gridy = 1;
 		contentPane.add(txtEnd, gbc_txtEnd);
 		txtEnd.setColumns(10);
-
 		
-		//Get Info button
-//		JButton btnGetInfo = new JButton("Get Info");
-//		btnGetInfo.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				txtProjectLeaderID.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getProjectLeader() + "");
-//				txtStart.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getStart() + "");
-//				txtEnd.setText(sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").getEnd() + "");
-//			}
-//		});
-//		GridBagConstraints gbc_btnGetInfo = new GridBagConstraints();
-//		gbc_btnGetInfo.insets = new Insets(0, 0, 0, 5);
-//		gbc_btnGetInfo.gridx = 0;
-//		gbc_btnGetInfo.gridy = 2;
-//		contentPane.add(btnGetInfo, gbc_btnGetInfo);
-		
-		
-		//Update Info button
+		//Update Project button
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnUpdate.setHorizontalAlignment(SwingConstants.LEADING);
 		btnUpdate.setVerticalAlignment(SwingConstants.TOP);
 		btnUpdate.addActionListener(new ActionListener() {
@@ -198,14 +186,13 @@ public class Projects extends JFrame{
 					String newID = txtProjectLeaderID.getText();
 					int newS = Integer.parseInt(txtStart.getText());
 					int newE = Integer.parseInt(txtEnd.getText());
+					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
 					if (sh.isEmployed(newID)) {
-						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setProjectLeader(newID);
+						p.setProjectLeader(newID);
 					}
-					if (newS >= 0 && newS <= 52) {
-						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setStartDate(newS);
-					}
-					if (newE >= 0 && newE <= 52) {
-						sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "").setEndDate(newE);
+					if (sh.isValidWeekNumber(newS) && sh.isValidWeekNumber(newE)) {
+						p.setStartDate(newS);
+						p.setEndDate(newE);
 					}
 				} catch (Exception error) {
 					
@@ -213,6 +200,7 @@ public class Projects extends JFrame{
 			}
 		});
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
+		gbc_btnProjects.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnProjects.anchor = GridBagConstraints.NORTH;
 		gbc_btnProjects.insets = new Insets(0, 0, 5, 5);
 		gbc_btnProjects.gridx = 2;
@@ -222,7 +210,6 @@ public class Projects extends JFrame{
 		/*
 		 * Stuff for Registering a project 
 		 */
-		
 		JLabel lblAddAProject = new JLabel("Add a Project");
 		lblAddAProject.setFont(new Font("Tahoma", Font.BOLD, 25));
 		GridBagConstraints gbc_lblAddAProject = new GridBagConstraints();
@@ -234,7 +221,7 @@ public class Projects extends JFrame{
 		contentPane.add(lblAddAProject, gbc_lblAddAProject);
 		//"Title" label
 		JLabel lblAddTitle = new JLabel("Title");
-		lblAddTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAddTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAddTitle = new GridBagConstraints();
 		gbc_lblAddTitle.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddTitle.insets = new Insets(0, 0, 5, 5);
@@ -244,7 +231,7 @@ public class Projects extends JFrame{
 		
 		//"Start" label
 		JLabel lblAddStart = new JLabel("Start");
-		lblAddStart.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAddStart.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAddStart = new GridBagConstraints();
 		gbc_lblAddStart.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddStart.insets = new Insets(0, 0, 5, 5);
@@ -254,7 +241,7 @@ public class Projects extends JFrame{
 		
 		//"End" label
 		JLabel lblAddEnd = new JLabel("End");
-		lblAddEnd.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAddEnd.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_lblAddEnd = new GridBagConstraints();
 		gbc_lblAddEnd.anchor = GridBagConstraints.SOUTH;
 		gbc_lblAddEnd.insets = new Insets(0, 0, 5, 5);
@@ -269,7 +256,7 @@ public class Projects extends JFrame{
 		txtAddTitle.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtAddTitle = new GridBagConstraints();
 		gbc_txtAddTitle.anchor = GridBagConstraints.NORTH;
-		gbc_txtAddTitle.insets = new Insets(0, 0, 0, 5);
+		gbc_txtAddTitle.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddTitle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddTitle.gridx = 1;
 		gbc_txtAddTitle.gridy = 5;
@@ -282,7 +269,7 @@ public class Projects extends JFrame{
 		txtAddStart.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtAddStart = new GridBagConstraints();
 		gbc_txtAddStart.anchor = GridBagConstraints.NORTH;
-		gbc_txtAddStart.insets = new Insets(0, 0, 0, 5);
+		gbc_txtAddStart.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddStart.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddStart.gridx = 2;
 		gbc_txtAddStart.gridy = 5;
@@ -295,20 +282,21 @@ public class Projects extends JFrame{
 		txtAddEnd.setBounds(7,4,10,10);
 		GridBagConstraints gbc_txtAddEnd = new GridBagConstraints();
 		gbc_txtAddEnd.anchor = GridBagConstraints.NORTH;
-		gbc_txtAddEnd.insets = new Insets(0, 0, 0, 5);
+		gbc_txtAddEnd.insets = new Insets(0, 0, 5, 5);
 		gbc_txtAddEnd.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtAddEnd.gridx = 3;
 		gbc_txtAddEnd.gridy = 5;
 		contentPane.add(txtAddEnd, gbc_txtAddEnd);
 		txtAddEnd.setColumns(10);
 		GridBagConstraints gbc_btnAddProject = new GridBagConstraints();
+		gbc_btnAddProject.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAddProject.anchor = GridBagConstraints.NORTH;
 		gbc_btnAddProject.gridx = 4;
 		gbc_btnAddProject.gridy = 5;
 		
 		
 		JButton btnAddProject = new JButton("Add Project");
-		btnAddProject.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAddProject.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnAddProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -326,10 +314,11 @@ public class Projects extends JFrame{
 							sh.createProjectWithStartAndEnd(addT, addS, addE);
 						}
 					}
+					loggedIn.updateProjectsCombo();
 					updateScene();
 					updateComboBox();
 				} catch (Exception error) {
-					System.out.println(error);
+//					System.out.println(error);
 				}
 				
 			}
@@ -341,6 +330,7 @@ public class Projects extends JFrame{
 				updateScene();
 			}
 		});
+		
 		/*
 		 * Stuff for Getting a report
 		 */
@@ -351,19 +341,36 @@ public class Projects extends JFrame{
 					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
 					Report r = sh.requestReport(p, username);
 					Reports reports = new Reports(r);
+					reports.setVisible(true);
 				} catch (Exception e) {
 					System.out.println("You are not the project leader, " + username);
 				}
-				
 			}
 		});
-		btnRepport.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRepport.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_btnRepport = new GridBagConstraints();
+		gbc_btnRepport.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnRepport.anchor = GridBagConstraints.NORTH;
 		gbc_btnRepport.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRepport.gridx = 4;
 		gbc_btnRepport.gridy = 2;
 		contentPane.add(btnRepport, gbc_btnRepport);
+		
+		/* 
+		 * Back-button
+		 */
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				self.dispose();
+			}
+		});
+		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.insets = new Insets(0, 0, 0, 5);
+		gbc_btnBack.gridx = 0;
+		gbc_btnBack.gridy = 6;
+		contentPane.add(btnBack, gbc_btnBack);
 		
 	}
 	public void updateScene() {
@@ -386,4 +393,6 @@ public class Projects extends JFrame{
 		}
 		updating = false;
 	}
+	
+
 }

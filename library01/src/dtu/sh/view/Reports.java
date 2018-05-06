@@ -1,16 +1,17 @@
-	package dtu.sh.view;
+package dtu.sh.view;
 
-	import java.awt.BorderLayout;
-	import java.awt.Dimension;
-	import java.awt.EventQueue;
+import java.awt.BorderLayout;
 
-	import javax.swing.JFrame;
-	import javax.swing.JPanel;
-	import javax.swing.border.EmptyBorder;
+import java.awt.Dimension;
+import java.awt.EventQueue;
 
-	import dtu.sh.model.Project;
-	import dtu.sh.model.ProjectActivity;
-	import dtu.sh.model.Report;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import dtu.sh.model.Project;
+import dtu.sh.model.ProjectActivity;
+import dtu.sh.model.Report;
 import dtu.sh.model.SH;
 import dtu.sh.view.Reports;
 
@@ -30,17 +31,17 @@ import java.awt.GridLayout;
 	import javax.swing.SwingConstants;
 	import java.awt.Font;
 
-public class Reports {
+/**
+ * Helena
+ */
+public class Reports extends JFrame {
 
 	private JFrame frmReport;
 
-	/**
-	 * Create the application.
-	 */
+	
 	public Reports(Report report) {
 		frmReport = new JFrame();
 		frmReport.setTitle("Report");
-		frmReport.setVisible(true);
 		frmReport.setBounds(100, 100, 450, 300);
 		frmReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();

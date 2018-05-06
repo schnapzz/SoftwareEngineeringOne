@@ -63,7 +63,7 @@ public class SH {
 	public void logInEmployee(String username) throws OperationNotAllowedException {
 		if (isValidUsername(username) && isEmployed(username)) {
 			loggedInEmployee = getEmployeeWithUsername(username);
-		} else {
+			} else {
 			throw new OperationNotAllowedException("Wrong username, try again");
 		}
 	}
@@ -134,7 +134,7 @@ public class SH {
 	}
 	
 	//Helena
-	private boolean isValidWeekNumber(int start) {
+	public boolean isValidWeekNumber(int start) {
 		if ((start >= 1) && (start <= 52)) {
 			return true;
 		} else {
@@ -265,5 +265,12 @@ public class SH {
 			list.add(emp);
 		}
 		return list;
+	}
+	
+	public boolean allFieldsFilled(String title, String description, String start, String end) {
+		if ((title.isEmpty() || description.isEmpty() || start.isEmpty() || end.isEmpty()) == true)
+			return false;
+		else
+			return true;
 	}
 }
