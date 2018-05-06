@@ -32,12 +32,10 @@ public class GeneralActivity extends Activity {
 	}
 
 	public int getStartDate() {
-		// TODO Auto-generated method stub
 		return startDate;
 	}
 
 	public int getEndDate() {
-		// TODO Auto-generated method stub
 		return endDate;
 	}
 
