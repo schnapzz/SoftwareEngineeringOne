@@ -57,7 +57,7 @@ public class SH {
 	public void logInEmployee(String username) throws OperationNotAllowedException {
 		if (isValidUsername(username) && isEmployed(username)) {
 			loggedInEmployee = getEmployeeWithUsername(username);
-		} else {
+			} else {
 			throw new OperationNotAllowedException("Wrong username, try again");
 		}
 	}

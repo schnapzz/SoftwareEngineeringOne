@@ -25,15 +25,15 @@ public class GeneralActivity extends Activity {
 			this.endDate = end;
 		}
 	}
-
-	public int getStartDate() {
-		// TODO Auto-generated method stub
-		return startDate;
-	}
-
-	public int getEndDate() {
-		// TODO Auto-generated method stub
-		return endDate;
-	}
+//
+//	public int getStartDate() {
+//		// TODO Auto-generated method stub
+//		return startDate;
+//	}
+//
+//	public int getEndDate() {
+//		// TODO Auto-generated method stub
+//		return endDate;
+//	}
 
 }

@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dtu.sh.Exceptions.OperationNotAllowedException;
+import dtu.sh.model.Employee;
+import dtu.sh.model.GeneralActivity;
 import dtu.sh.model.Project;
 import dtu.sh.model.ProjectActivity;
 import dtu.sh.model.SH;
@@ -32,19 +34,23 @@ public class LoggedIn extends JFrame {
 	private SH softwarehuset;
 	private LoggedIn self;
 	private String username;
+	private Employee employee;
+	private List<GeneralActivity> generalActivities;
 	
 	private JPanel contentPane;
 	private JTextField txtIminutter;
 	private JComboBox<String> projectComboBox;
 	private JComboBox<String> unfinishedActivityComboBox = new JComboBox<String>();
 	private JComboBox<String> finishedActivitiesComboBox = new JComboBox<String>();
+	private JComboBox<String> comboBoxgenAct = new JComboBox<String>();
 	private JButton btnCreateProjectActivity;
 
 	public LoggedIn(Main main, SH softwarehuset, String username) {
-		
+		this.employee = softwarehuset.getLoggedInEmployee();
 		this.softwarehuset = softwarehuset;
 		this.self = this;
 		this.username = username;
+		generalActivities = employee.getGeneralActivities();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 377);
@@ -54,7 +60,7 @@ public class LoggedIn extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{68, 77, 23, 191, 154, 3};
 		gbl_contentPane.rowHeights = new int[]{46, 41, 39, 59, 0, 0, 0, 0, 0, 0, 5};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -78,7 +84,7 @@ public class LoggedIn extends JFrame {
 		});
 		GridBagConstraints gbc_btnProjects = new GridBagConstraints();
 		gbc_btnProjects.anchor = GridBagConstraints.SOUTH;
-		gbc_btnProjects.insets = new Insets(0, 0, 0, 5);
+		gbc_btnProjects.insets = new Insets(0, 0, 5, 5);
 		gbc_btnProjects.gridx = 0;
 		gbc_btnProjects.gridy = 2;
 		contentPane.add(btnProjects, gbc_btnProjects);
@@ -117,13 +123,15 @@ public class LoggedIn extends JFrame {
 				reloadProjectActivityCombobox();
 			}
 		});
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 1;
-		contentPane.add(projectComboBox, gbc_comboBox);
+		
+		//Sofie-Amalie & Oli
+		GridBagConstraints gbc_comboBoxenAct = new GridBagConstraints();
+		gbc_comboBoxenAct.gridwidth = 2;
+		gbc_comboBoxenAct.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxenAct.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxenAct.gridx = 0;
+		gbc_comboBoxenAct.gridy = 1;
+		contentPane.add(projectComboBox, gbc_comboBoxenAct);
 		
 		// Mikkel
 		// Activity Combobox constraints
@@ -175,11 +183,37 @@ public class LoggedIn extends JFrame {
 				openActivityInformation(unfinishedActivityComboBox);
 			}
 		});
+		// Sofie-Amalie & Oli
+		JButton btnCreateGeneralActivity = new JButton("Create General Activity");
+		btnCreateGeneralActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GeneralActivityFrame generalActivityFrame = new GeneralActivityFrame(softwarehuset, self);
+				generalActivityFrame.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnCreateGeneralActivity = new GridBagConstraints();
+		gbc_btnCreateGeneralActivity.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateGeneralActivity.gridx = 0;
+		gbc_btnCreateGeneralActivity.gridy = 3;
+		contentPane.add(btnCreateGeneralActivity, gbc_btnCreateGeneralActivity);
+		
 		GridBagConstraints gbc_btnUnfinishedActivityInfo = new GridBagConstraints();
 		gbc_btnUnfinishedActivityInfo.insets = new Insets(0, 0, 5, 5);
 		gbc_btnUnfinishedActivityInfo.gridx = 3;
 		gbc_btnUnfinishedActivityInfo.gridy = 3;
 		contentPane.add(btnUnfinishedActivityInfo, gbc_btnUnfinishedActivityInfo);
+		
+		
+		//Sofie-Amalie & Oli
+		comboBoxgenAct = new JComboBox<String>();
+		loadGenActCombobox();
+
+		GridBagConstraints gbc_comboBoxgenAct = new GridBagConstraints();
+		gbc_comboBoxgenAct.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxgenAct.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxgenAct.gridx = 0;
+		gbc_comboBoxgenAct.gridy = 4;
+		contentPane.add(comboBoxgenAct, gbc_comboBoxgenAct);
 		
 		// Mikkel
 		JLabel lblFinishedActivities = new JLabel("Finished Activities");
@@ -275,6 +309,29 @@ public class LoggedIn extends JFrame {
 		
 		reloadProjectActivityCombobox();
 	}
+	
+	
+	public void loadGenActCombobox() {
+		for (GeneralActivity ga : generalActivities) {
+			comboBoxgenAct.addItem(ga.getTitle());	
+			System.out.println(ga.getTitle());
+		}
+		
+		
+	}
+	
+	public void reloadGenActCombo(Employee employee) {
+		//Reload of the list of general activitites
+		comboBoxgenAct.removeAllItems();
+		this.employee = employee;
+		System.out.println("her tak " + employee.getGeneralActivities() != null);
+		generalActivities = employee.getGeneralActivities();
+		for (GeneralActivity ga : generalActivities) {
+			comboBoxgenAct.addItem(ga.getTitle());	
+			System.out.println(ga.getTitle());
+		}
+	}
+
 
 	// Mikkel
 	public void reloadProjectActivityCombobox() {

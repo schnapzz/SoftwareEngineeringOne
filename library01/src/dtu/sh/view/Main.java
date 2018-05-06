@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+import dtu.sh.model.Employee;
 //import dtu.library.Exceptions.OperationNotAllowedException;
 import dtu.sh.model.SH;
 import java.awt.Color;
@@ -21,7 +22,7 @@ public class Main {
 
 	private SH softwarehuset;
 	private Main self;
-	
+	private 	Employee employee;
 	private JFrame frame;
 	private JLabel loginErrorLabel;
 	private JTextField txtUsername;
@@ -90,10 +91,10 @@ public class Main {
 					
 					String username = txtUsername.getText();
 					if (softwarehuset.isEmployed(username)) {
-						
-						System.out.println(username);
+						//System.out.println(username);
 						softwarehuset.logInEmployee(username);
 						frame.dispose(); 
+						employee = softwarehuset.getLoggedInEmployee();
 						LoggedIn login = new LoggedIn(self, softwarehuset, username);
 						login.setVisible(true);
 						frame.setVisible(false);
