@@ -235,7 +235,7 @@ public class LoggedIn extends JFrame {
 		contentPane.add(lblErrormessage, gbc_lblErrormessage);
 		
 		// Mikkel
-		JButton addRegistrationButton = new JButton("addRegistration");
+		JButton addRegistrationButton = new JButton("add Registration");
 		addRegistrationButton.addActionListener(new ActionListener() {
 			
 			// Mikkel
@@ -272,6 +272,26 @@ public class LoggedIn extends JFrame {
 		
 		// Mikkel
 		GridBagConstraints gbc_finishedActivitiesComboBox;
+		
+		// Sofie-Amalie Oli
+		JButton btnDisplayGeneralActivity = new JButton("Display General Activity");
+		btnDisplayGeneralActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				dfsd
+				
+				String gaTitle = (String) comboBoxgenAct.getSelectedItem();
+				GeneralActivity ga = employee.getActivity(gaTitle);
+				GeneralActivityFrame displayGenralActivity = new GeneralActivityFrame(softwarehuset,self, ga);
+				displayGenralActivity.setVisible(true);
+				self.setVisible(false);
+				
+			}
+		});
+		GridBagConstraints gbc_btnDisplayGeneralActivity = new GridBagConstraints();
+		gbc_btnDisplayGeneralActivity.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDisplayGeneralActivity.gridx = 0;
+		gbc_btnDisplayGeneralActivity.gridy = 5;
+		contentPane.add(btnDisplayGeneralActivity, gbc_btnDisplayGeneralActivity);
 		gbc_finishedActivitiesComboBox = new GridBagConstraints();
 		gbc_finishedActivitiesComboBox.gridheight = 2;
 		gbc_finishedActivitiesComboBox.anchor = GridBagConstraints.NORTH;
@@ -366,6 +386,15 @@ public class LoggedIn extends JFrame {
 		for (ProjectActivity projectActivity : finished) {
 			finishedActivitiesComboBox.addItem(projectActivity.getTitle());
 		}
+	}
+	
+	
+	private void openGeneralActivityInfo(JComboBox<String> genactcom){
+//	asd
+		generalActivities = employee.getGeneralActivities();
+		GeneralActivityFrame createGenralActivity = new GeneralActivityFrame(softwarehuset,self);
+		createGenralActivity.setVisible(true);
+		self.setVisible(false);
 	}
 	
 	// Mikkel
