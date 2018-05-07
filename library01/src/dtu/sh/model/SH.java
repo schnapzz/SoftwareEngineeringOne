@@ -64,6 +64,7 @@ public class SH {
 		}
 	}
 	
+	//Helena
 	public Employee getEmployeeWithId(String username) {
 		Employee emp = null;
 		for (Employee e : employees) {
@@ -218,6 +219,7 @@ public class SH {
 		return employeeId.length() != 4;
 	}
 	
+	//Helena
 	public String getProjectLeader(String title) {
 		for (Project p: projects) {
 			if (p.getTitle().equals(title)) {
@@ -227,6 +229,7 @@ public class SH {
 		return "";
 	}
 	
+	//Helena
 	public Project getProjectFromTitle(String title) {
 		Project pt = null;
 		for (Project p: projects) {
@@ -238,10 +241,12 @@ public class SH {
 		
 	}
 
+	//Helena
 	public List<Project> getProjects() {
 		return projects;
 	}
-
+	
+	//Mikkel
 	public List<Employee> getEmployeesFromIds(String[] employeeIds) {
 		
 		ArrayList<Employee> list = new ArrayList<Employee>();
