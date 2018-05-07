@@ -281,6 +281,12 @@ public class LoggedIn extends JFrame {
 				
 				String gaTitle = (String) comboBoxgenAct.getSelectedItem();
 				GeneralActivity ga = employee.getActivity(gaTitle);
+				System.out.println("=== Testing passed object ===");
+				System.out.println(ga.getTitle());
+				System.out.println(ga.getDescription());
+				System.out.println("" + ga.getStartDate());
+				System.out.println("" + ga.getEndDate());
+				System.out.println("=== Testing passed object ===");
 				GeneralActivityFrame displayGenralActivity = new GeneralActivityFrame(softwarehuset,self, ga);
 				displayGenralActivity.setVisible(true);
 				self.setVisible(false);
@@ -348,11 +354,11 @@ public class LoggedIn extends JFrame {
 		//Reload of the list of general activitites
 		comboBoxgenAct.removeAllItems();
 		this.employee = employee;
-		System.out.println("her tak " + employee.getGeneralActivities() != null);
+//		System.out.println("her tak " + employee.getGeneralActivities() != null);
 		generalActivities = employee.getGeneralActivities();
 		for (GeneralActivity ga : generalActivities) {
 			comboBoxgenAct.addItem(ga.getTitle());	
-			System.out.println(ga.getTitle());
+//			System.out.println(ga.getTitle());
 		}
 	}
 

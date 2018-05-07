@@ -41,7 +41,7 @@ public class GeneralActivityFrame extends JFrame {
 	private JButton btnCreate;
 
 	/**
-	 * Create the frame.
+	 * Information frame
 	 */
 	public GeneralActivityFrame(SH software, LoggedIn loggedIn, GeneralActivity ga) {
 		this.self = this;
@@ -78,6 +78,7 @@ public class GeneralActivityFrame extends JFrame {
 
 		txtTtitlefield = new JTextField();
 		txtTtitlefield.setText("" + ga.getTitle());
+		txtTtitlefield.setEnabled(false);
 		GridBagConstraints gbc_txtTtitlefield = new GridBagConstraints();
 		gbc_txtTtitlefield.insets = new Insets(0, 0, 5, 5);
 		gbc_txtTtitlefield.fill = GridBagConstraints.HORIZONTAL;
@@ -95,6 +96,7 @@ public class GeneralActivityFrame extends JFrame {
 
 		txtpnDescriptionfield = new JTextPane();
 		txtpnDescriptionfield.setText("" + ga.getDescription());
+		txtpnDescriptionfield.setEnabled(false);
 		GridBagConstraints gbc_txtpnDescriptionfield = new GridBagConstraints();
 		gbc_txtpnDescriptionfield.insets = new Insets(0, 0, 5, 5);
 		gbc_txtpnDescriptionfield.fill = GridBagConstraints.BOTH;
@@ -111,8 +113,8 @@ public class GeneralActivityFrame extends JFrame {
 		contentPane.add(lblStartWeek, gbc_lblStartWeek);
 
 		txtStartfield = new JTextField();
-		System.out.println(ga.getStartDate());
 		txtStartfield.setText(""+ ga.getStartDate());
+		txtStartfield.setEnabled(false);
 		GridBagConstraints gbc_txtStartfield = new GridBagConstraints();
 		gbc_txtStartfield.insets = new Insets(0, 0, 5, 5);
 		gbc_txtStartfield.fill = GridBagConstraints.HORIZONTAL;
@@ -131,6 +133,7 @@ public class GeneralActivityFrame extends JFrame {
 
 		txtEndfield = new JTextField();
 		txtEndfield.setText("" + ga.getEndDate());
+		txtEndfield.setEnabled(false);
 		GridBagConstraints gbc_txtEndfield = new GridBagConstraints();
 		gbc_txtEndfield.insets = new Insets(0, 0, 5, 5);
 		gbc_txtEndfield.fill = GridBagConstraints.HORIZONTAL;
@@ -139,31 +142,13 @@ public class GeneralActivityFrame extends JFrame {
 		contentPane.add(txtEndfield, gbc_txtEndfield);
 		txtEndfield.setColumns(10);
 
-		btnCreate = new JButton("Create");
+		btnCreate = new JButton("Back");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				System.out.println(software.getLoggedInEmployee().getID());
-				String title = txtTtitlefield.getText();
-				String description = txtpnDescriptionfield.getText();
-				System.out.println("description is " + description != null);
-
-				try {
-					int start = Integer.parseInt((String) txtStartfield.getText());
-					int end = Integer.parseInt((String) txtEndfield.getText());
-					if (software.allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText()) && software.isValidWeekNumber(start) && software.isValidWeekNumber(end)) {
-						GeneralActivity gifflar = new GeneralActivity(title, description, start, end);
-						employee.addGeneralActivity(gifflar);
-						loggedIn.reloadGenActCombo(employee);
-						loggedIn.setVisible(true);
-						self.dispose();
-					}
-				} catch (NumberFormatException n) {
-					System.out.println("Weeks should be integers");
-				}
-
+				self.dispose();
+				loggedIn.showLoggedIn();
 			}
-
 		});
 		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
 		gbc_btnCreate.insets = new Insets(0, 0, 0, 5);
@@ -172,6 +157,11 @@ public class GeneralActivityFrame extends JFrame {
 		contentPane.add(btnCreate, gbc_btnCreate);
 	}
 	
+	/**
+	 * Create a new activity
+	 * @param software
+	 * @param loggedIn
+	 */
 	public GeneralActivityFrame(SH software, LoggedIn loggedIn) {
 		
 		this.self = this;
@@ -272,21 +262,22 @@ public class GeneralActivityFrame extends JFrame {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				System.out.println(software.getLoggedInEmployee().getID());
 				String title = txtTtitlefield.getText();
 				String description = txtpnDescriptionfield.getText();
-				System.out.println("description is " + description != null);
 
 				try {
-					int start = Integer.parseInt((String) txtStartfield.getText());
-					int end = Integer.parseInt((String) txtEndfield.getText());
+					
+					int start = Integer.parseInt(txtStartfield.getText());
+					int end = Integer.parseInt(txtEndfield.getText());
+					
 					if (software.allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText()) && software.isValidWeekNumber(start) && software.isValidWeekNumber(end)) {
 						GeneralActivity gifflar = new GeneralActivity(title, description, start, end);
 						employee.addGeneralActivity(gifflar);
 						loggedIn.reloadGenActCombo(employee);
-						loggedIn.setVisible(true);
+						loggedIn.showLoggedIn();
 						self.dispose();
 					}
+					
 				} catch (NumberFormatException n) {
 					System.out.println("Weeks should be integers");
 				}

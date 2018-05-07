@@ -46,4 +46,11 @@ public abstract class Activity {
 		return endDate;
 	}
 	
+	public void setStartDate(int startDate) {
+		this.startDate = startDate;
+	}
+	
+	public void setEndDate(int endDate) {
+		this.endDate = endDate;
+	}
 }
