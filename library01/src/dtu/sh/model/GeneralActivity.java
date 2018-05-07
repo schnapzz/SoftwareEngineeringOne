@@ -8,8 +8,6 @@ import dtu.sh.Exceptions.OperationNotAllowedException;
 
 // Sofie-Amalie
 public class GeneralActivity extends Activity {
-	private int startDate = 0;
-	private int endDate = 0;
 
 	public List<GeneralActivity> generalActivity;
 
@@ -23,20 +21,12 @@ public class GeneralActivity extends Activity {
 
 	public boolean addStartAndEndDate(int start, int end) throws OperationNotAllowedException {
 		if ((start <= 52) && (start >= 1) && (end <= 52) && (end >= 1)) {
-			this.startDate = start;
-			this.endDate = end;
+			setStartDate(start);
+			setEndDate(end);
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public int getStartDate() {
-		return startDate;
-	}
-
-	public int getEndDate() {
-		return endDate;
 	}
 
 }

@@ -27,7 +27,9 @@ import java.awt.GridLayout;
 	import javax.swing.JTextField;
 	import java.awt.event.MouseAdapter;
 	import java.awt.event.MouseEvent;
-	import java.util.List;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
 	import javax.swing.SwingConstants;
 	import java.awt.Font;
 
@@ -45,7 +47,6 @@ public class Reports extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-//		frmReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 141, 0, 175, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 50, 59, 150, 0};
@@ -71,6 +72,7 @@ public class Reports extends JFrame {
 		
 		JComboBox<String> comboBox_finishedActivities = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_finishedActivities = new GridBagConstraints();
+		
 		for(ProjectActivity pa: report.getFinishedActivities()) {
 			comboBox_finishedActivities.addItem(pa.getTitle());
 		}
@@ -82,9 +84,11 @@ public class Reports extends JFrame {
 		
 		JComboBox<String> comboBox_unfinishedActivities = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_unfinishedActivities = new GridBagConstraints();
-		for(ProjectActivity pa: report.getUnFinishedActivities()) {
+		
+		for(ProjectActivity pa : report.getUnFinishedActivities()) {
 			comboBox_unfinishedActivities.addItem(pa.getTitle());
 		}
+		
 		gbc_comboBox_unfinishedActivities.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_unfinishedActivities.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_unfinishedActivities.gridx = 3;

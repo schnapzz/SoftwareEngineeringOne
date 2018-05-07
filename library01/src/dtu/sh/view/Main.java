@@ -97,7 +97,6 @@ public class Main {
 					
 					String username = txtUsername.getText();
 					if (softwarehuset.isEmployed(username)) {
-						//System.out.println(username);
 						softwarehuset.logInEmployee(username);
 						frame.dispose(); 
 						employee = softwarehuset.getLoggedInEmployee();
