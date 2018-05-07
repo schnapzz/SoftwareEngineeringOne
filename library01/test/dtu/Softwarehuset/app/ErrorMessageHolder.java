@@ -4,7 +4,7 @@ public class ErrorMessageHolder {
 	private String errorMessage;
 
 	public String getErrorMessage() {
-		return errorMessage;
+		return errorMessage; 
 	}
 
 	public void setErrorMessage(String errorMessage) {

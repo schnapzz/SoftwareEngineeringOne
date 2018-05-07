@@ -340,6 +340,7 @@ public class Projects extends JFrame{
 				try {
 					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
 					Report r = sh.requestReport(p, username);
+					System.out.println("About to make the report frame");
 					Reports reports = new Reports(r);
 					reports.setVisible(true);
 				} catch (Exception e) {

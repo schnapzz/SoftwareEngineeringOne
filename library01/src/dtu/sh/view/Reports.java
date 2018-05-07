@@ -35,21 +35,23 @@ import java.awt.GridLayout;
  * Helena
  */
 public class Reports extends JFrame {
-
-	private JFrame frmReport;
-
+	private JPanel contentPane;
+	private Reports self;
 	
 	public Reports(Report report) {
-		frmReport = new JFrame();
-		frmReport.setTitle("Report");
-		frmReport.setBounds(100, 100, 450, 300);
-		frmReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.self = this;
+		setTitle("Report");
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+//		frmReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 141, 0, 175, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 147, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frmReport.getContentPane().setLayout(gridBagLayout);
+		gridBagLayout.rowHeights = new int[]{0, 0, 50, 59, 150, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		contentPane.setLayout(gridBagLayout); 
 		
 		JLabel lblFinishedActivities = new JLabel("Finished Activities");
 		lblFinishedActivities.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -57,7 +59,7 @@ public class Reports extends JFrame {
 		gbc_lblFinishedActivities.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFinishedActivities.gridx = 1;
 		gbc_lblFinishedActivities.gridy = 2;
-		frmReport.getContentPane().add(lblFinishedActivities, gbc_lblFinishedActivities);
+		contentPane.add(lblFinishedActivities, gbc_lblFinishedActivities);
 		
 		JLabel lblUnfinished = new JLabel("Unfinished Activities");
 		lblUnfinished.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -65,19 +67,18 @@ public class Reports extends JFrame {
 		gbc_lblUnfinished.insets = new Insets(0, 0, 5, 5);
 		gbc_lblUnfinished.gridx = 3;
 		gbc_lblUnfinished.gridy = 2;
-		frmReport.getContentPane().add(lblUnfinished, gbc_lblUnfinished);
+		contentPane.add(lblUnfinished, gbc_lblUnfinished);
 		
 		JComboBox<String> comboBox_finishedActivities = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_finishedActivities = new GridBagConstraints();
 		for(ProjectActivity pa: report.getFinishedActivities()) {
 			comboBox_finishedActivities.addItem(pa.getTitle());
 		}
-		
 		gbc_comboBox_finishedActivities.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_finishedActivities.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_finishedActivities.gridx = 1;
 		gbc_comboBox_finishedActivities.gridy = 3;
-		frmReport.getContentPane().add(comboBox_finishedActivities, gbc_comboBox_finishedActivities);
+		contentPane.add(comboBox_finishedActivities, gbc_comboBox_finishedActivities);
 		
 		JComboBox<String> comboBox_unfinishedActivities = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_unfinishedActivities = new GridBagConstraints();
@@ -88,7 +89,7 @@ public class Reports extends JFrame {
 		gbc_comboBox_unfinishedActivities.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_unfinishedActivities.gridx = 3;
 		gbc_comboBox_unfinishedActivities.gridy = 3;
-		frmReport.getContentPane().add(comboBox_unfinishedActivities, gbc_comboBox_unfinishedActivities);
+		contentPane.add(comboBox_unfinishedActivities, gbc_comboBox_unfinishedActivities);
 	}
 
 }
