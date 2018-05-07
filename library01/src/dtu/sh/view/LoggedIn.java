@@ -39,7 +39,7 @@ public class LoggedIn extends JFrame {
 	private String username;
 	private Employee employee;
 	private List<GeneralActivity> generalActivities;
-	private boolean updating = false;
+	private boolean updating = false; 
 
 	
 	private JPanel contentPane;

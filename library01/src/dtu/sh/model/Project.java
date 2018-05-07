@@ -47,6 +47,7 @@ public class Project {
 		prepareDummyRegistrations();
 	}
 
+	//Helena
 	public Project(int pId, String title, int start, int end) {
 		this.title = title;
 		this.id = assignId(pId);

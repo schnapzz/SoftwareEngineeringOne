@@ -3,6 +3,10 @@ package dtu.sh.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Helena
+ */
+
 public class Report {
 	
 	private List<ProjectActivity> finishedActivities;
