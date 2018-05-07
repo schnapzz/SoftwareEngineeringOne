@@ -247,7 +247,6 @@ public class Steps {
 		ProjectActivity pa = project.getProjectActivityWithTitle(aTitle);
 		assertTrue(pa.getTitle().equals(aTitle));
 		assertTrue(pa.getDescription().equals(aDesc));
-		System.out.println(pa.getPriority() + " == " + aPriority);
 		assertTrue(pa.getPriority() == aPriority);
 		assertTrue(pa.getStartDate() == aStart);
 		assertTrue(pa.getEndDate() == aEnd);
@@ -283,12 +282,6 @@ public class Steps {
 		softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(start, end);	
 		
 	}
-	
-//	@When("^the activity \"([^\"]*)\" has start time  set to \"([^\"]*)\" and end time set to \"([^\"]*)\"$")
-//	public void theActivityHasStartTimeSetToAndEndTimeSetTo(String titleGeneralActivity, int start, int end) throws Exception {
-//	    // Write code here that turns the phrase above into concrete actions
-//		softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).addStartAndEndDate(start, end);	
-//	}
 
 	@Then("^the general activity \"([^\"]*)\" is created$")
 	public void theGeneralActivityWithStartAndEndIsCreated(String titleGeneralActivity) throws Exception {
@@ -298,7 +291,6 @@ public class Steps {
 	@Given("^there is a general activity with the name \"([^\"]*)\"$")
 	public void thereIsAGeneralActivityWithTheName(String titleGeneralActivity) throws Exception {
 		try {
-			System.out.println("hwj" + softwarehuset.getLoggedInEmployee().getID());
 			softwarehuset.getLoggedInEmployee().addExistingGeneralActivity(titleGeneralActivity);
 		} catch (OperationNotAllowedException e) {
 			errorMessageHolder.setErrorMessage(e.getMessage());
@@ -318,9 +310,6 @@ public class Steps {
 	public void datesAreNotAddedToGeneralActivityWithTitle(String titleGeneralActivity) throws Exception {
 	 	assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate() == 0);
 	 	assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getEndDate() == 0);
-
-		System.out.println("Din mor " + softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate());
-		//assertTrue(softwarehuset.getLoggedInEmployee().getActivity(titleGeneralActivity).getStartDate());
 	}
 	
 	/*

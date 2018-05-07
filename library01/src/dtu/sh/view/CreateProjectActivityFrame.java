@@ -173,10 +173,6 @@ public class CreateProjectActivityFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String[] employeeIds = textFieldCSVEmployees.getText().split(",");
-				
-				for (String s : employeeIds) {
-					System.out.println(s);
-				}
 				if (isMandatoryFieldsFilled() && isEmployeeCSVCorrectlyFormatted(employeeIds, softwarehuset)) {
 					
 					try {

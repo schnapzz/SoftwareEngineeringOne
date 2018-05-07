@@ -270,7 +270,7 @@ public class GeneralActivityFrame extends JFrame {
 					int start = Integer.parseInt(txtStartfield.getText());
 					int end = Integer.parseInt(txtEndfield.getText());
 					
-					if (software.allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText()) && software.isValidWeekNumber(start) && software.isValidWeekNumber(end)) {
+					if (allFieldsFilled(title, description, txtStartfield.getText(), txtEndfield.getText()) && software.isValidWeekNumber(start) && software.isValidWeekNumber(end)) {
 						GeneralActivity gifflar = new GeneralActivity(title, description, start, end);
 						employee.addGeneralActivity(gifflar);
 						loggedIn.reloadGenActCombo(employee);
@@ -279,7 +279,6 @@ public class GeneralActivityFrame extends JFrame {
 					}
 					
 				} catch (NumberFormatException n) {
-					System.out.println("Weeks should be integers");
 				}
 
 			}
@@ -290,5 +289,11 @@ public class GeneralActivityFrame extends JFrame {
 		gbc_btnCreate.gridx = 2;
 		gbc_btnCreate.gridy = 5;
 		contentPane.add(btnCreate, gbc_btnCreate);
+	}
+	public boolean allFieldsFilled(String title, String description, String start, String end) {
+		if ((title.isEmpty() || description.isEmpty() || start.isEmpty() || end.isEmpty()) == true)
+			return false;
+		else
+			return true;
 	}
 }
