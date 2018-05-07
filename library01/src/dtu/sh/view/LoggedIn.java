@@ -266,7 +266,7 @@ public class LoggedIn extends JFrame {
 					
 				} catch (NumberFormatException e2) { // In case the user inputs a wrong character
 					
-					setLabelTextAndVisibility(lblErrormessage, "Please insert whole number in dot notation", true);
+					setLabelTextAndVisibility(lblErrormessage, "Please insert number in dot notation", true);
 				}
 			}
 		});
