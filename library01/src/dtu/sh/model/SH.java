@@ -35,15 +35,14 @@ public class SH {
 	//Helena
 	public Boolean isEmployed(String username) {
 		
-		assert true;
+		assert username != null;
 		
 		for (Employee e : employees) {
 			if (e.getID().equals(username)) {
 				return true;
 			}
 		}
-		assert true;
-		
+
 		return false;
 	}
 	
@@ -133,7 +132,6 @@ public class SH {
 			isValid = true;
 		}
 		
-		assert true;
 		return isValid;
 	}
 
@@ -154,7 +152,7 @@ public class SH {
 	//Helena
 	public Report requestReport(Project project, String id) {
 		
-		assert project != null && id != null && projects != null && id.length() == 4 && projects.size() > 0;
+		assert project != null && id != null && projects != null && id.length() == 4;
 		
 		Report repport = null;
 		for (Project p: projects) {
@@ -163,7 +161,6 @@ public class SH {
 				break;
 			}
 		}
-		assert repport == null || repport instanceof Report;
 		
 		return repport;
 	}
@@ -217,7 +214,7 @@ public class SH {
 	
 	// Mikkel
 	private boolean isIllegalIdFormat(String employeeId) {
-		assert true;
+		assert employeeId != null;
 		return employeeId.length() != 4;
 	}
 	

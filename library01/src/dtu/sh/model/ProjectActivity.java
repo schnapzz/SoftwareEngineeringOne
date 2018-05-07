@@ -21,11 +21,7 @@ public class ProjectActivity extends Activity {
 		}
 	};
 	private List<TimeRegistration> timeRegistrations = new ArrayList<TimeRegistration>() {
-		{
-//			add(new TimeRegistration("Mikk", 4.0));
-//			add(new TimeRegistration("Mikk", 2.0));
-//			add(new TimeRegistration("abcd", 4.0));
-//			add(new TimeRegistration("abcd", 2.0));
+		{			
 		}
 	};
 
@@ -129,9 +125,4 @@ public class ProjectActivity extends Activity {
 	public List<Employee> getEmployees() {
 		return employees;
 	}
-
-//	public void setEmployees(List<Employee> employees) {
-//		this.employees = employees;
-//	}
-
 }

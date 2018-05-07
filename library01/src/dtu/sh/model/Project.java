@@ -56,6 +56,7 @@ public class Project {
 		prepareDummyRegistrations();
 	}
 	
+	// Mikkel
 	private void prepareDummyRegistrations() {
 		for( ProjectActivity pa : finishedActivities) {
 			try {
@@ -70,14 +71,12 @@ public class Project {
 	// Mikkel
 	public boolean activityExistsWithTitle(String title) {
 		
-		assert title != null;
+		assert title != null && unfinishedActivities != null && finishedActivities != null;
 		
 		if (containsActivityWithTitle(unfinishedActivities, title) ||
 			containsActivityWithTitle(finishedActivities, title)) {
 			return true;
 		}
-		
-		assert true;
 		
 		return false;
 	}
@@ -85,15 +84,13 @@ public class Project {
 	// Mikkel
 	private boolean containsActivityWithTitle(List<ProjectActivity> activities, String title) {
 		
-		assert activities != null;
+		assert true;
 		
 		for (Activity a : activities) {
 			if (a.getTitle().equals(title)) {
 				return true;
 			}
 		}
-	
-		assert true;
 		
 		return false;
 	}
@@ -153,6 +150,9 @@ public class Project {
 	
 	//Helena
 	public Report createReport() {
+		
+		assert true;
+		
 		Report report = new Report(finishedActivities, unfinishedActivities);
 		return report;
 	}

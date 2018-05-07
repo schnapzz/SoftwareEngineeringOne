@@ -17,7 +17,7 @@ import dtu.sh.model.Project;
  * @author mikkelmuller-hansen
  *
  */
-public class projectContainsActivityTest {
+public class ActivityExistsWithTitleTest {
 
 	private Project project;
 	private final String titleOne = "TestActivityOne";
