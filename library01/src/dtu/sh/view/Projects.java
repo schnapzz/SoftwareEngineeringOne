@@ -340,8 +340,9 @@ public class Projects extends JFrame{
 				try {
 					Project p = sh.getProjectFromTitle(comboBox_Projects.getItemAt(comboBox_Projects.getSelectedIndex()) + "");
 					Report r = sh.requestReport(p, username);
-					Reports reports = new Reports(r);
+					Reports reports = new Reports(r, self);
 					reports.setVisible(true);
+					self.setVisible(false);
 				} catch (Exception e) {
 					System.out.println("You are not the project leader, " + username);
 				}

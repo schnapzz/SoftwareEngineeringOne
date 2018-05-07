@@ -162,6 +162,12 @@ public class LoggedIn extends JFrame {
 		
 		// Mikkel
 		btnCreateProjectActivity = new JButton("Create Project Activity");
+		if (getSelectedProject().getProjectLeader().equals(softwarehuset.getLoggedInEmployee().getID()) ) { 
+			btnCreateProjectActivity.setVisible(true); }
+		else {
+			btnCreateProjectActivity.setVisible(false);
+		}
+																					   				
 		btnCreateProjectActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -281,12 +287,12 @@ public class LoggedIn extends JFrame {
 				
 				String gaTitle = (String) comboBoxgenAct.getSelectedItem();
 				GeneralActivity ga = employee.getActivity(gaTitle);
-				System.out.println("=== Testing passed object ===");
-				System.out.println(ga.getTitle());
-				System.out.println(ga.getDescription());
-				System.out.println("" + ga.getStartDate());
-				System.out.println("" + ga.getEndDate());
-				System.out.println("=== Testing passed object ===");
+//				System.out.println("=== Testing passed object ===");
+//				System.out.println(ga.getTitle());
+//				System.out.println(ga.getDescription());
+//				System.out.println("" + ga.getStartDate());
+//				System.out.println("" + ga.getEndDate());
+//				System.out.println("=== Testing passed object ===");
 				GeneralActivityFrame displayGenralActivity = new GeneralActivityFrame(softwarehuset,self, ga);
 				displayGenralActivity.setVisible(true);
 				self.setVisible(false);
