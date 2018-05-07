@@ -31,7 +31,6 @@ Scenario Outline: Create a new project activity with illegal week numbers
     | 53			| 4			|
     | 3			| 53			|
     
-    
 # Mikkel
 Scenario: Create Project Activity that already exists
     Given the project leader "Mikk" is logged in

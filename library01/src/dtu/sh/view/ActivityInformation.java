@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dtu.sh.model.Activity;
+import dtu.sh.model.Employee;
 import dtu.sh.model.ProjectActivity;
 import dtu.sh.model.TimeRegistration;
 
@@ -119,7 +120,8 @@ public class ActivityInformation extends JFrame {
 		gbc_lblStartWeek.gridy = 3;
 		contentPane.add(lblStartWeek, gbc_lblStartWeek);
 		
-		JLabel startWeekLabel = new JLabel("" + activity.getStartDate());
+		String startTitle = activity.getStartDate() == 0 ? "" : "" + activity.getStartDate();
+		JLabel startWeekLabel = new JLabel(startTitle);
 		GridBagConstraints gbc_startWeekLabel = new GridBagConstraints();
 		gbc_startWeekLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_startWeekLabel.gridx = 1;
@@ -134,7 +136,8 @@ public class ActivityInformation extends JFrame {
 		gbc_lblEndWeek.gridy = 4;
 		contentPane.add(lblEndWeek, gbc_lblEndWeek);
 		
-		JLabel endWeekField = new JLabel("" + activity.getEndDate());
+		String endTitle = activity.getEndDate() == 0 ? "" : "" + activity.getEndDate();
+		JLabel endWeekField = new JLabel(endTitle);
 		GridBagConstraints gbc_endWeekField = new GridBagConstraints();
 		gbc_endWeekField.insets = new Insets(0, 0, 5, 5);
 		gbc_endWeekField.gridx = 1;
@@ -219,15 +222,23 @@ public class ActivityInformation extends JFrame {
 		if (activity instanceof ProjectActivity) {
 
 			List<TimeRegistration> registrations = ((ProjectActivity)activity).getTimeRegistrations(); 
-			for (TimeRegistration entry : registrations) {
-				result = result.concat(entry.getEmployeeId() + " - " + entry.getHours() + " hours\n");
+			if (registrations.size() > 0) {
+			
+				for (TimeRegistration entry : registrations) {
+					result = result.concat(entry.getEmployeeId() + " - " + entry.getHours() + " hours\n");
+				}
+			} else {
+				List<Employee> employees = ((ProjectActivity)activity).getEmployees();
+				for (Employee e : employees) {
+					result = result.concat(e.getID() + " - 0.0 hours\n");
+				}
 			}
+			
 		} else {
 			
 			lblassignednemployees.setVisible(false);
 			scrollPane.setVisible(false);
 		}
-		System.out.println(result);
 		return result;
 	}
 	

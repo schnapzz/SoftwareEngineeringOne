@@ -23,6 +23,10 @@ public class Project {
 	}};
 	private List<ProjectActivity> finishedActivities = new ArrayList<ProjectActivity>() {{ 
 		add(new ProjectActivity("TestFinished", "test description", 2));
+		add(new ProjectActivity("Abstract Buttons", "UI button abstractions in a generalized form", 3, 3, 4, new ArrayList<Employee>() {{ add(new Employee("Mikk")); }} ));
+		add(new ProjectActivity("Whitebox tests", "Make 4 whiteboxtests of the systems most important parts", 1, 3, 4, new ArrayList<Employee>() {{ add(new Employee("Hela")); }} ));
+		add(new ProjectActivity("Cucumber features", "Write feature files and make sure they'll fail", 2, 3, 4, new ArrayList<Employee>() {{ add(new Employee("SoAm")); }} ));
+		add(new ProjectActivity("Cucumber steps", "Step definitions can be imported after running the feature files. Add them to steps file and implement the test itself in each step definition", 3, 3, 4, new ArrayList<Employee>() {{ add(new Employee("OliG")); }} ));
 	}};
 	
 	//Mikkel
@@ -31,12 +35,16 @@ public class Project {
 		this.title = pTitle;
 		this.leaderId = plId;
 		this.employees = eList;
+		
+		prepareDummyRegistrations();
 	}
 	
 	//Helena
 	public Project(int pId, String title) {
 		this.id = assignId(pId);
 		this.title = title;
+		
+		prepareDummyRegistrations();
 	}
 
 	public Project(int pId, String title, int start, int end) {
@@ -44,6 +52,19 @@ public class Project {
 		this.id = assignId(pId);
 		this.start = start;
 		this.end = end;
+		
+		prepareDummyRegistrations();
+	}
+	
+	private void prepareDummyRegistrations() {
+		for( ProjectActivity pa : finishedActivities) {
+			try {
+				pa.registerHours(pa.getEmployees().get(0).getID(), 2.0);
+			} catch (Exception e) {
+				
+			}
+			
+		}
 	}
 
 	// Mikkel
