@@ -256,10 +256,5 @@ public class SH {
 		return list;
 	}
 	
-	public boolean allFieldsFilled(String title, String description, String start, String end) {
-		if ((title.isEmpty() || description.isEmpty() || start.isEmpty() || end.isEmpty()) == true)
-			return false;
-		else
-			return true;
-	}
+
 }
