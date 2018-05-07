@@ -318,7 +318,6 @@ public class Projects extends JFrame{
 					updateScene();
 					updateComboBox();
 				} catch (Exception error) {
-//					System.out.println(error);
 				}
 				
 			}
@@ -344,7 +343,6 @@ public class Projects extends JFrame{
 					reports.setVisible(true);
 					self.setVisible(false);
 				} catch (Exception e) {
-					System.out.println("You are not the project leader, " + username);
 				}
 			}
 		});

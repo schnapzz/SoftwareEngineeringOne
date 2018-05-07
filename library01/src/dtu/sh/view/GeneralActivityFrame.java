@@ -279,7 +279,6 @@ public class GeneralActivityFrame extends JFrame {
 					}
 					
 				} catch (NumberFormatException n) {
-					System.out.println("Weeks should be integers");
 				}
 
 			}

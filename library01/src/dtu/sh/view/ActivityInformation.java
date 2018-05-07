@@ -199,13 +199,10 @@ public class ActivityInformation extends JFrame {
 
 	// Mikkel
 	private String makeTypeDescription(Activity activity) {
-
 		if (isProjectActivity(activity)) {
-			
 			return "" + ((ProjectActivity)activity).getPriority();
 			
 		} else {
-			
 			// This is in case of general activity.
 			// Present information here
 			return "TEST TEST TEST";
@@ -227,7 +224,6 @@ public class ActivityInformation extends JFrame {
 			lblassignednemployees.setVisible(false);
 			scrollPane.setVisible(false);
 		}
-		System.out.println(result);
 		return result;
 	}
 	

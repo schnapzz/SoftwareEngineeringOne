@@ -283,16 +283,8 @@ public class LoggedIn extends JFrame {
 		JButton btnDisplayGeneralActivity = new JButton("Display General Activity");
 		btnDisplayGeneralActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				dfsd
-				
 				String gaTitle = (String) comboBoxgenAct.getSelectedItem();
 				GeneralActivity ga = employee.getActivity(gaTitle);
-//				System.out.println("=== Testing passed object ===");
-//				System.out.println(ga.getTitle());
-//				System.out.println(ga.getDescription());
-//				System.out.println("" + ga.getStartDate());
-//				System.out.println("" + ga.getEndDate());
-//				System.out.println("=== Testing passed object ===");
 				GeneralActivityFrame displayGenralActivity = new GeneralActivityFrame(softwarehuset,self, ga);
 				displayGenralActivity.setVisible(true);
 				self.setVisible(false);
@@ -316,7 +308,6 @@ public class LoggedIn extends JFrame {
 		JButton finishedActivityBtn = new JButton("Finished Activity Info");
 		finishedActivityBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				openActivityInformation(finishedActivitiesComboBox);
 			}
 		});
@@ -350,7 +341,6 @@ public class LoggedIn extends JFrame {
 	public void loadGenActCombobox() {
 		for (GeneralActivity ga : generalActivities) {
 			comboBoxgenAct.addItem(ga.getTitle());	
-			System.out.println(ga.getTitle());
 		}
 		
 		
@@ -360,11 +350,9 @@ public class LoggedIn extends JFrame {
 		//Reload of the list of general activitites
 		comboBoxgenAct.removeAllItems();
 		this.employee = employee;
-//		System.out.println("her tak " + employee.getGeneralActivities() != null);
 		generalActivities = employee.getGeneralActivities();
 		for (GeneralActivity ga : generalActivities) {
 			comboBoxgenAct.addItem(ga.getTitle());	
-//			System.out.println(ga.getTitle());
 		}
 	}
 
@@ -402,7 +390,6 @@ public class LoggedIn extends JFrame {
 	
 	
 	private void openGeneralActivityInfo(JComboBox<String> genactcom){
-//	asd
 		generalActivities = employee.getGeneralActivities();
 		GeneralActivityFrame createGenralActivity = new GeneralActivityFrame(softwarehuset,self);
 		createGenralActivity.setVisible(true);
@@ -426,7 +413,6 @@ public class LoggedIn extends JFrame {
 	// Mikkel
 	private Project getSelectedProject() {
 		String selectedProjectId = ((String)projectComboBox.getSelectedItem()).substring(0, 6);
-		System.out.println("ID of selected project is " + selectedProjectId);
 		return softwarehuset.getProjectWithId(selectedProjectId);
 	}
 	

@@ -115,7 +115,6 @@ public class SH {
 		if (isValidWeekNumber(start) && isValidWeekNumber(end)) {
 			if (!doesProjectWithTitleExist(title)) {
 				projects.add(new Project(numberOfProjects, title, start, end));
-				System.out.println(numberOfProjects);
 				numberOfProjects = numberOfProjects + 1;
 			} else {
 				throw new OperationNotAllowedException("A project with that name already exists");
